@@ -1,0 +1,40 @@
+.shoppingCartRemoveBtn {
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    background-color: rgb(156, 30, 30);
+}
+
+.shoppingCartDetailsBtn {
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    background-color: rgb(116, 153, 15);
+}
+
+.shoppingcartTable {
+    margin: 0;
+    width: 40%;
+    text-align: center;
+}
+
+.shoppingcartImage {
+    margin-left: 10px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid grey;
+    /* background-color: transparent; */
+    border-radius: 15px;
+}
+
+.shoppingcartName {
+    /* width: 1%; */
+}
+
+.shoppingCartPrice {
+    /* width: 1%; */
+}
+
+.shoppingCartOptions {
+    /* width: 3%; */
+}
