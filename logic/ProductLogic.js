@@ -1,4 +1,6 @@
-    function addToShoppingCart(newProduct, products) {
+   import ShoppingCartItem from '../models/ShoppingCartitem.js';
+   
+   function addToShoppingCart(newProduct, products) {
         
         products = checkExistingBasket(products);
       
@@ -7,17 +9,25 @@
         return products;
     } 
     
-    function removeFromShoppingCart(productToBeRemoved, products) {
+    function removeFromShoppingCart(productToBeRemoved, cartItems) {
         
-        products = checkExistingBasket(products);
+        cartItems = checkExistingBasket(cartItems);
 
         //remove product from shopping cart
-        for (var i = 0; i < products.length; i++)
-        if (products[i].id === productToBeRemoved.id) {
-           products.splice(i,1);
-           break;
-        }
-        return products;
+        cartItems.forEach(cartItem => {
+            let product = cartItem.product;
+            if(product.id == productToBeRemoved.id) {
+                if(cartItem.quantity > 0) {
+                    //lower quantity for chosen product
+                    cartItem.quantity--;
+                }
+                if(cartItem.quantity == 0) {
+                    //remove cartItem completely 
+                    cartItems.splice(cartItem, 1);
+                }
+            }       
+        });
+        return cartItems;
     }
     
     function checkExistingBasket(products) {
@@ -25,22 +35,24 @@
         return products = products == null ? [] : products;
     }
 
-    function calculateBasketCosts(products) {
+    function calculateBasketCosts(cartItems) {
         let totalCosts = 0;
-        // console.log(products);
-        products.forEach(product => {
-            // console.log(product);
-            totalCosts += product.price;
+        cartItems.forEach(cartItem => {
+            for(let i = 0; i < cartItem.quantity; i++) {
+
+                let product = cartItem.product;
+                totalCosts += product.price;
+            }
         });
         return totalCosts.toFixed(2);
     }
 
-    function getProductIds(products) {
+    function getProductIds(cartItems) {
 
-        if(products.length) {
-
-            let productIds = [];
-            products.forEach(product => {
+        let productIds = [];
+        if(cartItems.length) {
+            cartItems.forEach(cartItem => {
+                let product = cartItem.product;
                 productIds.push(product.id);
             });
             return productIds;
@@ -48,10 +60,38 @@
         else return [];
     }
 
+    function getTotalQuantity(cartItems) {
+        let totalQuantity = 0;
+        cartItems.forEach(cartItem => {
+            totalQuantity += cartItem.quantity;
+        });
+        return totalQuantity;
+    }
+
+    function existsInBasket(p, cartItems) {
+        let exists = false;
+        cartItems.forEach(item => {
+            let product = item.product;
+            if(p.id == product.id) {
+                item.quantity++;
+                exists = true;
+                return cartItems;
+            }
+        }); 
+        //still gets triggered otherwise somehow
+        if(!exists) {
+            cartItems.push(new ShoppingCartItem(p, 1));
+            return cartItems;
+        }
+        else return cartItems;
+    }
+
     export default {
         addToShoppingCart,
         removeFromShoppingCart,
         checkExistingBasket,
         calculateBasketCosts,
-        getProductIds
+        getProductIds,
+        getTotalQuantity,
+        existsInBasket,
     }

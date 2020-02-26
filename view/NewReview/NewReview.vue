@@ -60,31 +60,25 @@ export default {
         addPro() {
             let proInput = this.$refs.pro;
             let pro = proInput.value;
-            if(!!pro.trim()) {
-                if(this.pros.length >= 4) {
-                    this.$alert('Please use 4 pros max');
-                }
-                else {
-                    this.pros.push(pro);
-                    proInput.value = '';
-                }
+
+            if(ReviewLogic.validateProConInput(pro, this.pros.length)) {
+                this.pros.push(pro);
+                proInput.value = '';
             }
+            else this.$alert('Please use 4 pros max');
         },
         removePro(pro) {
             this.pros = ReviewLogic.removeItem(pro, this.pros);
-        },
+        },  
         addCon() {
             let conInput = this.$refs.con;
             let con = conInput.value;
-            if(!!con.trim()) {
-                if(this.cons.length >= 4) {
-                    this.$alert('Please use 4 cons max');
-                }
-                else {
-                    this.cons.push(con);
-                    conInput.value = '';
-                }
+
+            if(ReviewLogic.validateProConInput(con, this.cons.length)) {
+                this.cons.push(con);
+                conInput.value = '';
             }
+            else this.$alert('Please use 4 cons max');
         },
         removeCon(con) {
             this.cons = ReviewLogic.removeItem(con, this.cons);
@@ -100,11 +94,12 @@ export default {
             //validate no empty fields
             if(!!title.trim() && !!content.trim() && !!starRating.trim()) {
 
+                //author to be retrieved from session
                 let review = new Review(
+                    "Tjerk",
                     title,
                     content,
                     starRating,
-                    0
                 ); 
                 //add elements from array individually
                 review.addPros(...this.pros);

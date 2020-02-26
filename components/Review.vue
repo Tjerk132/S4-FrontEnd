@@ -4,7 +4,10 @@
             <span>
                 {{review.starRating}} &#9734;
                 <strong>{{review.title}}</strong>
+                at {{review.date}}
             </span> 
+
+            <h5>by {{review.author}}</h5>
 
             <div class="reviewProsConsDiv">
                 <h5>Pros and cons</h5>

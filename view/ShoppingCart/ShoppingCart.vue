@@ -10,6 +10,11 @@
              <table class="shoppingcartTable">
                 <thead>
                     <td>
+                        <strong>
+                            Quantity
+                        </strong>
+                    </td>
+                    <td>    
                     </td>
                     <td>
                         <strong>
@@ -24,26 +29,29 @@
                 </thead>
                 <tr class="shoppingCartItems" v-for="item in cartItems" :key="item.item">
                     <td>
-                        <img v-bind:src="item.imageUrl" class="shoppingcartImage" alt="product image">
+                        {{item.quantity}}
+                    </td>
+                    <td>
+                        <img v-bind:src="item.product.imageUrl" class="shoppingcartImage" alt="product image">
                     </td>
                     <td class="shoppingcartName">
-                        {{item.name}}
+                        {{item.product.name}}
                     </td>
 
                     <td class="shoppingcartPrice">
-                        {{item.price}}
+                        {{item.product.price}}
                     </td>
 
                     <td class="shoppingCartOptions">
                         <button v-on:click="removeFromCart(item)" class="shoppingCartRemoveBtn">Remove</button>
                         <div class="optionsDivider" />
-                        <button v-on:click="navigateToDetails(item.id, item.name)" class="shoppingCartDetailsBtn">Details</button>
+                        <button v-on:click="navigateToDetails(item.id)" class="shoppingCartDetailsBtn">Details</button>
                     </td>
                 </tr>
             </table>
-            <h4>
+            <h3>
               Total costs {{totalCosts}}
-            </h4>
+            </h3>
         </div>
         <button v-on:click="navigateToProducts()">Back to products</button>
     </div>
@@ -52,7 +60,8 @@
 <script>
 import ProductLogic from '../../logic/ProductLogic.js';
 import ProductDao from '../../daos/productdao.js';
-import Product from '../../models/Product.js';
+// import Product from '../../models/Product.js';
+import ShopppingCartItem from '../../models/ShoppingCartitem.js';
 
 export default {
     data() {
@@ -73,11 +82,13 @@ export default {
 
                 ProductDao.getProductById(id)
                 .then((product) => {
-
-                    this.cartItems.push(product);
+                    
+                    //filter duplicate products
+                    this.cartItems = ProductLogic.existsInBasket(product, this.cartItems);
 
                     //all items are retrieved
-                    if(this.cartItems.length == productIds.length) {
+                    let totalQuantity = ProductLogic.getTotalQuantity(this.cartItems);
+                    if(totalQuantity == productIds.length) {
                         console.log("done fetching basket: " + this.cartItems.length + " products");
                         this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
                     }
@@ -87,28 +98,27 @@ export default {
     },
     methods: {
 
-        removeFromCart(product) {
+        removeFromCart(cartItem) {
 
-            let products = ProductLogic.removeFromShoppingCart(product, this.cartItems);
-                
-            let productIds = ProductLogic.getProductIds(products);
+            this.cartItems = ProductLogic.removeFromShoppingCart(cartItem.product, this.cartItems);
+            
+            let productIds = ProductLogic.getProductIds(this.cartItems);
 
             let cookie = !productIds.length ? [] : productIds;
-
+            console.log(cookie);
             //update cookie
             this.$cookies.set('shopping_cart', JSON.stringify(
                 cookie
             ));
 
-            this.cartItems = products;
-            this.totalCosts = ProductLogic.calculateBasketCosts(products);
+            this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
             //update shopping cart count for App
-            this.$root.$emit('updateCount', products.length);
+            this.$root.$emit('updateCount', ProductLogic.getTotalQuantity(this.cartItems));
         },
         navigateToProducts() {
             this.$router.push('products');
         },
-        navigateToDetails(productId, productName) {
+        navigateToDetails(productId) {
              this.$router.push({
                 name: 'productDetails',
                 params: { id: productId }

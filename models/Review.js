@@ -1,13 +1,22 @@
 export default class Review {
 
-    constructor(title, content, starRating, liked) {
+    constructor(author, title, content, starRating) {
+
+        this.author = author;
+                    //send timeStamp
+        this.date = Date.now();
+
         this.title = title;
         this.content = content;
 
         this.starRating = starRating;
-        this.liked = liked;
+
         this.pros = [];
         this.cons = [];
+    }
+
+    setProductId(productId) {
+        this.productId = productId;
     }
 
     addPros(...newPros) {

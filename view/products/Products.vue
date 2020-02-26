@@ -43,7 +43,7 @@ export default {
     ProductDao.getAllProducts()
     .then((response) => {
         //retrieve products from rest-service
-        //0.1sec delay for loading test
+        //0.05sec delay for loading test
         setTimeout(() => {   
           this.products = response;
           this.loading = false; 

@@ -25,9 +25,9 @@
             <p>${{product.price}}</p>
             <p>{{product.stockCount}} in stock</p>
             <p>
-                {{product.commentCount}}
-                <span v-if="product.commentCount != 1">comments</span>
-                <span v-else>comment</span>
+                {{product.reviewCount}}
+                <span v-if="product.reviewCount != 1">reviews</span>
+                <span v-else>review</span>
             </p>
 
         </td>
