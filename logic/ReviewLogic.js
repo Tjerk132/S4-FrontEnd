@@ -17,7 +17,20 @@ function validateProConInput(string, proconCount) {
     else return false;
 }
 
+function validateReviewSubmit(refs) {
+
+    //validate no empty fields 
+    let message; 
+    refs.forEach(ref => {
+        if(!ref.value || !ref.value.trim()) {
+            message = 'Please fill in the ' + ref.name + ' field';
+        }
+    });
+    return message;
+}
+
 export default {
     removeItem,
     validateProConInput,
+    validateReviewSubmit,
 }   

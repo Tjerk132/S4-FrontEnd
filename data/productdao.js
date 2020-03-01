@@ -29,8 +29,25 @@ async function getProductById(id) {
     }
 }
 
+async function getProductCategories() {
+    try { 
+        let url = baseUrl + "categories";
+
+        let res = await axios.get(url);
+
+        return res.data;
+    }
+    catch (err) {
+        //log everything except user not found
+        if(err.response.status != 404) {
+            console.error(err);
+        }
+    }
+}
+
 export default {
     getAllProducts,
     getProductById,
+    getProductCategories,
 }
 

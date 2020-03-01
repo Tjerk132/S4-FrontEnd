@@ -14,9 +14,9 @@
         </td>
 
         <td class="productOptions">
-            <button class="addToCartBtn" v-on:click="addToCart(product.id)">Add to cart</button>
+            <button class="AddToCartBtn" v-on:click="addToCart(product.id)">Add to cart</button>
             <div class="optionsDivider" />
-            <button class="commentBtn" v-on:click="goToProductDetails(product.id, product.name)">Comments</button>
+            <button class="DetailsBtn" v-on:click="goToProductDetails(product.id, product.name)">Details</button>
         </td>
 
         <td class="productDetails">
@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import Product from '../models/Product.js';
-import ProductLogic from '../logic/ProductLogic.js'
+import Product from '../../models/Product.js';
+import ProductLogic from '../../logic/ProductLogic.js';
 
 export default {
      props: {    
@@ -48,7 +48,7 @@ export default {
         }  
     },
     mounted() {
-        console.log('in productmounted');
+        console.log('creating a product');
         this.product = this.Product;
     },
     methods: {
@@ -62,16 +62,23 @@ export default {
         addToCart(productId) {
 
             //get products from cookie
-            let productsIds = JSON.parse(
+            let productIds = JSON.parse(
                 this.$cookies.get('shopping_cart'));
 
-            productsIds = ProductLogic.addToShoppingCart(productId, productsIds);
+            //shopping cart is empty
+            if(productIds == null) {
+                productIds = [];
+            }
 
-            this.$cookies.set('shopping_cart', JSON.stringify(productsIds));
+            productIds.push(productId);
+
+            this.$cookies.set('shopping_cart', JSON.stringify(productIds));
 
             //update shopping cart count for App
-            this.$root.$emit('updateCount', productsIds.length);
+            this.$root.$emit('updateCount', productIds.length);
         }
     }
 }
 </script>
+
+<style src='./Product.css'></style>

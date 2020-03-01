@@ -1,0 +1,67 @@
+.productInfo {
+    background-image: linear-gradient(to right,  rgba(255,0,0,0), rgba(255,255,255,1));
+    padding-left: 1%;
+    width: 30%;
+}
+
+.productImage {
+    background-color: white;
+    float: right;
+    /* move img from border */
+    margin-right: 5%;
+    margin-top: 4%;
+
+    border: 1px solid gray;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+}
+
+.productDescription {
+    text-align: left;
+}
+
+.productOptions {
+    width: 8%;
+    text-align: center;
+    background-color: white;
+}
+
+/* button */
+.AddToCartBtn {
+    vertical-align: top;
+    color: white;
+    background-color: rgb(110, 192, 106);
+    width: 100%;
+}
+
+.AddToCartBtn:hover {
+    background-color: #3E8E41;
+    /* color: white; */
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.DetailsBtn {
+    vertical-align: bottom;
+    color: white;
+    background-color: rgb(202, 142, 52);
+    width: 100%;
+}
+
+.DetailsBtn:hover {
+    background-color: rgb(173, 116, 29);
+    /* color: white; */
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.optionsDivider {
+    height: 10px;
+}
+
+.productDetails {
+    background-image: linear-gradient(to right,  rgba(255,255,255,1), rgba(255,0,0,0));
+    /* border-radius: 12px; */
+    width: 10%; 
+    text-align: center;
+    padding-top: 0%;
+}

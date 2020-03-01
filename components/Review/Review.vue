@@ -1,13 +1,11 @@
 <template>
     <div>
        <div class="reviewContent">
-            <span>
-                {{review.starRating}} &#9734;
-                <strong>{{review.title}}</strong>
-                at {{review.date}}
+            <span v-for="star in review.starRating" :key="star.star">
+                 ★
             </span> 
-
-            <h5>by {{review.author}}</h5>
+            <strong>{{review.title}}</strong>
+            <p> {{review.author}} | {{review.date}} </p>
 
             <div class="reviewProsConsDiv">
                 <h5>Pros and cons</h5>
@@ -29,7 +27,7 @@
         </div>
 
         <div class="reviewFeedBack">
-            <h5>Is this review useful?</h5>
+            <h5>Was this review useful?</h5>
             <button class="likeReviewBtn"></button>
             <p class="reviewLikes"> {{review.liked}} likes </p>
         </div>
@@ -37,7 +35,7 @@
 </template>
 
 <script>
-import Review from '../models/Review.js';
+import Review from '../../models/Review.js';
 
 export default {
      props: {    
@@ -49,8 +47,10 @@ export default {
         }  
     },
     mounted() {
-        console.log('in reviewmounted');
+        console.log('creating a review');
         this.review = this.Review;
     }
 }
 </script>
+
+<style src='./Review.css'></style>

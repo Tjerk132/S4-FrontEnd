@@ -12,6 +12,11 @@ p {
     font-size: 15px;
 }
 
+.toSubmitText {
+    margin-top: -14px;
+    font-size: 13.5px;
+}
+
 
 .removeProConBtn {
     font-size: 12px;

@@ -1,0 +1,26 @@
+.categoryBar {
+   width: 200px;
+   margin: 3.66em 0 0 160.392px;
+   box-shadow: 0 1px 5px rgba(50,50,50,.6);
+   position: fixed;
+   background-color: white;
+ }
+ 
+ .categoryBar ul {
+    padding-left: 8px;
+ }
+ 
+ .categoryBar li {
+    padding: .5rem 0;
+    color: rgb(42, 104, 39);
+ }
+
+ .viewAllText {
+    font-size: 14px;
+ }
+ 
+ .viewAllCategoriesBtn {
+    text-align: left;
+    padding: 10px;
+    margin-left: 82px;
+ }

@@ -1,0 +1,82 @@
+.ReviewSummaryHeader {
+    overflow: hidden;
+    height: 38px;
+}
+
+.ReviewAverage {
+    float: left;
+    margin: -28px 5px;
+    font-size: 20px;
+}
+
+.ReviewAverageCount {
+    float: right;
+    padding: 5px 0.5em;
+}
+
+.OutOfText {
+    margin: -1px 6px;
+    font-size: 16px;
+}
+
+.RatingStars {
+    text-align: right;
+    margin-right: 2%;
+}
+
+ /* progressbar -> */
+
+/* IE10 */
+progress {
+    color: rgb(230, 230, 230);
+    width: 75%;
+    height: 10px;
+    border-radius: 4px;
+    margin-bottom: .15em;
+    border: none;
+}   
+
+/* Firefox */
+progress::-moz-progress-bar {
+    background-color: rgb(255, 205, 0);
+    color: rgb(230, 230, 230);
+    height: 10px;
+    border-radius: 4px;
+}
+
+/* Chrome */
+progress::-webkit-progress-value {
+    background-color: rgb(255, 205, 0);
+    color: rgb(230, 230, 230);
+    height: 10px;
+    border-radius: 4px;
+}
+
+/* Polyfill */
+progress[aria-valuenow]:before {
+    background-color: rgb(255, 205, 0);
+    color: rgb(230, 230, 230);
+    height: 10px;
+    border-radius: 4px;
+}
+
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background: rgb(255, 205, 0);
+}
+
+progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-value {
+    border-radius: 4px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+ /* <- progressbar */

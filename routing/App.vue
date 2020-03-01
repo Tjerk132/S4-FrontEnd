@@ -1,12 +1,31 @@
 <template>
     <div>
         <div class="appPage">
+            
+            <div class="navbar">
+
+                <button v-on:click="goRoute('/')">Home</button>
+                <button v-on:click="goRoute('/products')">Products</button>
+
+                <categoriesNav />
+              
+                <div class="search_input-container">
+
+                    <input placeholder="Search for..">
+
+                </div>
+
+                <accountNav />
+
+                <button v-on:click="goRoute('/shoppingcart')">
+                    <div class="shoppingBasketBtn">
+                        {{shoppingCartCount}}
+                    </div>
+                </button>   
+            </div>
+
             <h3 class="appTitle">
                 Product Store
-            </h3>
-            <h3 class="shoppingBasket">
-                {{shoppingCartCount}}
-                <button @click="toShoppingCart()" class="shoppingBasketBtn"></button>
             </h3>
         </div>
     
@@ -15,17 +34,24 @@
 </template>
 
 <script>
-import ProductLogic from '../logic/ProductLogic'
+import CategoriesNav from '../components/CategoriesNav/CategoriesNav.vue';
+import AccountNav from '../components/AccountNav/AccountNav.vue';
+
+import ProductLogic from '../logic/ProductLogic.js';
 
 export default {
+    components: {
+        categoriesNav: CategoriesNav,
+        accountNav: AccountNav,
+    },
     data() {    
         return {
-            shoppingCartCount: 0
+            shoppingCartCount: 0,
+            categories: [],
         }
     },
     mounted() {
-        console.log('in app mounted');
- 
+         
         let products = JSON.parse(
                 this.$cookies.get('shopping_cart'));
 
@@ -41,8 +67,11 @@ export default {
 
     },
     methods: {
-        toShoppingCart() {
-            this.$router.push('/shoppingcart');
+        goRoute(route) {
+            //can't navigate to same page
+            if(window.location.pathname != route) {
+                this.$router.push(route);
+            }
         }
     }
 }

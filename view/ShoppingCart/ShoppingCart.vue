@@ -43,9 +43,9 @@
                     </td>
 
                     <td class="shoppingCartOptions">
-                        <button v-on:click="removeFromCart(item)" class="shoppingCartRemoveBtn">Remove</button>
-                        <div class="optionsDivider" />
-                        <button v-on:click="navigateToDetails(item.id)" class="shoppingCartDetailsBtn">Details</button>
+                        <button v-on:click="removeFromCart(item.product)" class="shoppingCartRemoveBtn">Remove</button>
+                        <button v-on:click="addToCart(item.product)" class="shoppingCartAddBtn">Add</button>
+                        <button v-on:click="navigateToDetails(item.product.id)" class="shoppingCartDetailsBtn">Details</button>
                     </td>
                 </tr>
             </table>
@@ -53,14 +53,12 @@
               Total costs {{totalCosts}}
             </h3>
         </div>
-        <button v-on:click="navigateToProducts()">Back to products</button>
     </div>
 </template>
 
 <script>
 import ProductLogic from '../../logic/ProductLogic.js';
-import ProductDao from '../../daos/productdao.js';
-// import Product from '../../models/Product.js';
+import ProductDao from '../../data/productdao.js';
 import ShopppingCartItem from '../../models/ShoppingCartitem.js';
 
 export default {
@@ -71,7 +69,6 @@ export default {
         }
     },
     mounted() {
-        console.log('in shoppingcart mounted');
 
         let productIds = JSON.parse( 
             this.$cookies.get('shopping_cart'));
@@ -98,14 +95,24 @@ export default {
     },
     methods: {
 
-        removeFromCart(cartItem) {
+        removeFromCart(product) {
 
-            this.cartItems = ProductLogic.removeFromShoppingCart(cartItem.product, this.cartItems);
+            this.cartItems = ProductLogic.removeFromShoppingCart(product, this.cartItems);
             
+            this.refreshComponents();  
+        },
+        addToCart(product) {
+
+            this.cartItems = ProductLogic.addToShoppingCart(product, this.cartItems);
+
+            this.refreshComponents();
+        },
+        refreshComponents() {
+
             let productIds = ProductLogic.getProductIds(this.cartItems);
 
             let cookie = !productIds.length ? [] : productIds;
-            console.log(cookie);
+
             //update cookie
             this.$cookies.set('shopping_cart', JSON.stringify(
                 cookie
@@ -114,9 +121,6 @@ export default {
             this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
             //update shopping cart count for App
             this.$root.$emit('updateCount', ProductLogic.getTotalQuantity(this.cartItems));
-        },
-        navigateToProducts() {
-            this.$router.push('products');
         },
         navigateToDetails(productId) {
              this.$router.push({

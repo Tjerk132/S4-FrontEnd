@@ -8,6 +8,9 @@
         <div class="reviews">
             <ul>
                 <div v-if="reviews.length">
+                    <li class="review">
+                        <ReviewSummary :Reviews='reviews'/>
+                    </li>
                     <li v-for="review in reviews" :key="review.review" class="review">
                         <ReviewComp :Review='review'/>
                     </li>
@@ -24,17 +27,19 @@
 
 <script>
 import Review from '../../models/Review.js';
-import NewReview from '../NewReview/NewReview.vue';
-import ReviewComp from '../../components/Review.vue';
+import NewReview from '../../components/NewReview/NewReview.vue';
+import ReviewComp from '../../components/Review/Review.vue';
+import ReviewSummary from '../../components/ReviewSummary/ReviewSummary.vue';
 
-import ReviewDao from '../../daos/reviewdao.js';
-import ProductDao from '../../daos/productdao.js';
+import ReviewDao from '../../data/reviewdao.js';
+import ProductDao from '../../data/productdao.js';
 
 export default {
 
     components: {
         NewReview,
-        ReviewComp
+        ReviewComp,
+        ReviewSummary
     },
     props: {    
       id: Number,    
@@ -43,11 +48,10 @@ export default {
         return {
             product: Object,
             reviews: [],
-            newReviewKey: 0
+            newReviewKey: 0,
         };
     },
     mounted() {
-        console.log('in details mounted'); 
         
         window.scrollTo(0,0);
 
@@ -61,11 +65,9 @@ export default {
             .then((reviews) => {
                 this.reviews = reviews;
         });
-        
-        this.$root.$on('addReview', (review) => {
-            //destroy newReview component and create a new one
-            this.newReviewKey += 1;
-
+    },  
+    methods: {
+        addReview(review) {
             //save new review
             review.setProductId(this.id);  
 
@@ -74,8 +76,14 @@ export default {
                 .then(review => {
                     this.reviews.push(review);
             });
-        })
-    },  
+            //destroy newReview component and create a new one
+            this.newReviewKey += 1;
+        }
+    },
+    created() {
+        //create ref for addReview to emit
+        this.$root.$refs.detailsPage = this;
+    }
 }
 </script>
 

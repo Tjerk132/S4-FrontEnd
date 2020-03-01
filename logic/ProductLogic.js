@@ -1,38 +1,41 @@
    import ShoppingCartItem from '../models/ShoppingCartitem.js';
    
-   function addToShoppingCart(newProduct, products) {
+   function addToShoppingCart(newProduct, cartItems) {
         
-        products = checkExistingBasket(products);
-      
-        products.push(newProduct);
-        
-        return products;
+        cartItems = checkExistingBasket(cartItems);
+
+        cartItems = existsInBasket(newProduct, cartItems);
+
+        return cartItems;
     } 
     
     function removeFromShoppingCart(productToBeRemoved, cartItems) {
         
         cartItems = checkExistingBasket(cartItems);
-
         //remove product from shopping cart
-        cartItems.forEach(cartItem => {
+        for(let i = 0; i < cartItems.length; i++) {
+            let cartItem = cartItems[i];
             let product = cartItem.product;
+
             if(product.id == productToBeRemoved.id) {
                 if(cartItem.quantity > 0) {
                     //lower quantity for chosen product
                     cartItem.quantity--;
                 }
                 if(cartItem.quantity == 0) {
-                    //remove cartItem completely 
-                    cartItems.splice(cartItem, 1);
+                    //remove cartItem completely
+                    let index = cartItems.indexOf(cartItem);
+                    cartItems.splice(index, 1);
                 }
-            }       
-        });
+            }  
+     
+        }
         return cartItems;
     }
     
     function checkExistingBasket(products) {
         //create new basket if user doesn't have one  
-        return products = products == null ? [] : products;
+        return products == null ? [] : products;
     }
 
     function calculateBasketCosts(cartItems) {
@@ -50,10 +53,15 @@
     function getProductIds(cartItems) {
 
         let productIds = [];
+
         if(cartItems.length) {
             cartItems.forEach(cartItem => {
+                
                 let product = cartItem.product;
-                productIds.push(product.id);
+                for(let i = 0; i < cartItem.quantity; i++) {
+                    //add each product individually
+                    productIds.push(product.id);
+                }
             });
             return productIds;
         }

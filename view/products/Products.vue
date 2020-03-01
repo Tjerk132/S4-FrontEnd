@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <title>Products page</title>
-
-    <v-btn @click="goHome">Home</v-btn>
-
+    
     <div v-if="loading" class="loadingDiv">
       <img src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif">
       <p>Loading...</p>
@@ -15,7 +13,7 @@
           </tr>
       </table>
       <div class="toTopBtn">
-        <button @click="scrollToTop">Scroll to top</button>
+        <button v-on:click="scrollToTop()">Scroll to top</button>
       </div>
     </div>
   </div>
@@ -23,9 +21,9 @@
 
 <script>
 
-import ProductDao from  '../../daos/productdao';
+import ProductDao from  '../../data/productdao';
 import Product from '../../models/Product';
-import ProductComp from '../../components/Product.vue';
+import ProductComp from '../../components/Product/Product.vue';
 
 export default {
   components: {
@@ -33,12 +31,12 @@ export default {
   },
   data() {
     return {
-      products: [],
+      products: Array,
       loading: false
     };
   },
   mounted() {
-    console.log('in mounted products');
+
     this.loading = true;
     ProductDao.getAllProducts()
     .then((response) => {
@@ -52,9 +50,6 @@ export default {
     });
   },
   methods: {
-    goHome() {
-      this.$router.push('/');
-    },
     scrollToTop() {
       window.scrollTo(0,0);
     }

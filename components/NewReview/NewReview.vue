@@ -4,14 +4,17 @@
             <h4>Create a review</h4>
             <li>    
                 <p>Title</p>
-                <input ref="title" class="inputItem">
+                <input ref="title" class="inputItem" required>
             </li>
             <li>
                 <p>StarRating</p>
-                <input ref="starRating" :max="5" :min="0" type="number" class="inputItem">
+                <input ref="starRating" :max="5" :min="0" type="number" class="inputItem" required>
             </li>
                 <p>
                     <strong>Pros and cons</strong>
+                </p>
+                <p class="toSubmitText">
+                    Enter to submit
                 </p>
                 <ul>
                     <div v-if="pros.length">
@@ -23,8 +26,8 @@
                     </div>  
                 </ul>
 
-                <p>Add a pro</p>
-                <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem">
+                <p></p>
+                <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem" placeholder="Add a pro">
                 <ul>
                     <div v-if="cons.length">
                         <h5>Cons</h5>
@@ -34,12 +37,11 @@
                         </li>
                     </div>
                 </ul>
-                
-                <p>Add a con</p>
-                <input ref="con" v-on:keyup.enter='addCon()' class="inputItem">
+                <p></p>
+                <input ref="con" v-on:keyup.enter='addCon()' class="inputItem" placeholder="Add a con">
             <li>
                 <p>Content</p>
-                <textarea ref="content" class="reviewTextArea" placeholder="Place your review here"></textarea>
+                <textarea ref="content" class="reviewTextArea" placeholder="Place your review here" required></textarea>
             </li>
             <button v-on:click="submitReview()" class="submitReviewBtn">Submit</button>
         </ul>
@@ -87,27 +89,41 @@ export default {
             
             let refs = this.$refs;
 
-            let title = refs.title.value;
-            let content = refs.content.value;
-            let starRating = refs.starRating.value;
+            let message = ReviewLogic.validateReviewSubmit(
+                [
+                    { 
+                        name: 'Content', 
+                        value: refs.content.value 
+                    }, 
+                    { 
+                        name: 'StarRating',
+                        value: refs.starRating.value 
+                    },
+                    { 
+                        name: 'Title', 
+                        value: refs.title.value 
+                    },
+                ]
+            );
 
-            //validate no empty fields
-            if(!!title.trim() && !!content.trim() && !!starRating.trim()) {
-
+            if(message != undefined) {
+                this.$alert(message);
+            }
+            else {        
                 //author to be retrieved from session
                 let review = new Review(
                     "Tjerk",
-                    title,
-                    content,
-                    starRating,
+                    refs.title.value,
+                    refs.content.value,
+                    refs.starRating.value,  
                 ); 
                 //add elements from array individually
                 review.addPros(...this.pros);
                 review.addCons(...this.cons);
 
-                this.$root.$emit('addReview', review);
+                this.$root.$refs.detailsPage.addReview(review);
             }
-            else this.$alert('Please fill in all fields to submit your review');
+            
         }
     }
 }
