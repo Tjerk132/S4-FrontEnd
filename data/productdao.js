@@ -45,9 +45,37 @@ async function getProductCategories() {
     }
 }
 
-export default {
+async function getProductsByCategory(category) {
+    try {
+        let url = baseUrl + "categories/" + category;
+
+        let res = await axios.get(url);
+
+        return res.data;
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+async function getProductsByName(name) {
+    try {   
+        let url = baseUrl + "name/" + name;
+
+        let res = await axios.get(url);
+
+        return res.data;
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+module.exports = {
     getAllProducts,
     getProductById,
     getProductCategories,
+    getProductsByCategory,
+    getProductsByName,
 }
 

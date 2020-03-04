@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button ref="categoryBar" v-on:click="changeCategoryBar()" class="viewAllCategoriesBtn">
+        <button ref="categoryOptionsBtn" v-on:click="changeCategoryBar()" class="viewAllCategoriesBtn">
             <span class="viewAllText">
                 View all
             </span> 
@@ -15,7 +15,7 @@
 
         <nav ref="categoryOptions" v-show="showCategoryBar" class="CategoryBar">
             <ul>
-                <li v-for="category in categories" :key="category.category">            
+                <li v-on:click="goToCategory(category)" v-for="category in categories" :key="category.category">            
                     {{category}}
                 </li>
             </ul>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import HomeLogic from '../../logic/HomeLogic.js';
+import CategoryLogic from '../../logic/CategoryLogic.js';
 import ProductDao from '../../data/productdao.js';
 
 export default {
@@ -36,12 +36,12 @@ export default {
         }
     },
     mounted() {
-
+        
         ProductDao.getProductCategories()
             .then((response) => {
-                 this.categories = HomeLogic.toReadableCategories(response);
+                 this.categories = CategoryLogic.toReadableCategories(response);
         });
-        addEventListener('scroll', (event) => {
+        addEventListener('scroll', (event) => {            
             this.showCategoryBar = false;
         });
     },
@@ -49,6 +49,15 @@ export default {
         changeCategoryBar() {
             this.showCategoryBar = !this.showCategoryBar;
         },
+        goToCategory(category) {
+            this.showCategoryBar = false;
+            let categoryUrl = CategoryLogic.categoryToUrl(category);
+            //don't navigate to same page
+            if(this.$route.query.category != categoryUrl) {
+                
+                this.$router.push('/products?category=' + categoryUrl);
+            }
+        }
     }
 }
 </script>

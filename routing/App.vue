@@ -5,21 +5,18 @@
             <div class="navbar">
 
                 <button v-on:click="goRoute('/')">Home</button>
-                <button v-on:click="goRoute('/products')">Products</button>
+                <button v-on:click="goToAllProducts()">Products</button>
 
                 <categoriesNav />
-              
-                <div class="search_input-container">
 
-                    <input placeholder="Search for..">
-
-                </div>
+                <searchNav />
 
                 <accountNav />
 
                 <button v-on:click="goRoute('/shoppingcart')">
                     <div class="shoppingBasketBtn">
                         {{shoppingCartCount}}
+                        <img :src="'./images/shoppingcart.png'">
                     </div>
                 </button>   
             </div>
@@ -35,6 +32,7 @@
 
 <script>
 import CategoriesNav from '../components/CategoriesNav/CategoriesNav.vue';
+import SearchNav from '../components/SearchNav/SearchNav.vue';
 import AccountNav from '../components/AccountNav/AccountNav.vue';
 
 import ProductLogic from '../logic/ProductLogic.js';
@@ -42,6 +40,7 @@ import ProductLogic from '../logic/ProductLogic.js';
 export default {
     components: {
         categoriesNav: CategoriesNav,
+        searchNav: SearchNav,
         accountNav: AccountNav,
     },
     data() {    
@@ -71,6 +70,11 @@ export default {
             //can't navigate to same page
             if(window.location.pathname != route) {
                 this.$router.push(route);
+            }
+        },
+        goToAllProducts() {
+            if(this.$route.query.category != 'All') {
+                this.$router.push('/products?category=All');
             }
         }
     }

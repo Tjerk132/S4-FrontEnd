@@ -7,16 +7,6 @@
     float: left;
  }
 
- .shoppingBasketBtn {
-    width: 40px;
-    height: 40px;
-    background-size: 100% 100%;
-    margin: -10px 5px;
-    font-size: 25px;
-    text-align: left;
-    background-image: url(https://static.thenounproject.com/png/16757-200.png);
- }
- 
   /* navbar > */
  .navbar {
     overflow: hidden;
@@ -25,7 +15,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    min-width: 1000px;
+    min-width: 1100px;
     border:rgb(20, 20, 20);
     box-shadow: 0px 15px 10px -15px #111;    
   }
@@ -35,19 +25,6 @@
     font-size: 17px;
     margin: 5px 5px;
     height: 55px;
- }
-
- .search_input-container {
-   margin: 7px 3px;
-   height: 51.5px;
-   width: 400px;
-   float: left;
- }
-
- .search_input-container input {
-   width: 100%;
-   height: 100%;
-   border-radius: 12px;
  }
  
  .navbar button:hover {

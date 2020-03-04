@@ -2,14 +2,14 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router.js';
 import axios from 'axios';
-import Vuetify from 'vuetify';
+// import Vuetify from 'vuetify';
 import VueCookies from 'vue-cookies';
 import VueAlert from 'vue-simple-alert';
 import 'babel-polyfill';
 
 window.axios = axios;
 
-Vue.use(Vuetify);
+// Vue.use(Vuetify);
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
@@ -19,5 +19,5 @@ Vue.use(VueAlert);
 
 new Vue({   
   render: h => h(App),
-  router: router
+  router: router,
 }).$mount('#app')

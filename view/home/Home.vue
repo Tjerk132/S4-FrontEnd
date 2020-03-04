@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <title>Home Page</title>
-
     <h3>
       Home
     </h3>

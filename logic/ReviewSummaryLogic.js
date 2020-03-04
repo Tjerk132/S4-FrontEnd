@@ -1,4 +1,4 @@
-import ReviewSummaryItem from '../models/ReviewSummaryItem.js';
+const ReviewSummaryItem = require('../models/ReviewSummaryItem.js');
 
 function getAvgRating(reviews) {
 
@@ -30,7 +30,7 @@ function calculateRatingPercentages(reviewSummary, reviewCount) {
     return reviewSummary;
 }
 
-export default {
+module.exports = {
     getAvgRating,
     calculatePercentages,
 }

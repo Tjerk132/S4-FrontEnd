@@ -1,4 +1,4 @@
-export default class ShoppingCartItem {
+module.exports = class ShoppingCartItem {
 
     constructor(product, quantity) {
         this.product = product;

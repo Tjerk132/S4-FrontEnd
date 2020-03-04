@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-on:click="changeAccountBar()">Account</button>
+        <button ref="changeAccountOptionsBtn" v-on:click="changeAccountBar()">Account</button>
 
         <nav ref="accountOptions" v-show="showAccountOptions" class="accountOptions">
             <ul>
@@ -23,7 +23,8 @@ export default {
         }
     },
     mounted() {
-        addEventListener('scroll', (event) => {
+  
+        addEventListener('scroll', (event) => {            
             this.showAccountOptions = false;
         });
     },

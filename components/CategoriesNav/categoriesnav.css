@@ -5,19 +5,27 @@
    position: fixed;
    background-color: white;
  }
+
+.categoryBar > ul {
+   padding-left: .5px;
+   margin-bottom: -1px;
+   margin-top: -1px;
+}
  
- .categoryBar ul {
-    padding-left: 8px;
- }
- 
- .categoryBar li {
+.categoryBar li {
     padding: .5rem 0;
     color: rgb(42, 104, 39);
- }
+    cursor: pointer;
+}
 
- .viewAllText {
+.categoryBar li:hover {
+    background: rgb(42, 104, 39);
+    color: white;
+}
+
+.viewAllText {
     font-size: 14px;
- }
+}
  
  .viewAllCategoriesBtn {
     text-align: left;

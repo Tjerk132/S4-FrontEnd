@@ -1,4 +1,4 @@
-   import ShoppingCartItem from '../models/ShoppingCartitem.js';
+   const ShoppingCartItem = require('../models/ShoppingCartitem.js');
    
    function addToShoppingCart(newProduct, cartItems) {
         
@@ -94,7 +94,7 @@
         else return cartItems;
     }
 
-    export default {
+    module.exports = {
         addToShoppingCart,
         removeFromShoppingCart,
         checkExistingBasket,

@@ -29,7 +29,7 @@ function validateReviewSubmit(refs) {
     return message;
 }
 
-export default {
+module.exports = {
     removeItem,
     validateProConInput,
     validateReviewSubmit,

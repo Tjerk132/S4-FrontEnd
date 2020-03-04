@@ -1,14 +1,14 @@
 <template>
-    <div>
+    <div class="notFoundBody">
         <title>Not Found</title>
-
-        <h1 style="color:red">404</h1> 
-        <strong><h2>Not Found</h2></strong>
+        <p>
+            <img :src="'./images/NotFound.png'" class="notFoundImg">
+        </p>
 
         Unable to find <strong> {{ requestedPath }} </strong>
         <p>
-            <v-btn @click="goHome">Home</v-btn>
-            <v-btn @click.prevent="goBack">Go back</v-btn>
+            <button class="goHomeBtn" v-on:click="goHome()">Home</button>
+            <button class="goBackBtn" v-on:click.prevent="goBack()">Go back</button>
         </p>
 
     </div>

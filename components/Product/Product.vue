@@ -54,10 +54,7 @@ export default {
     methods: {
         goToProductDetails(productId, productName) {
 
-            this.$router.push({
-                name: 'productDetails',
-                params: { id: productId }
-            });
+            this.$router.push('/details?id='+ productId);
         },
         addToCart(productId) {
 
