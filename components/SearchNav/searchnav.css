@@ -1,8 +1,8 @@
 .search_input-container {
-    margin: 7px 3px;
+    width: 30%;
     height: 51.5px;
-    width: 400px;
     float: left;
+    margin-top: .3em;
 }
  
 .search_input-container input {
@@ -14,7 +14,7 @@
 }
 
 .queryHistoryBar {
-    width: 400px;
+    width: 30%;
     margin: -.65em 0 0 0px;
     position: fixed;
     background-color: white;
@@ -40,4 +40,15 @@
 
 .queryHistoryBar a:hover {
     text-decoration: rgb(20, 22, 131) underline;
+}
+
+    
+@media screen and (max-width: 700px) {
+    .queryHistoryBar {
+        margin: -.65em 0 0 -1px;
+        width: 136px;
+    }
+    .search_input-container {
+        width: 12.3%;
+    }
 }

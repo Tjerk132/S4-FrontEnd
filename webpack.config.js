@@ -3,8 +3,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   devServer : {
-    historyApiFallback : true
-  },
+    historyApiFallback : true,
+    //enable to look on external ip on same network
+    port: 8008, 
+    host: '0.0.0.0',
+    // disableHostCheck: true,
+  },  
   entry: './routing/main.js',
   module: {
     rules: [

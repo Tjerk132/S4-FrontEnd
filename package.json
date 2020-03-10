@@ -42,6 +42,7 @@
     "vue-cookies": "^1.6.1",
     "vue-load-image": "^0.1.9",
     "vue-router": "^3.1.5",
+    "vue-session": "^1.0.0",
     "vue-simple-alert": "^1.1.1",
     "vuetify": "^2.2.12"
   }

@@ -4,6 +4,7 @@ import router from './router.js';
 import axios from 'axios';
 // import Vuetify from 'vuetify';
 import VueCookies from 'vue-cookies';
+import VueSession from 'vue-session';
 import VueAlert from 'vue-simple-alert';
 import 'babel-polyfill';
 
@@ -14,6 +15,8 @@ Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
 Vue.$cookies.config('7d');
+
+Vue.use(VueSession);
 
 Vue.use(VueAlert);
 

@@ -56,7 +56,18 @@ export default {
         return {
             pros: [],
             cons: [],
+            author: String
         }
+    },
+    mounted() {
+        if(this.$session.exists()) {
+            this.author = this.$session.get('user').username;
+        }    
+        this.$root.$on('loggedInStatus', (loggedIn) => {
+            if(!loggedIn) {
+                this.author = '';
+            }
+        });
     },
     methods: {
         addPro() {
@@ -86,6 +97,11 @@ export default {
             this.cons = ReviewLogic.removeItem(con, this.cons);
         },
         submitReview() {
+
+            if(Object.keys(this.author).length === 0 || this.author === '{}') {
+                this.$alert("You are not logged in");
+                return;
+            }
             
             let refs = this.$refs;
 
@@ -109,10 +125,10 @@ export default {
             if(message != undefined) {
                 this.$alert(message);
             }
-            else {        
-                //author to be retrieved from session
+            else if(this.author != undefined ) {
+                    
                 let review = new Review(
-                    "Tjerk",
+                    this.author,
                     refs.title.value,
                     refs.content.value,
                     refs.starRating.value,  
@@ -122,8 +138,7 @@ export default {
                 review.addCons(...this.cons);
 
                 this.$root.$refs.detailsPage.addReview(review);
-            }
-            
+            }      
         }
     }
 }

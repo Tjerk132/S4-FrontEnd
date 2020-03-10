@@ -7,6 +7,7 @@
     <h4>
       Welcome to product store
     </h4>
+    </router-view></router-view>
   </div>
 </template>
 

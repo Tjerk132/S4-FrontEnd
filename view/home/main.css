@@ -3,7 +3,7 @@ body {
     width: auto !important;  /* Firefox will set width as auto */
     width:700px;            /* As IE6 ignores !important it will set width as given px; */
     font-family: Arial, Helvetica, sans-serif;
-    padding: 6% 2%;
+    padding: 50px 10px;
 }
 
 footer {

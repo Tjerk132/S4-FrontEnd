@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="categories-container">
+        
         <button ref="categoryOptionsBtn" v-on:click="changeCategoryBar()" class="viewAllCategoriesBtn">
             <span class="viewAllText">
                 View all
@@ -51,11 +52,12 @@ export default {
         },
         goToCategory(category) {
             this.showCategoryBar = false;
-            let categoryUrl = CategoryLogic.categoryToUrl(category);
             //don't navigate to same page
-            if(this.$route.query.category != categoryUrl) {
-                
-                this.$router.push('/products?category=' + categoryUrl);
+            if(this.$route.query.category != category) {
+                this.$router.push({
+                    name: 'products',
+                    query: { category: category }
+                });
             }
         }
     }

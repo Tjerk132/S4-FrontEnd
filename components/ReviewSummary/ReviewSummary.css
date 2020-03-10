@@ -28,8 +28,7 @@
 
 /* IE10 */
 progress {
-    color: rgb(230, 230, 230);
-    width: 75%;
+    width: 68%;
     height: 10px;
     border-radius: 4px;
     margin-bottom: .15em;
@@ -46,10 +45,10 @@ progress::-moz-progress-bar {
 
 /* Chrome */
 progress::-webkit-progress-value {
-    background-color: rgb(255, 205, 0);
-    color: rgb(230, 230, 230);
     height: 10px;
     border-radius: 4px;
+    background-color: rgb(255, 205, 0);
+
 }
 
 /* Polyfill */
@@ -66,7 +65,7 @@ progress {
 }
 
 progress::-webkit-progress-bar {
-    background: rgb(255, 205, 0);
+    background: rgb(230, 230, 230);
 }
 
 progress[value] {

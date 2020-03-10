@@ -13,12 +13,8 @@
 
                 <accountNav />
 
-                <button v-on:click="goRoute('/shoppingcart')">
-                    <div class="shoppingBasketBtn">
-                        {{shoppingCartCount}}
-                        <img :src="'./images/shoppingcart.png'">
-                    </div>
-                </button>   
+                <shoppingCartNav />
+ 
             </div>
 
             <h3 class="appTitle">
@@ -34,6 +30,7 @@
 import CategoriesNav from '../components/CategoriesNav/CategoriesNav.vue';
 import SearchNav from '../components/SearchNav/SearchNav.vue';
 import AccountNav from '../components/AccountNav/AccountNav.vue';
+import ShoppingCartNav from '../components/ShoppingCartNav/ShoppingCartNav.vue';
 
 import ProductLogic from '../logic/ProductLogic.js';
 
@@ -42,10 +39,10 @@ export default {
         categoriesNav: CategoriesNav,
         searchNav: SearchNav,
         accountNav: AccountNav,
+        shoppingCartNav: ShoppingCartNav,
     },
     data() {    
         return {
-            shoppingCartCount: 0,
             categories: [],
         }
     },
@@ -57,12 +54,7 @@ export default {
         // avoid null when clearing cookies
         products = ProductLogic.checkExistingBasket(products);
 
-        this.shoppingCartCount = products.length;
-
-        //receive update to change 
-        this.$root.$on('updateCount', (count) => {
-            this.shoppingCartCount = count;
-        })
+        this.$root.$emit('updateCount', products.length);
 
     },
     methods: {
@@ -74,7 +66,10 @@ export default {
         },
         goToAllProducts() {
             if(this.$route.query.category != 'All') {
-                this.$router.push('/products?category=All');
+                this.$router.push({
+                    name: 'products',
+                    query: { category: 'All' }
+                });
             }
         }
     }

@@ -23,17 +23,16 @@
       <h4 v-else>
         No products found for this category 
       </h4>
-      <div class="toTopBtn">
+      <div v-if="products.length > 3" class="toTopBtn">
         <button v-on:click="scrollToTop()">Scroll to top</button>
       </div>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import Product from '../../models/Product';
+import Product from '../../models/Product.js';
 import ProductComp from '../../components/Product/Product.vue';
 
 import CategoryLogic from '../../logic/CategoryLogic.js';
@@ -55,7 +54,7 @@ export default {
   },
   mounted() {
 
-    this.Category = CategoryLogic.urlToCategory(this.category);
+    this.Category = this.category;
        
     CategoryLogic.getByCategory(this.Category)
       .then((response) => {
@@ -65,8 +64,6 @@ export default {
   },
   watch: {
     '$route.query.category'(newCategory, oldCategory) {
-
-      newCategory = CategoryLogic.urlToCategory(newCategory);
       this.Category = newCategory;
       this.products = CategoryLogic.getByCategory(newCategory)
         .then((response) => {

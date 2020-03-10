@@ -1,4 +1,6 @@
-let baseUrl = 'http://localhost:8085/reviews/';
+let host = require('./host.js').host;
+
+let baseUrl = 'http://' + host.ip + ":" + host.port + '/reviews/';
 
 async function getAllReviewsByProduct(id) {
 

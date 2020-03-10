@@ -35,7 +35,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.query);
+
         this.Query = this.query;
         ProductDao.getProductsByName(this.query)
             .then((response) => {

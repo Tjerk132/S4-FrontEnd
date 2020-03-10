@@ -1,6 +1,6 @@
 import Home from '../view/home/Home.vue';
 
-import Account from '../view/Account/Account.vue'
+import Account from '../view/Account/Account.vue';
 import Register from '../view/Account/Register/Register.vue';
 import Login from '../view/Account/Login/Login.vue'
 
@@ -19,9 +19,12 @@ const routes = [
     },
     {
         path: '/account',
-        name: 'account',
-        component: Account,
+        component:  Account,
         children: [
+            {
+                path: '',
+                redirect: '/login'
+            },
             {
                 path: '/register',
                 name: 'register',

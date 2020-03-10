@@ -1,6 +1,10 @@
+.categories-container {
+    height: 50px;
+    float: left;
+}
 .categoryBar {
    width: 200px;
-   margin: 3.66em 0 0 160.392px;
+   margin: 3.66em 0 0 -63.9px;
    box-shadow: 0 1px 5px rgba(50,50,50,.6);
    position: fixed;
    background-color: white;
@@ -27,8 +31,15 @@
     font-size: 14px;
 }
  
- .viewAllCategoriesBtn {
+.viewAllCategoriesBtn {
     text-align: left;
     padding: 10px;
     margin-left: 82px;
- }
+    min-width: 120px;
+}
+
+@media screen and (max-width: 700px) {
+    .categoryBar {
+        margin: 3.46em 0 0 -77.3px;
+    }
+}

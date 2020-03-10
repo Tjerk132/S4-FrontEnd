@@ -1,12 +1,12 @@
 <template>
     <div>
-        <h3>
-            Your shopping cart
-        </h3>
-        <h4 v-if="!cartItems.length">
+        <h3 v-if="!cartItems.length">
             You have no items in your shopping cart
-        </h4>
+        </h3>
         <div v-else>
+            <h3>
+                Your shopping cart has {{totalQuantity}} items
+            </h3>
              <table class="shoppingcartTable">
                 <thead>
                     <td>
@@ -65,11 +65,11 @@ export default {
     data() {
         return {
             cartItems: [],
-            totalCosts: Number
+            totalCosts: Number,
+            totalQuantity: Number,
         }
     },
     mounted() {
-
         let productIds = JSON.parse( 
             this.$cookies.get('shopping_cart'));
         //shopping cart is not empty
@@ -83,12 +83,9 @@ export default {
                     //filter duplicate products
                     this.cartItems = ProductLogic.existsInBasket(product, this.cartItems);
 
-                    //all items are retrieved
-                    let totalQuantity = ProductLogic.getTotalQuantity(this.cartItems);
-                    if(totalQuantity == productIds.length) {
-                        console.log("done fetching basket: " + this.cartItems.length + " products");
-                        this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
-                    }
+                    this.totalQuantity = ProductLogic.getTotalQuantity(this.cartItems);
+
+                    this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
                 });
             });
         }
@@ -98,12 +95,16 @@ export default {
         removeFromCart(product) {
 
             this.cartItems = ProductLogic.removeFromShoppingCart(product, this.cartItems);
+
+            this.totalQuantity -= 1;
             
             this.refreshComponents();  
         },
         addToCart(product) {
 
             this.cartItems = ProductLogic.addToShoppingCart(product, this.cartItems);
+
+            this.totalQuantity += 1;
 
             this.refreshComponents();
         },
@@ -123,9 +124,9 @@ export default {
             this.$root.$emit('updateCount', ProductLogic.getTotalQuantity(this.cartItems));
         },
         navigateToDetails(productId) {
-             this.$router.push({
-                name: 'productDetails',
-                params: { id: productId }
+            this.$router.push({
+                name: 'details',
+                query: { id: productId }
             });
         },
     }

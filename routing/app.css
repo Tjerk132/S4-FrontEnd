@@ -23,8 +23,9 @@
  .navbar button {
     float: left;
     font-size: 17px;
-    margin: 5px 5px;
+    margin: 5px;
     height: 55px;
+    width: 132px;
  }
  
  .navbar button:hover {
@@ -34,6 +35,17 @@
 
  .navbar button:last-child:hover {
     /* for shopping cart text */
-    color: white;
-    background: rgb(210, 210, 210);
+    color: black;
+ }
+ 
+@media screen and (max-width: 700px) {
+   .navbar {
+      width: 100%;
+      max-width: 100%;
+   }
+   .navbar button {
+      width: 106px;
+      margin: 2px;
+      font-size: 15px;
+   }
  }

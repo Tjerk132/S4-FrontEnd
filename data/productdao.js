@@ -1,4 +1,6 @@
-let baseUrl = 'http://localhost:8085/products/';
+let host = require('./host.js').host;
+
+let baseUrl = 'http://' + host.ip + ":" + host.port + '/products/';
 
 async function getAllProducts() {
 

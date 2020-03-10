@@ -14,9 +14,9 @@ h5 {
 
 /* reviews --> */
 .reviews {
-    width: 40%;
-    min-width: 450px;
-    max-width: 500px;
+    width: 35%;
+    min-width: 400px;
+    max-width: 420px;
 }
 
 .review {

@@ -36,19 +36,10 @@ function toReadableCategories(categories) {
     return formattedCategories;
 }
 
-function categoryToUrl(category) {
-    //replace all spaces with +'s
-    return category.replace(/ /g, "+");
-}
-
-function urlToCategory(url) {
-    //replace all +'s with spaces ([] eg [+] for calculating symbols)
-    return url.replace(/[+]/g, " ");
-}
+ //replace all +'s with spaces ([] eg [+] for calculating symbols)
+// = string.replace(/[+]/g, " ");
 
 module.exports = {
     getByCategory,
     toReadableCategories,
-    categoryToUrl,
-    urlToCategory,
 }
