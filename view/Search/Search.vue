@@ -2,7 +2,12 @@
     <div>
         <div v-if="products.length">
             <h3>
-                Results for {{Query}}
+               <strong>
+                   {{products.length}}
+               </strong>
+               <span v-if="products.length == 1">result</span>
+               <span v-else>results</span>
+               for '{{Query}}'
             </h3>
             <ul>
             <li v-for="product in products" :key="product.id">    

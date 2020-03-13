@@ -1,3 +1,5 @@
+
+
 <template>
     <div>
         <div class="appPage">
@@ -21,7 +23,6 @@
                 Product Store
             </h3>
         </div>
-    
         <router-view></router-view>
     </div>
 </template>

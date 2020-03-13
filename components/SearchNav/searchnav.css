@@ -26,20 +26,62 @@
     margin-bottom: .5em;
 }
 
-.queryHistoryBar strong:hover {
+.searchBarSuggestion {
+    margin-left: -10px;
     cursor: pointer;
+}
+
+.searchBarSuggestion:hover {
+    background-color: rgb(242, 242, 242);
+}
+
+.suggestionName {
+    vertical-align: top;
+    height: 5px;
+}
+
+.suggestionPrice {
+    vertical-align: bottom;
+    height: 5px;
+}
+
+.suggestionRating {
+    vertical-align: middle;
+    height: 5px;
+}
+
+.searchBarHeader {
+    font-weight: bold;
+}
+
+.queryHistoryBar p:hover {
+    cursor: pointer;
+}
+
+.queryHistoryBar p {
+    font-size: 16px;
 }
 
 .queryHistoryBar a {
     float: right;
     padding-right: 5px;
     color: rgb(20, 22, 131);
-    cursor: pointer;
     font-size: 14px;
+    margin-top: -32px;
 }
 
 .queryHistoryBar a:hover {
     text-decoration: rgb(20, 22, 131) underline;
+}
+
+.suggestionImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;    
+    margin-top: 5px;
 }
 
     

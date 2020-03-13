@@ -73,7 +73,7 @@ export default {
         let productIds = JSON.parse( 
             this.$cookies.get('shopping_cart'));
         //shopping cart is not empty
-        if(productIds.length) {
+        if(productIds != undefined && productIds.length) {
 
             productIds.forEach(id => {
 

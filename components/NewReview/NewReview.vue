@@ -126,7 +126,9 @@ export default {
                 this.$alert(message);
             }
             else if(this.author != undefined ) {
-                    
+
+                let starRating = refs.starRating.value;
+  
                 let review = new Review(
                     this.author,
                     refs.title.value,

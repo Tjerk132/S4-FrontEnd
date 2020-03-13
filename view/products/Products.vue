@@ -14,28 +14,26 @@
       <img src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif">
       <p>Loading...</p>
     </div>
-    <div v-else> 
-      <table v-if="products.length" class="productsTable">
-          <tr v-for="product in products" :key="product.id">
-            <ProductComp :Product='product'></ProductComp>
-          </tr>
-      </table>
+    <div v-if="products.length">
+
+      <Pagination :Products=products :PageSize=pageSize></Pagination>
+
+    </div>
       <h4 v-else>
         No products found for this category 
       </h4>
-      <div v-if="products.length > 3" class="toTopBtn">
+      <div v-if="products.length > pageSize" class="toTopBtn">
         <button v-on:click="scrollToTop()">Scroll to top</button>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 
 import Product from '../../models/Product.js';
-import ProductComp from '../../components/Product/Product.vue';
 
 import CategoryLogic from '../../logic/CategoryLogic.js';
+import Pagination from '../../components/Pagination/Pagination.vue';
 
 export default {
 
@@ -43,14 +41,16 @@ export default {
     category: String,
   },
   components: {
-    ProductComp
+    Pagination,
   },
   data() {
-    return {
-      products: Array,
-      Category: String,
-      loading: true
-    };
+     return {
+        pageSize: 4,
+        //must be [] for navigation
+        products: [],
+        Category: String,
+        loading: true,
+      }
   },
   mounted() {
 
@@ -61,6 +61,8 @@ export default {
         this.products = response;
         this.loading = false;
     });
+
+
   },
   watch: {
     '$route.query.category'(newCategory, oldCategory) {
@@ -69,13 +71,15 @@ export default {
         .then((response) => {
           this.products = response;
           this.loading = false;
+
+          this.$root.$refs.Pagination.updatePages(response);
         });
     }
   },
   methods: {
     scrollToTop() {
       window.scrollTo(0,0);
-    }
+    },
   }
 };
 </script>

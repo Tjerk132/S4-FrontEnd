@@ -5,7 +5,7 @@ module.exports = {
   devServer : {
     historyApiFallback : true,
     //enable to look on external ip on same network
-    port: 8008, 
+    port: 8005, 
     host: '0.0.0.0',
     // disableHostCheck: true,
   },  

@@ -57,6 +57,11 @@ export default {
                         this.$session.set('user', user);
 
                         this.$root.$emit('loggedInStatus', true);
+
+                        this.$router.push({
+                            name: 'products',
+                            query: { category: 'All' }
+                        });
                     }
                 });
         },

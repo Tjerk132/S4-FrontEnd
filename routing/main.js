@@ -6,6 +6,7 @@ import axios from 'axios';
 import VueCookies from 'vue-cookies';
 import VueSession from 'vue-session';
 import VueAlert from 'vue-simple-alert';
+import Pagination from 'jw-vue-pagination';
 import 'babel-polyfill';
 
 window.axios = axios;
@@ -19,6 +20,8 @@ Vue.$cookies.config('7d');
 Vue.use(VueSession);
 
 Vue.use(VueAlert);
+
+Vue.component('pagination', Pagination);
 
 new Vue({   
   render: h => h(App),
