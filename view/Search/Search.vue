@@ -1,23 +1,14 @@
 <template>
     <div>
+        <title v-text="$ml.get('search')"/>
+        <h3 v-text="$ml.get('ForQuery')"/>
         <div v-if="products.length">
-            <h3>
-               <strong>
-                   {{products.length}}
-               </strong>
-               <span v-if="products.length == 1">result</span>
-               <span v-else>results</span>
-               for '{{Query}}'
-            </h3>
             <ul>
-            <li v-for="product in products" :key="product.id">    
-                <ProductComp :Product='product'></ProductComp>
-            </li>
+                 <li v-for="product in products" :key="product.id">    
+                    <ProductComp :Product='product'></ProductComp>
+                </li>
             </ul>
         </div>
-        <h3 v-else>
-            No results for '{{Query}}'
-        </h3>
     </div>
 </template>
 
@@ -25,6 +16,8 @@
 import ProductDao from '../../data/productdao.js';
 
 import ProductComp from '../../components/Product/Product.vue';
+
+import { MLBuilder } from 'vue-multilanguage';
 
 export default {
     props: {
@@ -54,6 +47,18 @@ export default {
                 .then((response) => {
                     this.products = response;
                 });
+        }
+    },
+    computed: {
+        mlForQuery() {
+            let productsLength = this.products.length;
+            if(productsLength == 1) {
+                return new MLBuilder('result').with('q', this.query);
+            }      
+            else if(productsLength > 1) {
+                return new MLBuilder('results').with('r', productsLength).with('q', this.query);
+            }
+            else return new MLBuilder('noResults').with('q', this.query);
         }
     }
 }

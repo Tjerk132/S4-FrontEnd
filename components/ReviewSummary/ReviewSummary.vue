@@ -7,16 +7,11 @@
                 </h1>
             </div>
             <div class="ReviewAverageCount">
-                <p>
-                    Number of reviews: 
-                    <strong>
-                        {{reviewCount}}
-                    </strong>
-                </p>
+                <p v-text="$ml.get('ReviewCount')"/>
             </div>
         </div>
 
-        <p class="OutOfText">out of 5</p>
+        <p class="OutOfText" v-text="$ml.get('OutOf')"/>
         <div class="RatingStars">
             <div v-for="average in reviewAverages" :key="average.average">
                 <span v-for="star in average.starRating" :key="star.star">
@@ -34,6 +29,8 @@
 <script>
 import ReviewSummaryLogic from '../../logic/ReviewSummaryLogic.js';
 import ReviewSummaryItem from '../../models/ReviewSummaryItem.js';
+
+import { MLBuilder } from 'vue-multilanguage';
 
 export default {
 
@@ -55,7 +52,15 @@ export default {
         this.reviewCount = reviews.length;
         this.avgRating = ReviewSummaryLogic.getAvgRating(reviews);
         this.reviewAverages = ReviewSummaryLogic.calculatePercentages(this.maxRating, reviews, reviews.length);
-    }
+    },
+    computed: {
+        mlReviewCount() {            
+            return new MLBuilder('numberOfReviews').with('r', this.reviewCount);
+        },
+        mlOutOf() {            
+            return new MLBuilder('outOf').with('t', this.maxRating);
+        },
+    },
 }
 </script>
 

@@ -1,8 +1,6 @@
 <template>
     <div>
-        <span v-if="products.length > pageSize">
-        Currently on page {{currentPage}} of {{maxPages}}
-        </span>
+        <span v-if="products.length > pageSize" v-text="$ml.get('Page')"/>
         <table class="productsTable">
             <tr v-for="product in pageOfItems" :key="product.id">
                 <ProductComp :Product='product'></ProductComp>
@@ -16,6 +14,8 @@
 
 <script>
 import ProductComp from '../../components/Product/Product.vue';
+
+import { MLBuilder } from 'vue-multilanguage';
 
 const customLabels = {
     first: '<<',
@@ -46,7 +46,8 @@ export default {
         this.products = this.Products;
         this.pageSize = this.PageSize;
 
-        this.maxPages = (this.products.length / this.pageSize).toFixed(0);
+        //use math.ceil and not toFixed as the last page can have less than 50% of pageSize
+        this.maxPages = Math.ceil((this.products.length / this.pageSize));
 
         // always first page on load
         this.currentPage = 1;
@@ -59,12 +60,18 @@ export default {
       
             this.currentPage = (this.products.indexOf(pageOfItems[0]) / this.pageSize) + 1;
 
-            this.pageOfItems = pageOfItems;
+            this.pageOfItems = pageOfItems;              
         },
         updatePages(products) {
+            
             this.maxPages = (products.length / this.pageSize).toFixed(0);
         }
-    }
+    },
+    computed: {
+        mlPage() {            
+            return new MLBuilder('onPage').with('p', this.currentPage).with('m', this.maxPages);
+        }
+    },
 }
 </script>
 

@@ -1,49 +1,50 @@
 <template>
     <div class="reviews">
         <ul class="review">
-            <h4>Create a review</h4>
+            <h4 v-text="$ml.get('createReview')"/>
             <li>    
-                <p>Title</p>
-                <input ref="title" class="inputItem" required>
+                <p v-text="$ml.get('reviewTitle')"/>
+                <input ref="title" class="inputItem">
             </li>
             <li>
-                <p>StarRating</p>
-                <input ref="starRating" :max="5" :min="0" type="number" class="inputItem" required>
+                <p v-text="$ml.get('starRating')"/>
+                <input ref="starRating" :max="5" :min="0" type="number" class="inputItem">
             </li>
                 <p>
-                    <strong>Pros and cons</strong>
-                </p>
-                <p class="toSubmitText">
-                    Enter to submit
-                </p>
-                <ul>
+                    <strong v-text="$ml.get('prosAndCons')"/>
+                </p> 
+
+                <p v-text="$ml.get('ProCon')"/>
+
+                 <ul>
                     <div v-if="pros.length">
                         <h5>Pros</h5>
                         <li v-for="pro in pros" :key="pro.pro">
-                            {{pro}} 
-                            <button v-on:click="removePro(pro)" class="removeProConBtn">Remove</button>
+                            {{pro}}
+                            <button v-on:click="removePro(pro)" class="removeProConBtn" v-text="$ml.get('remove')"/>
                         </li>
-                    </div>  
+                    </div>
                 </ul>
+                <p v-text="$ml.get('addPro')"/>
+                <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem">
 
-                <p></p>
-                <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem" placeholder="Add a pro">
                 <ul>
                     <div v-if="cons.length">
                         <h5>Cons</h5>
                         <li v-for="con in cons" :key="con.con">
                             {{con}}
-                            <button v-on:click="removeCon(con)" class="removeProConBtn">Remove</button>
+                            <button v-on:click="removeCon(con)" class="removeProConBtn" v-text="$ml.get('remove')"/>
                         </li>
                     </div>
                 </ul>
-                <p></p>
-                <input ref="con" v-on:keyup.enter='addCon()' class="inputItem" placeholder="Add a con">
+                <p v-text="$ml.get('addCon')"/>
+                <input ref="con" v-on:keyup.enter='addCon()' class="inputItem">
+
             <li>
-                <p>Content</p>
-                <textarea ref="content" class="reviewTextArea" placeholder="Place your review here" required></textarea>
+                <p v-text="$ml.get('content')"/>
+                <textarea ref="content" class="reviewTextArea"></textarea>
             </li>
-            <button v-on:click="submitReview()" class="submitReviewBtn">Submit</button>
+            <button v-on:click="submitReview()" class="submitReviewBtn" v-text="$ml.get('submit')"/>
         </ul>
     </div>
 </template>
@@ -51,6 +52,10 @@
 <script>
 import ReviewLogic from '../../logic/ReviewLogic.js';
 import Review from '../../models/Review.js';
+import Ref from '../../models/Ref.js';
+
+import { MLBuilder } from 'vue-multilanguage';
+
 export default {
     data() {
         return {
@@ -72,9 +77,9 @@ export default {
     methods: {
         addPro() {
             let proInput = this.$refs.pro;
-            let pro = proInput.value;
+            let pro = proInput.value;            
 
-            if(ReviewLogic.validateProConInput(pro, this.pros.length)) {
+            if(ReviewLogic.validateProConInput(pro, this.pros.length)) {                
                 this.pros.push(pro);
                 proInput.value = '';
             }
@@ -107,18 +112,9 @@ export default {
 
             let message = ReviewLogic.validateReviewSubmit(
                 [
-                    { 
-                        name: 'Content', 
-                        value: refs.content.value 
-                    }, 
-                    { 
-                        name: 'StarRating',
-                        value: refs.starRating.value 
-                    },
-                    { 
-                        name: 'Title', 
-                        value: refs.title.value 
-                    },
+                    new Ref(refs.content.value, 'Content'),
+                    new Ref(refs.starRating.value, 'StarRating'),
+                    new Ref(refs.title.value, 'Title')
                 ]
             );
 
@@ -142,7 +138,12 @@ export default {
                 this.$root.$refs.detailsPage.addReview(review);
             }      
         }
-    }
+    },
+    computed: {
+        mlProCon() {            
+            return new MLBuilder('submitProCon').with('k', 'Enter');
+        },
+    },
 }
 </script>
 

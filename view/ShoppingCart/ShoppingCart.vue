@@ -1,30 +1,22 @@
 <template>
     <div>
-        <h3 v-if="!cartItems.length">
-            You have no items in your shopping cart
-        </h3>
+        <title v-text="$ml.get('shoppingcart')"/>
+        <h3 v-if="!cartItems.length" v-text="$ml.get('noItemsInCart')"/>
         <div v-else>
-            <h3>
-                Your shopping cart has {{totalQuantity}} items
-            </h3>
+            <h3 v-text="$ml.get('CartItems')"/>
+
              <table class="shoppingcartTable">
                 <thead>
                     <td>
-                        <strong>
-                            Quantity
-                        </strong>
+                        <strong v-text="$ml.get('quantity')"/>
                     </td>
                     <td>    
                     </td>
                     <td>
-                        <strong>
-                            Name
-                        </strong>
+                        <strong v-text="$ml.get('name')"/>
                     </td>
                     <td>
-                        <strong>
-                            Price
-                        </strong>
+                        <strong v-text="$ml.get('price')"/>
                     </td>
                 </thead>
                 <tr class="shoppingCartItems" v-for="item in cartItems" :key="item.item">
@@ -43,15 +35,17 @@
                     </td>
 
                     <td class="shoppingCartOptions">
-                        <button v-on:click="removeFromCart(item.product)" class="shoppingCartRemoveBtn">Remove</button>
-                        <button v-on:click="addToCart(item.product)" class="shoppingCartAddBtn">Add</button>
-                        <button v-on:click="navigateToDetails(item.product.id)" class="shoppingCartDetailsBtn">Details</button>
+                        <button v-on:click="removeFromCart(item.product)" v-text="$ml.get('remove')" class="shoppingCartRemoveBtn"/>
+                        <button v-on:click="addToCart(item.product)" v-text="$ml.get('add')" class="shoppingCartAddBtn"/>
+                        <button v-on:click="navigateToDetails(item.product.id)" v-text="$ml.get('details')" class="shoppingCartDetailsBtn"/>
                     </td>
                 </tr>
             </table>
-            <h3>
-              Total costs {{totalCosts}}
-            </h3>
+
+            <br/>
+            <h3 v-text="$ml.get('TotalCosts')"/>
+
+            <button v-on:click="buyProducts()" v-text="$ml.get('buyProducts')" class="buyProductsBtn"/>
         </div>
     </div>
 </template>
@@ -61,7 +55,14 @@ import ProductLogic from '../../logic/ProductLogic.js';
 import ProductDao from '../../data/productdao.js';
 import ShopppingCartItem from '../../models/ShoppingCartitem.js';
 
+import UserDao from '../../data/userdao.js';
+
+import emailjs from 'emailjs-com';
+
+import { MLBuilder } from 'vue-multilanguage';
+
 export default {
+
     data() {
         return {
             cartItems: [],
@@ -129,7 +130,73 @@ export default {
                 query: { id: productId }
             });
         },
-    }
+        buyProducts() {
+
+            let user = this.$session.get('user');
+            
+            if(user == undefined) {
+                this.$alert('You are not logged in');
+                return;
+            }
+
+            let content = '';
+            this.cartItems.forEach(cartItem => {
+                content += cartItem.quantity 
+                        + ' ' 
+                        + cartItem.product.name;
+
+                if(cartItem.quantity > 1) {
+                    content += 's' ;
+                }
+                content += '<br>';
+            });
+    
+            UserDao.getUserEmail(user.id)
+                .then((response) => {
+                    let userEmail = response;
+
+                    const templateParams = {
+                        userEmail: userEmail,
+                        from_name: 'VUE product store',
+                        to_name: user.username,
+                        totalAmount: this.totalCosts,
+                        content: content,
+                    };    
+                    
+                    emailjs.send('gmail','template_yJSsptkS', templateParams, 'user_MLsO3wteUJABxjh2UIkQu')
+                        .then((response) => {
+
+                            //catch result with then(r) -> r.value
+                            this.$fire({
+                                title: "Vue Product Store",
+                                text: "An email has successfully been send to the email corresponding to your account",
+                                type: "success",
+                                timer: 3000
+                            });
+                            this.$cookies.set('shopping_cart', '');
+                            this.cartItems = [];
+                            this.$root.$emit('updateCount', 0);
+
+                        }, (err) => {
+
+                            this.$fire({
+                                title: "Vue Product Store",
+                                text: "Failed sending email",
+                                type: "error",
+                                timer: 3000
+                            });
+                        }); 
+                });
+        }
+    },
+    computed: {
+        mlCartItems() {            
+            return new MLBuilder('itemsInCart').with('p', this.totalQuantity);
+        },
+        mlTotalCosts() {
+            return new MLBuilder('totalCosts').with('c', this.totalCosts);
+        }
+    },
 }
 </script>
 

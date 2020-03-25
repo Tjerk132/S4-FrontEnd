@@ -8,7 +8,7 @@
             <p> {{review.author}} | {{review.date}} </p>
 
             <div class="reviewProsConsDiv">
-                <h5>Pros and cons</h5>
+                <h5 v-text="$ml.get('prosAndCons')"/>
 
                 <li class="reviewPros">
                     <ul v-for="pro in review.pros" :key="pro.pro">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="reviewFeedBack">
-            <h5>Was this review useful?</h5>
+            <h5 v-text="$ml.get('reviewUseful')"/>
             <button class="likeReviewBtn"></button>
             <p class="reviewLikes"> {{review.liked}} likes </p>
         </div>

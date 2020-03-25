@@ -21,9 +21,9 @@
     margin: 0 !important;
 }
 
- @media screen and (max-width: 700px) {
+ @media screen and (max-width: 740px) {
   .accountOptions {
-    margin: 3.48em 0 0 2px;
+    margin: 3.4em 0 0 1px;
     width: 70px;
   }
 }

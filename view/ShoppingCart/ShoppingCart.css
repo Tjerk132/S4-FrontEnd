@@ -46,3 +46,8 @@
 .shoppingCartOptions {
     width: 90px;
 }
+
+.buyProductsBtn {
+    width: 150px;
+    margin-left: 200px;
+}

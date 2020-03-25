@@ -2,15 +2,9 @@
     <div class="categories-container">
         
         <button ref="categoryOptionsBtn" v-on:click="changeCategoryBar()" class="viewAllCategoriesBtn">
-            <span class="viewAllText">
-                View all
-            </span> 
+            <span class="viewAllText" v-text="$ml.get('viewAll')"/> 
             <div>
-                <strong>
-                categories
-                <span v-if="showCategoryBar"> - </span>
-                <span v-else> + </span>
-                </strong> 
+                <strong v-text="$ml.get('Categories')"/>
             </div>
         </button>
 
@@ -27,6 +21,8 @@
 <script>
 import CategoryLogic from '../../logic/CategoryLogic.js';
 import ProductDao from '../../data/productdao.js';
+
+import { MLBuilder } from 'vue-multilanguage';
 
 export default {
     
@@ -60,7 +56,13 @@ export default {
                 });
             }
         }
-    }
+    },
+    computed: {
+        mlCategories() {        
+            let showCategoryBarIcon = this.showCategoryBar ? '-' : '+' ;   
+            return new MLBuilder('categories').with('0', showCategoryBarIcon);
+        },
+    },
 }
 </script>
 

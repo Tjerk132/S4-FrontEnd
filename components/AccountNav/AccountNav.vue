@@ -5,13 +5,13 @@
         <nav ref="accountOptions" v-show="showAccountOptions" class="accountOptions">
             <ul>
                 <li>            
-                    <button v-on:click="goRoute('register')">Register</button>
+                    <button v-on:click="goRoute('register')" v-text="$ml.get('register')"/>
                 </li>
-                <li>            
-                    <button v-on:click="goRoute('login')">Login</button>
+                <li v-show="!loggedIn">            
+                    <button v-on:click="goRoute('login')" v-text="$ml.get('login')"/>
                 </li>
                 <li v-show="loggedIn">
-                    <button v-on:click="logout()">Logout</button>
+                    <button v-on:click="logout()" v-text="$ml.get('logout')"/>
                 </li>
             </ul>
         </nav>

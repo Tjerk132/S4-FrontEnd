@@ -1,5 +1,5 @@
 .search_input-container {
-    width: 30%;
+    width: 20%;
     height: 51.5px;
     float: left;
     margin-top: .3em;
@@ -14,11 +14,12 @@
 }
 
 .queryHistoryBar {
-    width: 30%;
+    width: 20%;
     margin: -.65em 0 0 0px;
     position: fixed;
     background-color: white;
     border: 1px solid gray;
+    min-width: 220px;
 }
 
 .queryHistoryBar > ul {
@@ -72,6 +73,7 @@
 
 .queryHistoryBar a:hover {
     text-decoration: rgb(20, 22, 131) underline;
+    cursor: pointer;
 }
 
 .suggestionImg {
@@ -85,12 +87,13 @@
 }
 
     
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 740px) {
     .queryHistoryBar {
-        margin: -.65em 0 0 -1px;
-        width: 136px;
+        margin: -.65em 0 0 0;
+        width: 179px;
+        min-width: 179px;
     }
     .search_input-container {
-        width: 12.3%;
+        width: 16.3%;
     }
 }

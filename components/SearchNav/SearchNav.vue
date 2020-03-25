@@ -1,28 +1,26 @@
 <template>
     <div class="search_input-container">
            
-       <input ref="searchQuery" v-on:click='showHistory()' v-on:keyup.enter='search()' v-on:keyup='getSuggestions()' placeholder="Search for..">
+       <input ref="searchQuery" v-on:click='showHistory()' v-on:keyup.enter='search()' v-on:keyup='getSuggestions()' :placeholder="$ml.get('searchFor')">
 
        <nav ref="searchQueries" v-show="showQueries || showSuggestions" class="queryHistoryBar">
             <ul>
                 <div v-show="showQueries">
-                    <li class="searchBarHeader">
-                        You searched before
-                    </li>
+                    <li class="searchBarHeader" v-text="$ml.get('searchedBefore')"/>
+                    
                     <li v-for="query in historyQueries" :key="query.query"> 
                         <span>  
                             <p v-on:click='searchSelected(query)'>         
                                 {{query}}
                             </p>
-                            <a v-on:click='removeFromHistory(query)'>Remove</a>
+                            <a v-on:click='removeFromHistory(query)' v-text="$ml.get('remove')"/>
                         </span>
                     </li>
                 </div>
 
                 <div v-show="showSuggestions">
-                    <li class="searchBarHeader">
-                        Suggestions 
-                    </li>
+                    <li class="searchBarHeader" v-text="$ml.get('suggestions')"/>
+
                     <li class="searchBarSuggestion"  v-on:click='searchSelected(suggestion.name)' v-for="suggestion in suggestions" :key="suggestion.suggestion">  
                         <img class="suggestionImg" v-bind:src="suggestion.imageUrl"> 
                         <p class="suggestionName">         

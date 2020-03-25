@@ -4,7 +4,7 @@
 }
 .categoryBar {
    width: 200px;
-   margin: 3.66em 0 0 -63.9px;
+   margin: 3.66em 0 0 -50.1px;
    box-shadow: 0 1px 5px rgba(50,50,50,.6);
    position: fixed;
    background-color: white;
@@ -35,11 +35,11 @@
     text-align: left;
     padding: 10px;
     margin-left: 82px;
-    min-width: 120px;
+    min-width: 145px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 740px) {
     .categoryBar {
-        margin: 3.46em 0 0 -77.3px;
+        margin: 3.4em 0 0 -54px;
     }
 }

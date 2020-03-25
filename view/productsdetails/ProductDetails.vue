@@ -1,10 +1,10 @@
 <template>
     <div id="app">
-        <title>{{product.name}} details </title>
+        <title v-text="$ml.get('Details')"/>
 
-        <h3>Details for {{product.name}} (id:{{product.id}})</h3>
+        <h3 v-text="$ml.get('Details')">(id:{{product.id}})</h3>
 
-        <h4>Reviews for {{product.name}}</h4>
+        <h4 v-text="$ml.get('Reviews')"/>
         <div class="reviews">
             <ul>
                 <div v-if="reviews.length">
@@ -15,10 +15,7 @@
                         <ReviewComp :Review='review'/>
                     </li>
                 </div>
-                <div v-else>
-                    No reviews for this product yet...
-                </div>
-                
+                <div v-else v-text="$ml.get('noReviewsYet')"/>
             </ul>
         </div>
         <NewReview :key="newReviewKey"/>
@@ -33,6 +30,8 @@ import ReviewSummary from '../../components/ReviewSummary/ReviewSummary.vue';
 
 import ReviewDao from '../../data/reviewdao.js';
 import ProductDao from '../../data/productdao.js';
+
+import { MLBuilder } from 'vue-multilanguage';
 
 export default {
 
@@ -79,6 +78,14 @@ export default {
             //destroy newReview component and create a new one
             this.newReviewKey += 1;
         }
+    },
+    computed: {
+        mlDetails() {            
+            return new MLBuilder('detailsFor').with('p', this.product.name);
+        },
+        mlReviews() {            
+            return new MLBuilder('reviewsFor').with('p', this.product.name);
+        },
     },
     created() {
         //create ref for addReview to emit

@@ -8,6 +8,7 @@ import VueSession from 'vue-session';
 import VueAlert from 'vue-simple-alert';
 import Pagination from 'jw-vue-pagination';
 import 'babel-polyfill';
+import './ml.js';
 
 window.axios = axios;
 

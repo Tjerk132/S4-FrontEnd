@@ -1,15 +1,13 @@
 <template>
   <div id="app">
-    <title>Products page</title>
+    <title v-text="$ml.get('productPage')"></title>
+
       <h3 v-if="Category != 'All'">
-        Products for category:
-        <strong>
-          {{Category}}
-        </strong>
+        <h3 v-text="$ml.get('Category')" />
+
       </h3>
-      <h3 v-else>
-          All products
-      </h3>
+      <h3 v-else v-text="$ml.get('productsAll')"></h3>
+
     <div v-if="loading" class="loadingDiv">
       <img src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif">
       <p>Loading...</p>
@@ -19,11 +17,10 @@
       <Pagination :Products=products :PageSize=pageSize></Pagination>
 
     </div>
-      <h4 v-else>
-        No products found for this category 
+      <h4 v-else-if="!loading" v-text="$ml.get('NoProductsFound')">
       </h4>
       <div v-if="products.length > pageSize" class="toTopBtn">
-        <button v-on:click="scrollToTop()">Scroll to top</button>
+        <button v-on:click="scrollToTop()" v-text="$ml.get('scrollToTop')"/>
       </div>
     </div>
 </template>
@@ -35,6 +32,8 @@ import Product from '../../models/Product.js';
 import CategoryLogic from '../../logic/CategoryLogic.js';
 import Pagination from '../../components/Pagination/Pagination.vue';
 
+import { MLBuilder } from 'vue-multilanguage';
+
 export default {
 
   props: {
@@ -45,7 +44,7 @@ export default {
   },
   data() {
      return {
-        pageSize: 4,
+        pageSize: 6,
         //must be [] for navigation
         products: [],
         Category: String,
@@ -80,6 +79,11 @@ export default {
     scrollToTop() {
       window.scrollTo(0,0);
     },
+  },
+  computed: {
+    mlCategory() {      
+      return new MLBuilder('productCategory').with('c', this.category)
+    }
   }
 };
 </script>

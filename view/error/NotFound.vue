@@ -1,19 +1,20 @@
 <template>
     <div class="notFoundBody">
-        <title>Not Found</title>
+        <title v-text="$ml.get('notFound')"/>
         <p>
             <img :src="'./images/NotFound.png'" class="notFoundImg">
         </p>
-
-        Unable to find <strong> {{ requestedPath }} </strong>
+        <p v-text="$ml.get('PathNotFound')"/>
         <p>
-            <button class="goHomeBtn" v-on:click="goHome()">Home</button>
-            <button class="goBackBtn" v-on:click.prevent="goBack()">Go back</button>
+            <button class="goHomeBtn" v-on:click="goHome()" v-text="$ml.get('home')"/>
+            <button class="goBackBtn" v-on:click.prevent="goBack()" v-text="$ml.get('goBack')"/>
         </p>
 
     </div>
 </template>
 <script>
+import { MLBuilder } from 'vue-multilanguage';
+
 export default {
     data() {
         return {
@@ -27,7 +28,12 @@ export default {
         goHome() {
             this.$router.push('/');
         }
+    },
+    computed: {
+        mlPathNotFound() {      
+      return new MLBuilder('unableToFind').with('p', this.requestedPath)
     }
+  }
 }
 </script>
 

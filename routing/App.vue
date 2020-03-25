@@ -7,7 +7,7 @@
             <div class="navbar">
 
                 <button v-on:click="goRoute('/')">Home</button>
-                <button v-on:click="goToAllProducts()">Products</button>
+                <button v-on:click="goToAllProducts()" v-text="$ml.get('products')"/>
 
                 <categoriesNav />
 
@@ -16,6 +16,8 @@
                 <accountNav />
 
                 <shoppingCartNav />
+
+                <languageNav />
  
             </div>
 
@@ -32,6 +34,7 @@ import CategoriesNav from '../components/CategoriesNav/CategoriesNav.vue';
 import SearchNav from '../components/SearchNav/SearchNav.vue';
 import AccountNav from '../components/AccountNav/AccountNav.vue';
 import ShoppingCartNav from '../components/ShoppingCartNav/ShoppingCartNav.vue';
+import LanguageNav from '../components/LanguageNav/LanguageNav.vue';
 
 import ProductLogic from '../logic/ProductLogic.js';
 
@@ -41,6 +44,7 @@ export default {
         searchNav: SearchNav,
         accountNav: AccountNav,
         shoppingCartNav: ShoppingCartNav,
+        languageNav: LanguageNav
     },
     data() {    
         return {
