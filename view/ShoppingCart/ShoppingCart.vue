@@ -36,7 +36,7 @@
 
                     <td class="shoppingCartOptions">
                         <button v-on:click="removeFromCart(item.product)" v-text="$ml.get('remove')" class="shoppingCartRemoveBtn"/>
-                        <button v-on:click="addToCart(item.product)" v-text="$ml.get('add')" class="shoppingCartAddBtn"/>
+                        <button v-on:click="addToCart(item.product)" :disabled="item.product.stockCount == 0" v-text="$ml.get('add')" class="shoppingCartAddBtn"/>
                         <button v-on:click="navigateToDetails(item.product.id)" v-text="$ml.get('details')" class="shoppingCartDetailsBtn"/>
                     </td>
                 </tr>
@@ -103,11 +103,21 @@ export default {
         },
         addToCart(product) {
 
-            this.cartItems = ProductLogic.addToShoppingCart(product, this.cartItems);
+            this.cartItems.forEach(cartItem => {
+                
+                //check if user has more products in his shoppingcart then exist in the store
+                if(cartItem.product.id == product.id) {
+                    if(product.stockCount - cartItem.quantity > 0) {
+                        
+                        this.cartItems = ProductLogic.addToShoppingCart(product, this.cartItems);
 
-            this.totalQuantity += 1;
+                        this.totalQuantity += 1;
 
-            this.refreshComponents();
+                        this.refreshComponents();
+                    }
+                    else this.$alert('not enough of this product in stock');
+                }
+            });         
         },
         refreshComponents() {
 
@@ -173,6 +183,7 @@ export default {
                                 type: "success",
                                 timer: 3000
                             });
+                            ProductDao.removeBasketProductsFromStore(this.cartItems);
                             this.$cookies.set('shopping_cart', '');
                             this.cartItems = [];
                             this.$root.$emit('updateCount', 0);

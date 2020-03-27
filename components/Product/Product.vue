@@ -14,7 +14,7 @@
         </td>
 
         <td class="productOptions">
-            <button class="AddToCartBtn" v-on:click="addToCart(product.id)" v-text="$ml.get('addToCart')"/>
+            <button class="AddToCartBtn" :disabled="product.stockCount == 0" v-on:click="addToCart(product.id)" v-text="$ml.get('addToCart')"/>
             <div class="optionsDivider" />
             <button class="DetailsBtn" v-on:click="goToProductDetails(product.id, product.name)" v-text="$ml.get('details')"/>
         </td>
@@ -66,17 +66,28 @@ export default {
                 productIds = [];
             }
 
-            productIds.push(productId);
+            let productCount = productIds.filter(x => x == productId).length;
+            
+            //check if user has more products in his shoppingcart then exist in the store
+            if(this.product.stockCount - productCount > 0) {
+                
+                productIds.push(productId);
 
-            this.$cookies.set('shopping_cart', JSON.stringify(productIds));
+                this.$cookies.set('shopping_cart', JSON.stringify(productIds));
 
-            //update shopping cart count for App
-            this.$root.$emit('updateCount', productIds.length);
+                //update shopping cart count for App
+                this.$root.$emit('updateCount', productIds.length);
+            }
+            else this.$alert('not enough of this product in stock');
         }
     },
     computed: {
-        mlStock() {            
-            return new MLBuilder('inStock').with('s', this.product.stockCount);
+        mlStock() {  
+            let stockCount = this.product.stockCount;         
+            if(stockCount > 0) {
+                return new MLBuilder('inStock').with('s', this.product.stockCount);
+            }
+            else return new MLBuilder('outOfStock');
         },
         mlReview() {
             let reviewCount = this.product.reviewCount;

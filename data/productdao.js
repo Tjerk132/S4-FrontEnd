@@ -73,11 +73,25 @@ async function getProductsByName(name) {
     }
 }
 
+async function removeBasketProductsFromStore(products) {
+    try {   
+        let url = baseUrl + "removeBasketItems";
+
+        await axios.post(url, {
+            products: products
+        });
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
 module.exports = {
     getAllProducts,
     getProductById,
     getProductCategories,
     getProductsByCategory,
     getProductsByName,
+    removeBasketProductsFromStore,
 }
 

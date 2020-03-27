@@ -18,9 +18,9 @@ export default
         addToCart: 'Add to cart',
         details: 'Details',
         inStock: '{s} in stock',
+        outOfStock: 'none in stock!',
         review: '{r} review',
         reviews: '{r} reviews',
-
         onPage: 'Currently on page {p} of {m}',
 
         noItemsInCart: 'You have no items in your shopping cart',

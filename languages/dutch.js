@@ -18,6 +18,7 @@ export default
         addToCart: 'Aan winkelwagen toevoegen',
         details: 'Details',
         inStock: '{s} in de voorraad',
+        outOfStock: 'geen op voorraad!',
         review: '{r} review',
         reviews: '{r} reviews',
 
