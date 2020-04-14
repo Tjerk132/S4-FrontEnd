@@ -39,6 +39,7 @@
     "axios": "^0.19.2",
     "emailjs-com": "^2.4.1",
     "jw-vue-pagination": "^1.0.3",
+    "nyc": "^15.0.1",
     "url-loader": "^3.0.0",
     "vue-axios": "^2.1.5",
     "vue-cookies": "^1.6.1",
