@@ -1,4 +1,6 @@
-language: java
-rvm:
-  - 2.2
-  - jruby
+matrix:
+  include:
+    - language: javascript
+      # python: 2.7
+      script:
+        - npm run test
