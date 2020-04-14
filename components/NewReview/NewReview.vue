@@ -1,52 +1,50 @@
 <template>
-    <div class="reviews">
-        <ul class="review">
-            <h4 v-text="$ml.get('createReview')"/>
-            <li>    
-                <p v-text="$ml.get('reviewTitle')"/>
-                <input ref="title" class="inputItem">
-            </li>
-            <li>
-                <p v-text="$ml.get('starRating')"/>
-                <input ref="starRating" :max="5" :min="0" type="number" class="inputItem">
-            </li>
-                <p>
-                    <strong v-text="$ml.get('prosAndCons')"/>
-                </p> 
+    <ul>
+        <h4 v-text="$ml.get('createReview')"/>
+        <li>    
+            <p v-text="$ml.get('reviewTitle')"/>
+            <input ref="title" class="inputItem">
+        </li>
+        <li>
+            <p v-text="$ml.get('starRating')"/>
+            <input ref="starRating" :max="5" :min="0" type="number" class="inputItem">
+        </li>
+            <p>
+                <strong v-text="$ml.get('prosAndCons')"/>
+            </p> 
 
-                <p v-text="$ml.get('ProCon')"/>
-
-                 <ul>
-                    <div v-if="pros.length">
-                        <h5>Pros</h5>
-                        <li v-for="pro in pros" :key="pro.pro">
-                            {{pro}}
-                            <button v-on:click="removePro(pro)" class="removeProConBtn" v-text="$ml.get('remove')"/>
-                        </li>
-                    </div>
-                </ul>
-                <p v-text="$ml.get('addPro')"/>
-                <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem">
+            <p v-text="$ml.get('ProCon')"/>
 
                 <ul>
-                    <div v-if="cons.length">
-                        <h5>Cons</h5>
-                        <li v-for="con in cons" :key="con.con">
-                            {{con}}
-                            <button v-on:click="removeCon(con)" class="removeProConBtn" v-text="$ml.get('remove')"/>
-                        </li>
-                    </div>
-                </ul>
-                <p v-text="$ml.get('addCon')"/>
-                <input ref="con" v-on:keyup.enter='addCon()' class="inputItem">
+                <div v-if="pros.length">
+                    <h5>Pros</h5>
+                    <li v-for="pro in pros" :key="pro.pro">
+                        {{pro}}
+                        <button v-on:click="removePro(pro)" class="removeProConBtn" v-text="$ml.get('remove')"/>
+                    </li>
+                </div>
+            </ul>
+            <p v-text="$ml.get('addPro')"/>
+            <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem">
 
-            <li>
-                <p v-text="$ml.get('content')"/>
-                <textarea ref="content" class="reviewTextArea"></textarea>
-            </li>
-            <button v-on:click="submitReview()" class="submitReviewBtn" v-text="$ml.get('submit')"/>
-        </ul>
-    </div>
+            <ul>
+                <div v-if="cons.length">
+                    <h5>Cons</h5>
+                    <li v-for="con in cons" :key="con.con">
+                        {{con}}
+                        <button v-on:click="removeCon(con)" class="removeProConBtn" v-text="$ml.get('remove')"/>
+                    </li>
+                </div>
+            </ul>
+            <p v-text="$ml.get('addCon')"/>
+            <input ref="con" v-on:keyup.enter='addCon()' class="inputItem">
+
+        <li>
+            <p v-text="$ml.get('content')"/>
+            <textarea ref="content" class="reviewTextArea"></textarea>
+        </li>
+        <button v-on:click="submitReview()" class="submitReviewBtn" v-text="$ml.get('submit')"/>
+    </ul>
 </template>
 
 <script>
@@ -104,7 +102,7 @@ export default {
         submitReview() {
 
             if(Object.keys(this.author).length === 0 || this.author === '{}') {
-                this.$alert("You are not logged in");
+                this.$alert(this.$ml.get('notLoggedIn'));
                 return;
             }
             

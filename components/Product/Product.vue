@@ -14,9 +14,13 @@
         </td>
 
         <td class="productOptions">
-            <button class="AddToCartBtn" :disabled="product.stockCount == 0" v-on:click="addToCart(product.id)" v-text="$ml.get('addToCart')"/>
-            <div class="optionsDivider" />
-            <button class="DetailsBtn" v-on:click="goToProductDetails(product.id, product.name)" v-text="$ml.get('details')"/>
+            <div class="optionsDividerSmall" />
+      
+            <button :class="product.stockCount == 0 ? 'AddToCartBtnDisabled' : 'AddToCartBtn'"  v-on:click="addToCart(product.id)" v-text="$ml.get('addToCart')"/>
+           
+            <div class="optionsDividerLarge" />
+
+            <button class="DetailsBtn" v-on:click="goToProductDetails(product.id, product.name)" v-text="$ml.get('details')"/>             
         </td>
 
         <td class="productDetails">
@@ -78,7 +82,7 @@ export default {
                 //update shopping cart count for App
                 this.$root.$emit('updateCount', productIds.length);
             }
-            else this.$alert('not enough of this product in stock');
+            else this.$alert(this.$ml.get('notEnoughInStock'));
         }
     },
     computed: {
@@ -100,4 +104,4 @@ export default {
 }
 </script>
 
-<style src='./Product.css'></style>
+<style scoped src='./Product.css'></style>

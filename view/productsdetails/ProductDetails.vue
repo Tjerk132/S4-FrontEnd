@@ -17,8 +17,9 @@
                 </div>
                 <div v-else v-text="$ml.get('noReviewsYet')"/>
             </ul>
+            <NewReview :key="newReviewKey" class="review"/>
         </div>
-        <NewReview :key="newReviewKey"/>
+ 
     </div>
 </template>
 
@@ -69,7 +70,6 @@ export default {
         addReview(review) {
             //save new review
             review.setProductId(this.id);  
-
             //send review to server and return to convert date to timeStamp
             ReviewDao.addReview(review)
                 .then(review => {

@@ -22,7 +22,7 @@ async function addReview(review) {
 
         let url = baseUrl + "add";
 
-        // //send review in json format
+        //send review in json format
         let res = await axios.post(url, {
             // id: 0,
             productId: review.productId,

@@ -1,24 +1,15 @@
-function validateRegister(email, ...refs) {
+function validateRegister(...refs) {
 
-    let message;
-
-    
-    let emailMessage = validateEmail(email);
-
-    if(emailMessage != undefined) {
-        message = emailMessage;
-    }
-
+    let valid = true;
 
     refs.forEach(ref => {
         let input = ref.value;
         
         if(input == undefined || !input.trim()) {
-            message = 'One or more fields were not filled in correctly';
+            valid = false;
         }
-    });    
-
-    return message;
+    }); 
+    return valid;   
 }
 
 function validateEmail(email) {
@@ -27,10 +18,12 @@ function validateEmail(email) {
 
     if(!emailReg.test(email))
     {
-        return "Please enter a correct emailaddress";
+        return false;
     }
+    return true;
 }
 
 export default {
     validateRegister,
+    validateEmail
 }

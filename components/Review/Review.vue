@@ -53,4 +53,4 @@ export default {
 }
 </script>
 
-<style src='./Review.css'></style>
+<style scoped src='./Review.css'></style>

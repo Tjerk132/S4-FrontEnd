@@ -18,13 +18,15 @@ export default
         addToCart: 'Add to cart',
         details: 'Details',
         inStock: '{s} in stock',
-        outOfStock: 'none in stock!',
+        outOfStock: 'Out of stock!',
+        notEnoughInStock: 'Not enough of this product in stock',
         review: '{r} review',
         reviews: '{r} reviews',
         onPage: 'Currently on page {p} of {m}',
 
         noItemsInCart: 'You have no items in your shopping cart',
         itemsInCart: 'Your shopping cart has {p} products',
+        itemInCart: 'Your shopping cart has 1 product',
 
         quantity: 'Quantity',
         name: 'Name',
@@ -62,14 +64,24 @@ export default
         username: 'Username',
         password: 'Password',
         repeatPassword: 'Repeat password',
+        passwordsDontMatch: 'The passwords do not match',
+        emailIncorrect: 'Please enter a valid emailaddress',
+        oneOrMoreFieldsIncorrect: 'One or more fields were not filled in correct',
+
         rememberMe: 'Remember me',
         byCreatingAccount: 'By creating an account you agree to our ',
+
         register: 'Register',
+        registerAlreadyExists: 'A user with that username already exists',
+        registerSuccess: 'register success, you have been logged in',
 
         loginMessage: 'Please fill in this form to sign in',
 
         cancel: 'Cancel',
         login: 'Login',
+        notLoggedIn: 'You are not logged in',
+        loginSuccess: 'Login success',
+        loginFailed: 'Unable to login',
         logout: 'Logout',
 
         viewAll: 'View all',
@@ -91,5 +103,8 @@ export default
         search: 'Search',
         suggestions: 'Suggestions',
         searchedBefore: 'You searched before',
-        searchFor: 'Search for...'
+        searchFor: 'Search for...',
+
+        successSendEmail: 'An email has successfully been send to the email corresponding to your account',
+
     })

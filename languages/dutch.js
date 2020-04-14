@@ -18,7 +18,8 @@ export default
         addToCart: 'Aan winkelwagen toevoegen',
         details: 'Details',
         inStock: '{s} in de voorraad',
-        outOfStock: 'geen op voorraad!',
+        outOfStock: 'Geen op voorraad!',
+        notEnoughInStock: 'Niet genoeg van dit product in de voorraad',
         review: '{r} review',
         reviews: '{r} reviews',
 
@@ -26,6 +27,7 @@ export default
 
         noItemsInCart: 'Je hebt momenteel geen producten in je winkelwagen',
         itemsInCart: 'Je winkelwagen bevat {p} producten',
+        itemInCart: 'Je winkelwagen bevat 1 product',
 
         quantity: 'Aantal',
         name: 'Naam',
@@ -63,14 +65,24 @@ export default
         username: 'Gebruikersnaam',
         password: 'Wachtwoord',
         repeatPassword: 'Herhaal wachtwoord',
+        passwordsDontMatch: 'De wachtwoorden komen niet overeen',
+        emailIncorrect: 'Gelieve een geldig emailaddress in te vullen',
+        oneOrMoreFieldsIncorrect: 'Een of meerdere velden waren niet correct ingevuld',
+
         rememberMe: 'Onthoud me',
         byCreatingAccount: 'Door een account aan te maken gaat u akkoord met onze ',
+
         register: 'Registreren',
+        registerAlreadyExists: 'Een gebruiker met die gebruikersnaam bestaat al',
+        registerSuccess: 'registreren successvol, Je bent nu ingelogd',
 
         loginMessage: 'Vul dit formulier in om in te loggen',
 
         cancel: 'Annuleren',
         login: 'Inloggen',
+        notLoggedIn: 'Je bent niet ingelogd',
+        loginSuccess: 'Login success',
+        loginFailed: 'Niet in staat om in te loggen',
         logout: 'Uitloggen',
 
         viewAll: 'Bekijk alle',
@@ -92,5 +104,7 @@ export default
         search: 'Zoeken',
         suggestions: 'Suggesties',
         searchedBefore: 'Je zocht eerder',
-        searchFor: 'Zoek voor...'
+        searchFor: 'Zoek voor...',
+
+        successSendEmail: 'Een email is successvol verstuurd naar het emailaddress die behoort bij uw account',
     })

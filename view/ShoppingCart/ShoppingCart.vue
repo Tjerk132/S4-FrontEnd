@@ -115,7 +115,7 @@ export default {
 
                         this.refreshComponents();
                     }
-                    else this.$alert('not enough of this product in stock');
+                    else this.$alert(this.$ml.get('notEnoughInStock'));
                 }
             });         
         },
@@ -145,7 +145,7 @@ export default {
             let user = this.$session.get('user');
             
             if(user == undefined) {
-                this.$alert('You are not logged in');
+                this.$alert(this.$ml.get('notLoggedIn'));
                 return;
             }
 
@@ -179,7 +179,7 @@ export default {
                             //catch result with then(r) -> r.value
                             this.$fire({
                                 title: "Vue Product Store",
-                                text: "An email has successfully been send to the email corresponding to your account",
+                                text: this.$ml.get('successSendEmail'),
                                 type: "success",
                                 timer: 3000
                             });
@@ -201,8 +201,12 @@ export default {
         }
     },
     computed: {
-        mlCartItems() {            
-            return new MLBuilder('itemsInCart').with('p', this.totalQuantity);
+        mlCartItems() {      
+            //user has 1 item in his shoppingcart with 1 quantity
+            if(this.cartItems.length == 1 && this.cartItems[0].quantity == 1) {
+                return new MLBuilder('itemInCart');
+            }   
+            else return new MLBuilder('itemsInCart').with('p', this.totalQuantity);
         },
         mlTotalCosts() {
             return new MLBuilder('totalCosts').with('c', this.totalCosts);

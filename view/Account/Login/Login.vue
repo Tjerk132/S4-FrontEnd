@@ -47,10 +47,10 @@ export default {
             UserDao.loginUser(username, password)
                 .then((response) => {
                     if(response == 404) {
-                        this.message = 'Unable to login';
+                        this.message = this.$ml.get('loginFailed');
                     }
                     else {
-                        this.message = 'Login Success';
+                        this.message = this.$ml.get('loginSuccess');
 
                         let user = response;
 

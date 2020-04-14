@@ -57,18 +57,23 @@ export default {
             let repeatPassword = registerRefs.repeatPassword.value;
 
             if(password != repeatPassword) {
-                this.$alert('passwords do not match');
+                this.$alert(this.$ml.get('passwordsDontMatch'));
                 return;
             }
             
             let emailAddress = registerRefs.email.value;
 
-            let message = AccountLogic.validateRegister(emailAddress,
-             registerRefs.username,
-             registerRefs.password);
+            let correctEmail = AccountLogic.validateEmail(emailAddress);
+
+            if(!correctEmail) {
+               this.$alert(this.$ml.get('emailIncorrect'));
+               return;
+            }
+
+            let correctInput = AccountLogic.validateRegister(registerRefs.username, registerRefs.password);
             
-            if(message != undefined) {
-                this.$alert(message);
+            if(!correctInput) {
+                this.$alert(this.$ml.get('oneOrMoreFieldsIncorrect'));
                 return;
             }
 
@@ -77,10 +82,10 @@ export default {
             UserDao.registerUser(username, password, emailAddress)
                 .then((response) => {
                     if(response == 400) {
-                        this.$alert('A user with that username already exists');
+                        this.$alert(this.$ml.get('registerAlreadyExists'));
                     }
                     else {
-                        this.message = 'register success, you have been logged in';
+                        this.message = this.$ml.get('registerSuccess');
 
                         let user = response;
 
