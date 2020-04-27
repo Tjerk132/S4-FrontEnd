@@ -14,11 +14,11 @@
         </td>
 
         <td class="productOptions">
-            <div class="optionsDividerSmall" />
+            <!-- <div class="optionsDividerSmall" /> -->
       
             <button :class="product.stockCount == 0 ? 'AddToCartBtnDisabled' : 'AddToCartBtn'"  v-on:click="addToCart(product.id)" v-text="$ml.get('addToCart')"/>
            
-            <div class="optionsDividerLarge" />
+            <!-- <div class="optionsDividerLarge" /> -->
 
             <button class="DetailsBtn" v-on:click="goToProductDetails(product.id, product.name)" v-text="$ml.get('details')"/>             
         </td>

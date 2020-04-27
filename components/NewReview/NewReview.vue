@@ -145,4 +145,4 @@ export default {
 }
 </script>
 
-<style src='./NewReview.css'></style>
+<style src='./NewReview.css' scoped></style>

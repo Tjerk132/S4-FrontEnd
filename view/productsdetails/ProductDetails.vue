@@ -1,33 +1,21 @@
 <template>
-    <div id="app">
-        <title v-text="$ml.get('Details')"/>
+    <div class="productDetails">
+        <div class="productReviews">
+            <title v-text="$ml.get('Details')"/>
 
-        <h3 v-text="$ml.get('Details')">(id:{{product.id}})</h3>
+            <h3 v-text="$ml.get('Details')">(id:{{product.id}})</h3>
 
-        <h4 v-text="$ml.get('Reviews')"/>
-        <div class="reviews">
-            <ul>
-                <div v-if="reviews.length">
-                    <li class="review">
-                        <ReviewSummary :Reviews='reviews'/>
-                    </li>
-                    <li v-for="review in reviews" :key="review.review" class="review">
-                        <ReviewComp :Review='review'/>
-                    </li>
-                </div>
-                <div v-else v-text="$ml.get('noReviewsYet')"/>
-            </ul>
-            <NewReview :key="newReviewKey" class="review"/>
+            <ReviewsComp v-if="!loadingData" :Reviews='reviews' :Product='product' />
         </div>
+
+        <suggestions v-if="!loadingData" :Category='product.category' :ProductId='product.id' class="productSuggestions"/>
  
     </div>
 </template>
 
 <script>
-import Review from '../../models/Review.js';
-import NewReview from '../../components/NewReview/NewReview.vue';
-import ReviewComp from '../../components/Review/Review.vue';
-import ReviewSummary from '../../components/ReviewSummary/ReviewSummary.vue';
+import ReviewsComp from '../../components/Reviews/Reviews.vue';
+import Suggestions from '../../components/Suggestions/Suggestions.vue';
 
 import ReviewDao from '../../data/reviewdao.js';
 import ProductDao from '../../data/productdao.js';
@@ -37,9 +25,8 @@ import { MLBuilder } from 'vue-multilanguage';
 export default {
 
     components: {
-        NewReview,
-        ReviewComp,
-        ReviewSummary
+        ReviewsComp,
+        Suggestions
     },
     props: {    
       id: Number,    
@@ -47,23 +34,25 @@ export default {
     data() {
         return {
             product: Object,
-            reviews: [],
-            newReviewKey: 0,
-        };
+            reviews: Array,
+            loadingData: 2
+        }
     },
     mounted() {
-        
+
         window.scrollTo(0,0);
 
         ProductDao.getProductById(this.id)
-                .then((product) => {
-            
-            this.product = product;
+            .then((product) => {
+                this.product = product;  
+                this.loadingData -= 1;
         });
 
         ReviewDao.getAllReviewsByProduct(this.id)
             .then((reviews) => {
+        
                 this.reviews = reviews;
+                this.loadingData -= 1;  
         });
     },  
     methods: {
@@ -82,9 +71,6 @@ export default {
     computed: {
         mlDetails() {            
             return new MLBuilder('detailsFor').with('p', this.product.name);
-        },
-        mlReviews() {            
-            return new MLBuilder('reviewsFor').with('p', this.product.name);
         },
     },
     created() {

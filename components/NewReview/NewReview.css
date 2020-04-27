@@ -1,3 +1,7 @@
+.review {
+    margin-top: 0;
+}
+
 .inputItem {
     width: 70%;
     margin: 0;  
@@ -16,7 +20,6 @@ p {
     margin-top: -14px;
     font-size: 13.5px;
 }
-
 
 .removeProConBtn {
     font-size: 12px;

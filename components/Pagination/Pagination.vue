@@ -1,13 +1,13 @@
 <template>
     <div>
         <span v-if="products.length > pageSize" v-text="$ml.get('Page')"/>
-        <table class="productsTable">
-            <tr v-for="product in pageOfItems" :key="product.id">
-                <ProductComp :Product='product'></ProductComp>
-            </tr>
-        </table>    
+        <ul class="products">
+            <li v-for="product in pageOfItems" :key="product.id" class="product">
+                <ProductComp :Product='product'/>
+            </li>
+        </ul>    
         <div v-show="products.length > pageSize" class="navigation">
-            <pagination :items="products" :pageSize="PageSize" :labels="customLabels" :disableDefaultStyles="true" @changePage="onChangePage"></pagination>
+            <pagination :items="products" :pageSize="PageSize" :labels="customLabels" :disableDefaultStyles="true" @changePage="onChangePage"/>
         </div>
     </div>
 </template>
@@ -25,12 +25,12 @@ const customLabels = {
 };
 
 export default {
+    components: {
+        ProductComp
+    },
     props: {
         Products: Array,
         PageSize: Number
-    },
-    components: {
-        ProductComp,
     },
     data() {
         return {
@@ -43,6 +43,7 @@ export default {
         }
     },
     mounted() {
+
         this.products = this.Products;
         this.pageSize = this.PageSize;
 

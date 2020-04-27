@@ -58,6 +58,9 @@ export default
 
         reviewUseful: 'Was deze review nuttig?',
 
+        showMoreReviews: 'Laat meer reviews zien',
+        showLessReviews: 'Laat minder reviews zien',
+
         numberOfReviews: 'Aantal reviews: {r}',
         outOf: 'van de {t}',
 
@@ -105,6 +108,8 @@ export default
         suggestions: 'Suggesties',
         searchedBefore: 'Je zocht eerder',
         searchFor: 'Zoek voor...',
+
+        suggestionsByCategory: 'Suggesties voor categorie {c}',
 
         successSendEmail: 'Een email is successvol verstuurd naar het emailaddress die behoort bij uw account',
     })

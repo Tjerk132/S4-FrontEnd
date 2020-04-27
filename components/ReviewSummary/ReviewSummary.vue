@@ -47,6 +47,7 @@ export default {
     },
     mounted() {
         console.log('creating a review summary');
+        
         let reviews = this.Reviews;
 
         this.reviewCount = reviews.length;

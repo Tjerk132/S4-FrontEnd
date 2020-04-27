@@ -57,6 +57,9 @@ export default
 
         reviewUseful: 'Was this review useful?',
 
+        showMoreReviews: 'Show more reviews',
+        showLessReviews: 'Show less reviews',
+
         numberOfReviews: 'Number of reviews: {r}',
         outOf: 'out of {t}',
 
@@ -104,6 +107,8 @@ export default
         suggestions: 'Suggestions',
         searchedBefore: 'You searched before',
         searchFor: 'Search for...',
+
+        suggestionsByCategory: 'Suggestions for category {c}',
 
         successSendEmail: 'An email has successfully been send to the email corresponding to your account',
 

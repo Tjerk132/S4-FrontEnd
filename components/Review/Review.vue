@@ -38,7 +38,7 @@
 import Review from '../../models/Review.js';
 
 export default {
-     props: {    
+    props: {    
       Review: Object
     },
     data() {

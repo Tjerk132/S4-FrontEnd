@@ -28,9 +28,7 @@ export default {
     if(user != undefined) {
       this.username = user.username;
     }    
-    else this.username = 'Guest';    
-
-    console.log('in home mounted'); 
+    else this.username = 'Guest';     
   },
 };
 </script>
