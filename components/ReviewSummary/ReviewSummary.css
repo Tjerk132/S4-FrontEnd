@@ -26,6 +26,10 @@
 
  /* progressbar -> */
 
+ .starAverageProgressBar {
+    vertical-align: unset;
+ }
+
 /* IE10 */
 progress {
     width: 68%;

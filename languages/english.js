@@ -8,6 +8,7 @@ export default
         homeGreeting: 'Welcome to the product store!',
 
         productPage: 'Products page',
+        category: 'Category',
         productCategory: 'Products for category: {c}',
         productsAll: 'All products',
         NoProductsFound: 'No products found for this category',
@@ -17,11 +18,15 @@ export default
         description: 'Description',
         addToCart: 'Add to cart',
         details: 'Details',
+        stockCount: 'In Stock',
+        reviewCount: 'Number of reviews',
         inStock: '{s} in stock',
         outOfStock: 'Out of stock!',
         notEnoughInStock: 'Not enough of this product in stock',
         review: '{r} review',
         reviews: '{r} reviews',
+        Productprice: 'Price: {p}',
+
         onPage: 'Currently on page {p} of {m}',
 
         noItemsInCart: 'You have no items in your shopping cart',
@@ -97,6 +102,7 @@ export default
         result: '1 result for {q}',
         results: '{r} results for {q}',
         noResults: 'No results for {q}',
+        noResultsInfo: 'Sorry, but nothing matched your search criteria, please try again with some different keywords',
 
         notFound: 'Not found',
         unableToFind: 'Unable to find {p}',
@@ -104,12 +110,32 @@ export default
         goBack: 'Go back',
 
         search: 'Search',
-        suggestions: 'Suggestions',
+        suggestions: 'Suggestions ({s})',
         searchedBefore: 'You searched before',
         searchFor: 'Search for...',
 
         suggestionsByCategory: 'Suggestions for category {c}',
+        topRatedFromStore: 'Top rated products from the store',
 
         successSendEmail: 'An email has successfully been send to the email corresponding to your account',
+        errorSendEmail: 'Failed sending email',
+        modifyProductPage: 'Modify Product',
+        editProductBtn: 'Edit product',
+        editProduct: 'Edit product {p}',
+        save: 'Save',
+        imageUrl: 'Image Url',
+
+        errorInsertPrice: 'Please insert a correct price',
+        errorInsertStockCount: 'Please insert a correct stock count',
+        errorInsertCategory: 'Please choose a valid category',
+
+        successEditProduct: 'Product successfully modified',
+        errorEditProduct: 'Something went wrong modifying the product: code {c}',
+
+        addProductPage: 'Create product',
+        addProduct: 'Create a product',
+
+        successAddProduct: 'Product created successfull',
+        errorAddProduct: 'Something went wrong creating the product: code {c}',
 
     })

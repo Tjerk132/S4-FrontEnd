@@ -1,0 +1,43 @@
+/* navbar > */
+.navbar {
+    overflow: hidden;
+    background-color:rgb(42, 104, 39);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 1200px;
+    border:rgb(20, 20, 20);
+    box-shadow: 0px 15px 10px -15px #111;    
+    z-index: 999;
+  }
+ 
+ .navbar button {
+    float: left;
+    font-size: 17px;
+    margin: 5px;
+    height: 55px;
+    width: 132px;
+ }
+ 
+ .navbar button:hover {
+    background: #ddd;
+    color: rgb(42, 104, 39);
+ }
+
+ .navbar button:last-child:hover {
+    /* for shopping cart text */
+    color: black;
+ }
+ 
+@media screen and (max-width: 360px) {
+   .navbar button {
+      font-size: 20px;
+      max-width: 70px;
+      margin: auto;
+      min-width: 100%;
+   }
+   .navbar {
+      min-width: 100%;
+   }
+}

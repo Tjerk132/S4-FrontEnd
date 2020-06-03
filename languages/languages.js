@@ -1,5 +1,5 @@
-import English from './english.js';
-import Dutch from './dutch.js';
+import English from '@/languages/english.js';
+import Dutch from '@/languages/dutch.js';
 
 const languages = [
 

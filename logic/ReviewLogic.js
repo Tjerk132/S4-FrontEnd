@@ -22,14 +22,20 @@ function validateReviewSubmit(refs) {
     //validate no empty fields 
     let message; 
     refs.forEach(ref => {
-        if(!ref.value || !ref.value.trim()) {
+        if(ref.name === 'Star Rating') {
+
+            if(ref.value < 1 || ref.value > 5) {
+                message ='Please insert a star rating';
+            }
+        }
+        else if(!ref.value || !ref.value.trim()) {
             message = 'Please fill in the ' + ref.name + ' field';
         }
     });
     return message;
 }
 
-module.exports = {
+export default {
     removeItem,
     validateProConInput,
     validateReviewSubmit,

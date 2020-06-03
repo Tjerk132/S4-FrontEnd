@@ -1,11 +1,11 @@
-let host = require('./host.js').host;
+import axios from '@/services/base-api.js';
 
-let baseUrl = 'http://' + host.ip + ":" + host.port + '/reviews/';
+let basePath = '/reviews';
 
 async function getAllReviewsByProduct(id) {
 
-    try {
-        let url = baseUrl + "product/" + id;
+    try {        
+        let url = `${basePath}/product/${id}`;
 
         let res = await axios.get(url);
 
@@ -20,22 +20,11 @@ async function addReview(review) {
 
     try {
 
-        let url = baseUrl + "add";
+        let url = `${basePath}/add`;
 
-        //send review in json format
-        let res = await axios.post(url, {
-            // id: 0,
-            productId: review.productId,
-            author: review.author,
-            date: review.date,
-            title: review.title,
-            content: review.content,
-            starRating: review.starRating,
-            // liked: 0,
-            pros: review.pros,
-            cons: review.cons
-
-        });
+        console.log(review);
+        
+        let res = await axios.post(url, review);
 
         return res.data;
     }

@@ -14,10 +14,8 @@
         <p class="OutOfText" v-text="$ml.get('OutOf')"/>
         <div class="RatingStars">
             <div v-for="average in reviewAverages" :key="average.average">
-                <span v-for="star in average.starRating" :key="star.star">
-                    ★
-                </span>
-                    <progress v-bind:value="average.percentage" max="100">
+                <star-rating :rating="average.starRating" :inline="true" :read-only="true" :star-size="20" :show-rating="false"></star-rating>
+                    <progress v-bind:value="average.percentage" class="starAverageProgressBar" max="100">
                         {{average.percentage}}%
                     </progress>
                     {{average.quantity}}
@@ -27,8 +25,8 @@
 </template>
 
 <script>
-import ReviewSummaryLogic from '../../logic/ReviewSummaryLogic.js';
-import ReviewSummaryItem from '../../models/ReviewSummaryItem.js';
+import ReviewSummaryLogic from '@/logic/ReviewSummaryLogic.js';
+import ReviewSummaryItem from '@/models/ReviewSummaryItem.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 

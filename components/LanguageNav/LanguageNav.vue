@@ -1,7 +1,8 @@
 <template>
-    <div class="languageOptions-container">
-        <button v-on:click="changeShowLanguageOptions" v-text="$ml.get('changeLanguage')" class="changeLanguageBtn"/>
-      
+    <div class="languageOptions-container" v-on:mouseleave="showLanguageOptions = false">
+        <button v-on:mouseover="showLanguageOptions = true" v-on:click="showLanguageOptions = !showLanguageOptions" v-text="$ml.get('changeLanguage')" class="changeLanguageBtn">
+        </button>
+
         <nav class="languageOptions">
             <ul>
                 <li v-show="showLanguageOptions">
@@ -24,9 +25,6 @@ export default {
         }
     },
     methods: {
-        changeShowLanguageOptions() {
-            this.showLanguageOptions = !this.showLanguageOptions;
-        },
         changeLanguage(lang) {
             this.$ml.change(lang);
             this.showLanguageOptions = false;

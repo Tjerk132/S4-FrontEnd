@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { MLInstaller, MLCreate } from 'vue-multilanguage';
-import Languages from '../languages/languages.js';
+import Languages from '@/languages/languages.js';
  
 Vue.use(MLInstaller);
 

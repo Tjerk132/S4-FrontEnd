@@ -1,23 +1,22 @@
 .notFoundBody {
     text-align: center;
-    margin-left: 400px;
-    width: 300px;
+    overflow: hidden;
+    width: 400px;
+    margin: 0 auto;
 }
 
 .notFoundImg {
     width: 250px;
-    height: 170px;
-
+    height: 140px;
     margin-left: auto;
     margin-right: auto;
     display: block;
 }
 
 .goHomeBtn {
-    padding: 12px 22px;
+    float: left;;
 }
 
 .goBackBtn {
-    padding: 12px 22px;
-    margin-left: 93px;
+    float: right;
 }

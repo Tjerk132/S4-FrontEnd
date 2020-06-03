@@ -1,50 +1,60 @@
-
- .appPage {
+.appPage {
     overflow: hidden;
- }
+}
 
- .appTitle {
+.appTitle {
     float: left;
- }
+}
 
-  /* navbar > */
- .navbar {
-    overflow: hidden;
-    background-color:rgb(42, 104, 39);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-width: 1200px;
-    border:rgb(20, 20, 20);
-    box-shadow: 0px 15px 10px -15px #111;    
-  }
- 
- .navbar button {
-    float: left;
-    font-size: 17px;
-    margin: 5px;
-    height: 55px;
-    width: 132px;
- }
- 
- .navbar button:hover {
-    background: #ddd;
-    color: rgb(42, 104, 39);
- }
+body {
+   min-width:700px;
+   width: auto !important;  /* Firefox will set width as auto */
+   width:700px;            /* As IE6 ignores !important it will set width as given px; */
+   font-family: Arial, Helvetica, sans-serif;
+   padding: 50px 10px;
+}
 
- .navbar button:last-child:hover {
-    /* for shopping cart text */
-    color: black;
- }
- 
-@media screen and (max-width: 740px) {
-   .navbar button {
-      margin: 1px;
-      font-size: 15px;
+footer {
+   text-align: center;
+}
+
+/* button >> */
+button {
+
+   background-color: rgb(42, 104, 39);
+   color: white;
+   -webkit-transition-duration: 0.4s;
+   /* for compatibility */
+   transition-duration: 0.4s;
+   padding: 12px 24px;
+   text-align: center;
+   font-size: 16px;
+   font-family:Arial;
+}
+
+button:hover {
+   cursor: pointer;
+}
+/* << button */
+
+textarea {
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+ul {
+   padding: 0;
+   list-style-type: none;
+}
+
+.toTopBtn {
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 360px) {
+
+   body {
+       min-width: 100%;
+       margin: 0 auto;
    }
-   .navbar {
-      position: absolute;
-      height: 58px;
-   }
- }
+}

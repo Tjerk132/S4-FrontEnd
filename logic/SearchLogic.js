@@ -13,6 +13,6 @@ function chechExistingHistory(historyItems) {
     return historyItems = undefined ? [] : historyItems;
 }
 
-module.exports = {
+export default {
     removeFromSearchHistory,
 }

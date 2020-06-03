@@ -8,6 +8,7 @@ export default
         homeGreeting: 'Welkom bij de producten winkel!',
 
         productPage: 'Producten pagina',
+        category: 'Categorie',
         productCategory: 'Producten voor de categorie: {c}',
         productsAll: 'Alle producten',
         NoProductsFound: 'Geen producten gevonden voor deze categorie',
@@ -17,11 +18,14 @@ export default
         description: 'Beschrijving',
         addToCart: 'Aan winkelwagen toevoegen',
         details: 'Details',
+        stockCount: 'In de voorraad',
+        reviewCount: 'Aantal reviews',
         inStock: '{s} in de voorraad',
         outOfStock: 'Geen op voorraad!',
         notEnoughInStock: 'Niet genoeg van dit product in de voorraad',
         review: '{r} review',
         reviews: '{r} reviews',
+        Productprice: 'Prijs: {p}',
 
         onPage: 'Momenteel op pagina {p} van {m}',
 
@@ -98,6 +102,7 @@ export default
         result: '1 resultaat voor {q}',
         results: '{r} resultaten voor {q}',
         noResults: 'Geen resultaten voor {q}',
+        noResultsInfo: 'Sorry, maar er uw zoekcriteria hebben geen resultaten opgeleverd, probeer het nog eens met andere zoekwoorden',
 
         notFound: 'Niet gevonden',
         unableToFind: 'Het pad {p} is niet gevonden',
@@ -105,11 +110,32 @@ export default
         goBack: 'Ga terug',
 
         search: 'Zoeken',
-        suggestions: 'Suggesties',
+        suggestions: 'Suggesties ({s})',
         searchedBefore: 'Je zocht eerder',
         searchFor: 'Zoek voor...',
 
         suggestionsByCategory: 'Suggesties voor categorie {c}',
+        topRatedFromStore: 'Best beoordeelde producten van de winkel',
 
         successSendEmail: 'Een email is successvol verstuurd naar het emailaddress die behoort bij uw account',
+        errorSendEmail: 'Er ging iets mis bij het verzenden van de email',
+        modifyProductPage: 'Product aanpassen',
+        editProductBtn: 'Pas product aan',
+        editProduct: 'Pas product {p} aan',
+        save: 'Opslaan',
+        imageUrl: 'Afbeelding Url',
+
+        errorInsertPrice: 'Voer een geldige prijs in',
+        errorInsertStockCount: 'Voer een geldige stock count in',
+        errorInsertCategory: 'Voer een geldige category in',
+
+        successEditProduct: 'Product successvol aangepast',
+        errorEditProduct: 'Er ging iets mis bij het aanpassen van het product: code {c}',
+
+        addProductPage: 'Product aanmaken',
+        addProduct: 'Maak een product aan',
+
+        successAddProduct: 'Product successvol aangemaakt',
+        errorAddProduct: 'Er ging iets mis bij het aanmaken van het product: code {c}',
+
     })

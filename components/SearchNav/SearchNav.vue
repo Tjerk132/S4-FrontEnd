@@ -3,14 +3,14 @@
            
        <input ref="searchQuery" v-on:click='showHistory()' v-on:keyup.enter='search()' v-on:keyup='getSuggestions()' :placeholder="$ml.get('searchFor')">
 
-       <nav ref="searchQueries" v-show="showQueries || showSuggestions" class="queryHistoryBar">
+       <nav ref="searchQueries" v-show="showQueries || showSuggestions" class="searchResultsBar">
             <ul>
                 <div v-show="showQueries">
                     <li class="searchBarHeader" v-text="$ml.get('searchedBefore')"/>
                     
                     <li v-for="query in historyQueries" :key="query.query"> 
                         <span>  
-                            <p v-on:click='searchSelected(query)'>         
+                            <p v-on:click='searchQuery(query)'>         
                                 {{query}}
                             </p>
                             <a v-on:click='removeFromHistory(query)' v-text="$ml.get('remove')"/>
@@ -19,17 +19,15 @@
                 </div>
 
                 <div v-show="showSuggestions">
-                    <li class="searchBarHeader" v-text="$ml.get('suggestions')"/>
+                    <li class="searchBarHeader" v-text="$ml.get('Suggestions')"/>
 
-                    <li class="searchBarSuggestion"  v-on:click='searchSelected(suggestion.name)' v-for="suggestion in suggestions" :key="suggestion.suggestion">  
+                    <li class="searchBarSuggestion"  v-on:click='searchSelected(suggestion.id)' v-for="suggestion in suggestions" :key="suggestion.suggestion">  
                         <img class="suggestionImg" v-bind:src="suggestion.imageUrl"> 
                         <p class="suggestionName">         
                             {{suggestion.name}}
                         </p> 
                         <p class="suggestionRating">
-                            {{suggestion.reviewCount}} 
-                            <span v-if="suggestion.reviewCount == 1">review</span>
-                            <span v-else>reviews</span>
+                            <span v-text="$ml.with('r', suggestion.reviewCount).get(suggestion.reviewCount == 1 ? 'review' : 'reviews')"/>
                         </p>
                         <strong class="suggestionPrice">{{suggestion.price}},-</strong>                 
                     </li>
@@ -41,10 +39,12 @@
 </template>
 
 <script>
-import ProductDao from '../../data/productdao.js';
-import SearchLogic from '../../logic/SearchLogic.js';
+import ProductDao from '@/data/productdao.js';
+import SearchLogic from '@/logic/SearchLogic.js';
 
-import SearchQuery from '../../models/SearchQuery.js';
+import { MLBuilder } from 'vue-multilanguage';
+
+import SearchQuery from '@/models/SearchQuery.js';
 
 export default {
 
@@ -69,6 +69,11 @@ export default {
             this.showQueries = false;
         });
 
+    },
+    computed: {
+        mlSuggestions() {            
+            return new MLBuilder('suggestions').with('s', this.suggestions.length);
+        },
     },
     methods: {
         search() {
@@ -96,7 +101,7 @@ export default {
                          query: { query: searchQuery }
                     });
                 }
-                this.refreshInput();
+                this.refreshSearchNav();
             }
 
         },
@@ -119,16 +124,19 @@ export default {
                 this.suggestions = [];
 
                 this.showSuggestions = false;
-                this.showQueries = true;
+ 
+                if(this.historyQueries.length) {
+                    this.showQueries = true;
+                }
             }
         },
         showHistory() {
             let input = this.$refs.searchQuery.value;
             //input not empty
-            if(input != '' && input.trim()) {
+            if(input === '' || input.trim()) {
                 this.showQueries = false;
             }
-            this.showQueries = !this.showQueries;    
+            else this.showQueries = !this.showQueries;    
         },
         removeFromHistory(historyQuery) {
             let queryHistory = SearchLogic.removeFromSearchHistory(historyQuery, this.historyQueries);
@@ -140,23 +148,33 @@ export default {
             ));
             this.showQueries = this.historyQueries.length;
         },
-        searchSelected(selectedQuery) {
+        searchQuery(query) {
+            if(this.$route.query.query != query) {
 
-            if(this.$route.query.query != selectedQuery) {
-            
-                this.$router.push({
+                  this.$router.push({
                         name: 'search',
-                        query: { query: selectedQuery }
+                        query: { query: query }
                 });
 
-                this.showQueries = false;
-                this.showSuggestions = false;
-
-                this.refreshInput();
+                this.refreshSearchNav();
             }
         },
-        refreshInput() {
+        searchSelected(suggestionId) {
+
+            if(this.$route.query.id != suggestionId) {
+
+                  this.$router.push({
+                        name: 'details',
+                        query: { id: suggestionId }
+                });
+
+                this.refreshSearchNav();
+            }
+        },
+        refreshSearchNav() {
             this.$refs.searchQuery.value = '';
+            this.showQueries = false;
+            this.showSuggestions = false;
         }
     }
 }

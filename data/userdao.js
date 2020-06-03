@@ -1,11 +1,11 @@
-let host = require('./host.js').host;
+import axios from '@/services/base-api.js';
 
-let baseUrl = 'http://' + host.ip + ":" + host.port + '/users/';
+let basePath = '/users';
 
 async function loginUser(username, password) {
 
     try {
-        let url = baseUrl + 'login';
+        let url = `${basePath}/login`;
 
         let res = await axios.post(url, {
             username: username,
@@ -25,7 +25,7 @@ async function loginUser(username, password) {
 async function registerUser(username, password, emailAddress) {
     
     try {                               
-        let url = baseUrl + 'register';
+        let url = `${basePath}/register`;
 
         let res = await axios.post(url, {
             username: username,
@@ -45,7 +45,7 @@ async function registerUser(username, password, emailAddress) {
 
 async function getUserEmail(userId) {
     try {
-        let url = baseUrl + 'email';        
+        let url = `${basePath}/email`;
 
         let res = await axios.post(url, userId);
 
@@ -56,7 +56,7 @@ async function getUserEmail(userId) {
     }
 }
 
-module.exports = {
+export default {
     loginUser,
     registerUser,
     getUserEmail,

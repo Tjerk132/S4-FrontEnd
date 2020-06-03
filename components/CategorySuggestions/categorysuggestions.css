@@ -1,0 +1,23 @@
+.categorySuggestions {
+    padding: 14px 5px;
+    border: 1px solid rgb(199, 202, 206);
+    border-radius: .25em;
+    background-color: rgb(251, 251, 251);
+    box-shadow: 0.1em 0.1em 0 0 rgba(0, 0, 0, 0.28);
+    width: 700px;
+    min-height: 250px;
+    height: 100%;
+}
+
+.categorySuggestionsTitle {
+    margin: 0 0 25px 0;
+}
+
+@media screen and (max-width: 360px) {
+
+    .categorySuggestions {
+        margin: 250px 0 20px -410px;
+        width: 356px;
+    
+    }
+}

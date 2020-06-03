@@ -3,11 +3,11 @@
         <h4 v-text="$ml.get('createReview')"/>
         <li>    
             <p v-text="$ml.get('reviewTitle')"/>
-            <input ref="title" class="inputItem">
+            <input v-model="review.title" class="inputItem">
         </li>
         <li>
             <p v-text="$ml.get('starRating')"/>
-            <input ref="starRating" :max="5" :min="0" type="number" class="inputItem">
+              <star-rating v-model="review.starRating" @rating-selected="setStarRating" :show-rating="false" :star-size="30"></star-rating>
         </li>
             <p>
                 <strong v-text="$ml.get('prosAndCons')"/>
@@ -16,9 +16,9 @@
             <p v-text="$ml.get('ProCon')"/>
 
                 <ul>
-                <div v-if="pros.length">
+                <div v-if="review.pros.length">
                     <h5>Pros</h5>
-                    <li v-for="pro in pros" :key="pro.pro">
+                    <li v-for="pro in review.pros" :key="pro.pro">
                         {{pro}}
                         <button v-on:click="removePro(pro)" class="removeProConBtn" v-text="$ml.get('remove')"/>
                     </li>
@@ -28,9 +28,9 @@
             <input ref="pro" v-on:keyup.enter='addPro()' class="inputItem">
 
             <ul>
-                <div v-if="cons.length">
+                <div v-if="review.cons.length">
                     <h5>Cons</h5>
-                    <li v-for="con in cons" :key="con.con">
+                    <li v-for="con in review.cons" :key="con.con">
                         {{con}}
                         <button v-on:click="removeCon(con)" class="removeProConBtn" v-text="$ml.get('remove')"/>
                     </li>
@@ -41,99 +41,89 @@
 
         <li>
             <p v-text="$ml.get('content')"/>
-            <textarea ref="content" class="reviewTextArea"></textarea>
+            <textarea v-model="review.content" class="reviewTextArea"></textarea>
         </li>
         <button v-on:click="submitReview()" class="submitReviewBtn" v-text="$ml.get('submit')"/>
     </ul>
 </template>
 
 <script>
-import ReviewLogic from '../../logic/ReviewLogic.js';
-import Review from '../../models/Review.js';
-import Ref from '../../models/Ref.js';
+import ReviewLogic from '@/logic/ReviewLogic.js';
+import Review from '@/models/Review.js';
+import Ref from '@/models/Ref.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
 export default {
     data() {
         return {
-            pros: [],
-            cons: [],
-            author: String
+            review: new Review()             
         }
     },
     mounted() {
         if(this.$session.exists()) {
-            this.author = this.$session.get('user').username;
+            this.review.author = this.$session.get('user').username;
         }    
         this.$root.$on('loggedInStatus', (loggedIn) => {
             if(!loggedIn) {
-                this.author = '';
+                this.review.author = '';
             }
         });
     },
     methods: {
+        setStarRating(rating) {
+            this.review.starRating = rating;
+            
+        },
         addPro() {
             let proInput = this.$refs.pro;
             let pro = proInput.value;            
 
-            if(ReviewLogic.validateProConInput(pro, this.pros.length)) {                
-                this.pros.push(pro);
+            if(ReviewLogic.validateProConInput(pro, this.review.pros.length)) {                
+                this.review.pros.push(pro);
                 proInput.value = '';
             }
             else this.$alert('Please use 4 pros max');
         },
         removePro(pro) {
-            this.pros = ReviewLogic.removeItem(pro, this.pros);
+            this.review.pros = ReviewLogic.removeItem(pro, this.review.pros);
         },  
         addCon() {
             let conInput = this.$refs.con;
             let con = conInput.value;
 
-            if(ReviewLogic.validateProConInput(con, this.cons.length)) {
-                this.cons.push(con);
+            if(ReviewLogic.validateProConInput(con, this.review.cons.length)) {
+                this.review.cons.push(con);
                 conInput.value = '';
             }
             else this.$alert('Please use 4 cons max');
         },
         removeCon(con) {
-            this.cons = ReviewLogic.removeItem(con, this.cons);
+            this.review.cons = ReviewLogic.removeItem(con, this.review.cons);
         },
         submitReview() {
 
-            if(Object.keys(this.author).length === 0 || this.author === '{}') {
+            let review = this.review;
+
+            if(review.author === undefined || review.author === '{}') {
                 this.$alert(this.$ml.get('notLoggedIn'));
                 return;
             }
-            
-            let refs = this.$refs;
 
             let message = ReviewLogic.validateReviewSubmit(
                 [
-                    new Ref(refs.content.value, 'Content'),
-                    new Ref(refs.starRating.value, 'StarRating'),
-                    new Ref(refs.title.value, 'Title')
+                    new Ref(review.content, 'Content'),
+                    new Ref(review.starRating, 'Star Rating'),
+                    new Ref(review.title, 'Title')
                 ]
             );
 
             if(message != undefined) {
                 this.$alert(message);
+                return;
             }
-            else if(this.author != undefined ) {
-
-                let starRating = refs.starRating.value;
-  
-                let review = new Review(
-                    this.author,
-                    refs.title.value,
-                    refs.content.value,
-                    refs.starRating.value,  
-                ); 
-                //add elements from array individually
-                review.addPros(...this.pros);
-                review.addCons(...this.cons);
-
-                this.$root.$refs.detailsPage.addReview(review);
+            else if(review.author != undefined) {
+                this.$root.$refs.reviewsComp.addReview(review);
             }      
         }
     },

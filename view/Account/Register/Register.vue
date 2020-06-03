@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import UserDao from "../../../data/userdao.js";
+import UserDao from "@/data/userdao.js";
 
-import AccountLogic from '../../../logic/AccountLogic.js';
+import AccountLogic from '@/logic/AccountLogic.js';
 
 export default {
     methods: {

@@ -1,10 +1,11 @@
 <template>
     <div>
        <div class="reviewContent">
-            <span v-for="star in review.starRating" :key="star.star">
-                 ★
-            </span> 
-            <strong>{{review.title}}</strong>
+         
+            <star-rating :rating="review.starRating" :inline="true" :read-only="true" :star-size="20" :show-rating="false"></star-rating>
+      
+            <strong class="reviewTitle">{{review.title}}</strong>
+        
             <p> {{review.author}} | {{review.date}} </p>
 
             <div class="reviewProsConsDiv">
@@ -12,12 +13,12 @@
 
                 <li class="reviewPros">
                     <ul v-for="pro in review.pros" :key="pro.pro">
-                        (+) {{pro}}
+                       ✔️ {{pro}}
                     </ul>
                 </li>
                 <li class="reviewCons">
                     <ul v-for="con in review.cons" :key="con.con">
-                        (-) {{con}}
+                       ❌ {{con}}
                     </ul>
                 </li>
 
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import Review from '../../models/Review.js';
+import Review from '@/models/Review.js';
 
 export default {
     props: {    

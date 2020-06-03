@@ -17,6 +17,7 @@ What things you need to install the software and how to install them
 This repository uses a number of libraries which are all required to let the application function correctly, these are:
 
 * axios: ^0.19.2
+* babel-plugin-module-resolver: ^4.0.0,
 * emailjs-com: ^2.4.1
 * jw-vue-pagination: ^1.0.3
 * nyc: ^15.0.1
@@ -29,10 +30,12 @@ This repository uses a number of libraries which are all required to let the app
 * vue-router: ^3.1.5
 * vue-session: ^1.0.0
 * vue-simple-alert: ^1.1.1
+* vue-star-rating: ^1.6.1,
+* vue-zoom-on-hover: ^1.0.2,
 * vuejs-paginate: ^2.1.0
 * vuetify: ^2.2.12
 
-UPDATED ON 20/04/2020
+UPDATED ON 03/06/2020
 
 These can all be installed using one of the following commands
 
@@ -75,6 +78,13 @@ Travis CI is a hosted continuous integration service used to build and test soft
 and BitBucket. Travis CI offers several paid plans for private projects and a free plan for open source.
 
 To see the travis configurations you can look into the .travis.yml file, located on the root folder.
+
+to run the tests locally run the command:
+```
+npm test
+```
+keep in mind localStorage is currently not supported for this project, so commenting it out base-api.js
+is currently a pre. (04/06/2020)
 
 ### Break down end to end tests
 

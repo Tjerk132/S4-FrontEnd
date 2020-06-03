@@ -1,6 +1,6 @@
 <template>
     <div>
-         <td class="productInfo">
+        <td class="productInfo">
 
             <h3>
                 {{product.name}}
@@ -14,13 +14,17 @@
         </td>
 
         <td class="productOptions">
-            <!-- <div class="optionsDividerSmall" /> -->
-      
-            <button :class="product.stockCount == 0 ? 'AddToCartBtnDisabled' : 'AddToCartBtn'"  v-on:click="addToCart(product.id)" v-text="$ml.get('addToCart')"/>
-           
-            <!-- <div class="optionsDividerLarge" /> -->
+            <button :class="product.stockCount == 0 ? 'AddToCartBtnDisabled' : 'AddToCartBtn'"  v-on:click="addToCart(product.id)">
+               <span v-text="$ml.get('addToCart')"/>
+            </button>
 
-            <button class="DetailsBtn" v-on:click="goToProductDetails(product.id, product.name)" v-text="$ml.get('details')"/>             
+            <button class="DetailsBtn" v-on:click="goToProductDetails(product.id)">  
+                <span v-text="$ml.get('details')"/>
+            </button>   
+
+            <button class="EditBtn" v-on:click="modifyProduct(product.id)">
+                <span v-text="$ml.get('editProductBtn')"/>
+            </button>
         </td>
 
         <td class="productDetails">
@@ -33,13 +37,13 @@
 </template>
 
 <script>
-import Product from '../../models/Product.js';
-import ProductLogic from '../../logic/ProductLogic.js';
+import Product from '@/models/Product.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
 export default {
-     props: {    
+    props: {    
       Product: Object
     },
     data() {
@@ -52,12 +56,25 @@ export default {
         this.product = this.Product;
     },
     methods: {
-        goToProductDetails(productId, productName) {
+        goToProductDetails(productId) {
 
-            this.$router.push({
-                name: 'details',
-                query: { id: productId }
-            });
+            if(this.$route.query.id != productId) {
+
+                this.$router.push({
+                    name: 'details',
+                    query: { id: productId }
+                });
+            }
+        },
+        modifyProduct(id) {
+           
+            if(window.location.pathname != '/modify') {
+
+                this.$router.push({
+                    name: 'modify',
+                    query: { id: id }
+                });
+            } 
         },
         addToCart(productId) {
 
@@ -100,8 +117,8 @@ export default {
             }
             else return new MLBuilder('review').with('r', reviewCount);
         }
-  }
+    }
 }
 </script>
 
-<style scoped src='./Product.css'></style>
+<style src='./Product.css' scoped></style>

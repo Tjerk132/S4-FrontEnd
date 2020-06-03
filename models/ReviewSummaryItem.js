@@ -1,4 +1,4 @@
-module.exports = class ReviewSummaryItem {
+export default class ReviewSummaryItem {
 
     constructor(starRating, quantity) {
         this.starRating = starRating;

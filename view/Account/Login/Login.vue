@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import UserDao from "../../../data/userdao.js";
+import UserDao from "@/data/userdao.js";
 
 export default {
     data() {
@@ -53,9 +53,9 @@ export default {
                         this.message = this.$ml.get('loginSuccess');
 
                         let user = response;
-
+                        
                         this.$session.start();
-                        this.$session.set('user', user);
+                        this.$session.set('user', user);         
 
                         this.$root.$emit('loggedInStatus', true);
 

@@ -1,4 +1,4 @@
-module.exports = class SearchQuery {
+export default class SearchQuery {
 
     constructor(query, type) {
         this.query = query;

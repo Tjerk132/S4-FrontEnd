@@ -1,25 +1,8 @@
-
-
 <template>
     <div>
         <div class="appPage">
             
-            <div class="navbar">
-
-                <button v-on:click="goRoute('/')">Home</button>
-                <button v-on:click="goToAllProducts()" v-text="$ml.get('products')"/>
-
-                <categoriesNav />
-
-                <searchNav />
-
-                <accountNav />
-
-                <shoppingCartNav />
-
-                <languageNav />
- 
-            </div>
+            <navBar />
 
             <h3 class="appTitle">
                 Product Store
@@ -30,26 +13,15 @@
 </template>
 
 <script>
-import CategoriesNav from '../components/CategoriesNav/CategoriesNav.vue';
-import SearchNav from '../components/SearchNav/SearchNav.vue';
-import AccountNav from '../components/AccountNav/AccountNav.vue';
-import ShoppingCartNav from '../components/ShoppingCartNav/ShoppingCartNav.vue';
-import LanguageNav from '../components/LanguageNav/LanguageNav.vue';
+import NavBar from '@/components/NavBar/NavBar.vue';
 
-import ProductLogic from '../logic/ProductLogic.js';
+import ProductLogic from '@/logic/ProductLogic.js';
+
+import jwtDao from '@/data/jwtdao.js';
 
 export default {
     components: {
-        categoriesNav: CategoriesNav,
-        searchNav: SearchNav,
-        accountNav: AccountNav,
-        shoppingCartNav: ShoppingCartNav,
-        languageNav: LanguageNav
-    },
-    data() {    
-        return {
-            categories: [],
-        }
+        navBar: NavBar
     },
     mounted() {
          
@@ -61,24 +33,34 @@ export default {
 
         this.$root.$emit('updateCount', products.length);
 
-    },
-    methods: {
-        goRoute(route) {
-            //can't navigate to same page
-            if(window.location.pathname != route) {
-                this.$router.push(route);
-            }
-        },
-        goToAllProducts() {
-            if(this.$route.query.category != 'All') {
-                this.$router.push({
-                    name: 'products',
-                    query: { category: 'All' }
+        if(!localStorage.getItem('jwt-token')) {
+            jwtDao.setJwtHeader()
+                .then((header) => {
+                    localStorage.setItem('jwt-token', header);
                 });
-            }
         }
-    }
+
+    },
+    watch:{
+        $route(to, from){
+            if(!localStorage.getItem('jwt-token')) {
+                 this.$alert(
+                    'Your token has expired',
+                    'Vue Store',
+                    'info',
+                    {
+                        confirmButtonText: "Refresh page"
+                    }
+                )
+                .then(() => {
+                    location.reload();
+                })
+            }
+            
+        }
+    },
 }
 </script>
 
 <style src='./app.css'></style>
+<style src='./navigation.css'></style>

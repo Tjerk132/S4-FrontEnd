@@ -1,4 +1,4 @@
-const ProductDao = require('../data/productdao.js');
+import ProductDao from '@/data/productdao.js';
 
 async function getByCategory(category) {
 
@@ -39,7 +39,7 @@ function toReadableCategories(categories) {
  //replace all +'s with spaces ([] eg [+] for calculating symbols)
 // = string.replace(/[+]/g, " ");
 
-module.exports = {
+export default {
     getByCategory,
     toReadableCategories,
 }

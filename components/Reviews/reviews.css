@@ -1,7 +1,8 @@
 .reviews {
-    width: 35%;
+    width: 400px;
     min-width: 400px;
     max-width: 420px;
+    /* margin-top: -265px; */
 }
 
 .reviews > ul {
@@ -16,4 +17,18 @@
     box-shadow: 0.1em 0.1em 0 0 rgba(0, 0, 0, 0.28);
     margin-bottom: 5px;
     width: 100%;
+}
+
+.reviewsTitle {
+    margin: 0 0 -15px 0;
+    text-align: center;
+}
+
+@media screen and (max-width: 360px) {
+
+    .reviews {
+        width: 350px;
+        min-width: 350px;
+        margin-top: 245px;
+    }
 }

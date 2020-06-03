@@ -1,11 +1,12 @@
-let host = require('./host.js').host;
+import axios from '@/services/base-api.js';
 
-let baseUrl = 'http://' + host.ip + ":" + host.port + '/products/';
+let basePath = '/products';
 
 async function getAllProducts() {
 
     try {
-        let res = await axios.get(baseUrl);
+
+        let res = await axios.get(basePath);
         
         return res.data;
     }
@@ -17,7 +18,7 @@ async function getAllProducts() {
 async function getProductById(id) {
     
     try { 
-        let url = baseUrl + id;
+        let url = `${basePath}/${id}`;
 
         let res = await axios.get(url);
 
@@ -31,27 +32,51 @@ async function getProductById(id) {
     }
 }
 
-async function getProductCategories() {
-    try { 
-        let url = baseUrl + "categories";
+async function addProduct(product) {
 
+    try {
+        let url = `${basePath}/add`;
+                
+        let res = await axios.post(url, product);
+
+        return res.data;
+    }
+    catch (err) {
+        console.error(err);      
+    }
+}
+
+async function updateProduct(product) {
+    try {
+        let url = `${basePath}/update`;
+                
+        let res = await axios.put(url, product);
+
+        return res.data;
+    }
+    catch (err) {
+        console.error(err);      
+    }
+}
+
+async function getProductCategories() {
+    try {
+        let url = `${basePath}/categories`;
+        
         let res = await axios.get(url);
 
         return res.data;
     }
     catch (err) {
-        //log everything except user not found
-        if(err.response.status != 404) {
-            console.error(err);
-        }
+        console.error(err);      
     }
 }
 
 async function getProductsByCategory(category) {
     try {
-        let url = baseUrl + "categories/" + category;
+        let url = `${basePath}/categories/${category}`;        
 
-        let res = await axios.get(url);
+        let res = await axios.get(url);   
 
         return res.data;
     }
@@ -62,7 +87,7 @@ async function getProductsByCategory(category) {
 
 async function getProductsByName(name) {
     try {   
-        let url = baseUrl + "name/" + name;
+        let url = `${basePath}/name/${name}`;
 
         let res = await axios.get(url);
 
@@ -75,23 +100,42 @@ async function getProductsByName(name) {
 
 async function removeBasketProductsFromStore(products) {
     try {   
-        let url = baseUrl + "removeBasketItems";
 
-        await axios.post(url, {
+        let url = `${basePath}/removeBasketItems`;
+
+        let res = await axios.post(url, {
             products: products
         });
+
+        return res.data;
     }
     catch(err) {
         console.error(err);
     }
 }
 
-module.exports = {
+async function getTopRatedProducts() {
+    try {   
+        let url = `${basePath}/topRated`;
+
+        let res = await axios.get(url);
+
+        return res.data;
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+export default {
     getAllProducts,
     getProductById,
+    addProduct,
+    updateProduct,
     getProductCategories,
     getProductsByCategory,
     getProductsByName,
     removeBasketProductsFromStore,
+    getTopRatedProducts,
 }
 

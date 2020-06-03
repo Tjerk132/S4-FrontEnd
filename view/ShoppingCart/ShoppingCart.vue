@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import ProductLogic from '../../logic/ProductLogic.js';
-import ProductDao from '../../data/productdao.js';
-import ShopppingCartItem from '../../models/ShoppingCartitem.js';
+import ProductLogic from '@/logic/ProductLogic.js';
+import ProductDao from '@/data/productdao.js';
+import ShopppingCartItem from '@/models/ShoppingCartitem.js';
 
-import UserDao from '../../data/userdao.js';
+import UserDao from '@/data/userdao.js';
 
 import emailjs from 'emailjs-com';
 
@@ -192,7 +192,7 @@ export default {
 
                             this.$fire({
                                 title: "Vue Product Store",
-                                text: "Failed sending email",
+                                text: this.$ml.get('errorSendEmail'),
                                 type: "error",
                                 timer: 3000
                             });

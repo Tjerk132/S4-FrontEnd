@@ -1,8 +1,10 @@
 <template>
-    <div class="accountOptions-container">
-        <button ref="changeAccountOptionsBtn" v-on:click="changeAccountBar()">Account</button>
+    <div class="accountOptions-container" v-on:mouseleave="showAccountOptions = false">
+        <button v-on:mouseover="showAccountOptions = true" v-on:click="showAccountOptions = !showAccountOptions">
+            Account
+        </button>
 
-        <nav ref="accountOptions" v-show="showAccountOptions" class="accountOptions">
+        <nav v-show="showAccountOptions" class="accountOptions">
             <ul>
                 <li>            
                     <button v-on:click="goRoute('register')" v-text="$ml.get('register')"/>
@@ -40,9 +42,6 @@ export default {
 
     },
     methods: {
-        changeAccountBar() {
-            this.showAccountOptions = !this.showAccountOptions;
-        },
         goRoute(route) {
             //can't navigate to same page            
             if(window.location.pathname != "/" + route) {

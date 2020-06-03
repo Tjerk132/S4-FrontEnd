@@ -1,34 +1,70 @@
 .languageOptions-container {
     float: left;
-    height: 50px;
-  }
+    /* height: 50px; */
+}
+
+/* .languageOptions-container button {
+     min-width: 187px;
+} */
 
 .languageOptions {
-     width: 132px;
+     /* width: 132px;
      margin: 3.7em 0 16 .3em;
      box-shadow: 0 1px 5px rgba(50,50,50,.6);
      position: fixed;
      background-color: white;
-     text-align: center;
-}
+     text-align: center; */
 
-.changeLanguageBtn {
-     min-width: 190px;
+    width: 109px;
+    box-shadow: 0 1px 5px rgba(50,50,50,.6);
+    position: fixed;
+    background-color: white;
+ 
+    margin: 3.7em 0 16 .3em;
+    min-width: 131px;
 }
    
 .languageOptions ul {
      margin: 0;
-     width: 100px;
+     width: 100%;
 }
+
+.languageOptions button:hover {
+     background: rgb(42, 104, 39);
+     color: white;
+}
+
+.languageOptions button {
+     width: 100%;
+     margin: 0 !important; 
+ }
    
 .languageOptions button {
       min-width: 190px;
-      margin: 0 !important;
-      min-height: 60px;
+}
+.changeLanguageBtn {
+     min-width: 190px;
 }
 
-@media screen and (max-width: 740px) {
+@media screen and (max-width: 360px) {
      .languageOptions {
-          margin: 3.4em 0 16 52.32em;
+          margin: 3.4em 0 0 0;
+          min-width: 100%;
+          position: unset;
+     }
+     .languageOptions button {
+          width: 100%;
+          background-color: rgb(60, 130, 60);
+     } 
+     .languageOptions ul {
+          width: 100%; 
+     }
+     .languageOptions-container {
+          margin: 0;
+          font-size: 14px;
+          min-width: 100%; 
+     }
+     .languageOptions-container button {
+          width: 100%; 
      }
  }

@@ -2,6 +2,10 @@
     padding-left: 2%;
 }
 
+.reviewTitle {
+    vertical-align: unset;
+}
+
 .reviewProsConsDiv {
     width: 100%;
     overflow: hidden; /* to contain floated children */

@@ -1,14 +1,14 @@
 <template>
-    <div class="categories-container">
+    <div class="categories-container" v-on:mouseleave="showCategoryBar = false">
         
-        <button ref="categoryOptionsBtn" v-on:click="changeCategoryBar()" class="viewAllCategoriesBtn">
+        <button v-on:mouseover="showCategoryBar = true" v-on:click="showCategoryBar = !showCategoryBar" class="viewAllCategoriesBtn">
             <span class="viewAllText" v-text="$ml.get('viewAll')"/> 
             <div>
                 <strong v-text="$ml.get('Categories')"/>
             </div>
         </button>
 
-        <nav ref="categoryOptions" v-show="showCategoryBar" class="CategoryBar">
+        <nav v-show="showCategoryBar" class="CategoryBar">
             <ul>
                 <li v-on:click="goToCategory(category)" v-for="category in categories" :key="category.category">            
                     {{category}}
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import CategoryLogic from '../../logic/CategoryLogic.js';
-import ProductDao from '../../data/productdao.js';
+import CategoryLogic from '@/logic/CategoryLogic.js';
+import ProductDao from '@/data/productdao.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -32,8 +32,7 @@ export default {
             showCategoryBar: false,
         }
     },
-    mounted() {
-        
+    mounted() {     
         ProductDao.getProductCategories()
             .then((response) => {
                  this.categories = CategoryLogic.toReadableCategories(response);
@@ -43,9 +42,6 @@ export default {
         });
     },
     methods: {
-        changeCategoryBar() {
-            this.showCategoryBar = !this.showCategoryBar;
-        },
         goToCategory(category) {
             this.showCategoryBar = false;
             //don't navigate to same page

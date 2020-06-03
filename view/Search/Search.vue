@@ -3,19 +3,16 @@
         <title v-text="$ml.get('search')"/>
         <h3 v-text="$ml.get('ForQuery')"/>
         <div v-if="products.length">
-            <ul>
-                 <li v-for="product in products" :key="product.id">    
-                    <ProductComp :Product='product'></ProductComp>
-                </li>
-            </ul>
+            <Pagination :key="paginationKey" :Products=products :PageSize=pageSize></Pagination>
         </div>
+        <p v-else v-text="$ml.get('noResultsInfo')"/>
     </div>
-</template>
+</template> 
 
 <script>
-import ProductDao from '../../data/productdao.js';
+import ProductDao from '@/data/productdao.js';
 
-import ProductComp from '../../components/Product/Product.vue';
+import Pagination from '@/components/Pagination/Pagination.vue';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -24,30 +21,35 @@ export default {
         query: String,
     },
     components: {
-        ProductComp
+        Pagination,
     },
     data() {
         return {
             Query: String,
-            products: Array,
+            products: [],
+            pageSize: 6,
+            paginationKey: 0
         }
     },
     mounted() {
 
         this.Query = this.query;
-        ProductDao.getProductsByName(this.query)
-            .then((response) => {
-                this.products = response;                
-            });
+        this.fetchSearchResults(this.Query);
     },
     watch: {
         '$route.query.query'(newQuery, oldQuery) {
             this.Query = newQuery;
-            ProductDao.getProductsByName(newQuery)
-                .then((response) => {
-                    this.products = response;
-                });
+            this.fetchSearchResults(this.Query);
         }
+    },
+    methods: {
+        fetchSearchResults(query) {
+            ProductDao.getProductsByName(query)
+            .then((response) => {
+                this.products = response;   
+                this.paginationKey++;          
+            });
+        }      
     },
     computed: {
         mlForQuery() {

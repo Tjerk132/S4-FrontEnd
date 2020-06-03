@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ProductComp from '../../components/Product/Product.vue';
+import ProductComp from '@/components/Product/Product.vue';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -76,6 +76,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style src="./pagination.css" scoped>
 </style>

@@ -1,18 +1,15 @@
 import Vue from 'vue';
-import App from './App.vue';
-import router from './router.js';
-import axios from 'axios';
-// import Vuetify from 'vuetify';
+import App from '@/routing/App.vue';
+import router from '@/routing/router.js';
 import VueCookies from 'vue-cookies';
 import VueSession from 'vue-session';
 import VueAlert from 'vue-simple-alert';
 import Pagination from 'jw-vue-pagination';
+import ZoomOnHover from 'vue-zoom-on-hover';
+import StarRating from 'vue-star-rating';
 import 'babel-polyfill';
-import './ml.js';
-
-window.axios = axios;
-
-// Vue.use(Vuetify);
+import '@/routing/ml.js';
+ 
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
@@ -23,6 +20,14 @@ Vue.use(VueSession);
 Vue.use(VueAlert);
 
 Vue.component('pagination', Pagination);
+
+Vue.use(ZoomOnHover);
+
+Vue.component('star-rating', StarRating);
+// can also
+// components: {
+//    StarRating
+// }
 
 new Vue({   
   render: h => h(App),

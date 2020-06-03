@@ -1,4 +1,4 @@
-module.exports = class Ref {
+export default class Ref {
 
     constructor(value, name) {
         this.value = value;

@@ -1,4 +1,4 @@
-module.exports = class Review {
+export default class Review {
 
     constructor(author, title, content, starRating) {
 
