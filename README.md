@@ -17,7 +17,9 @@ What things you need to install the software and how to install them
 This repository uses a number of libraries which are all required to let the application function correctly, these are:
 
 * axios: ^0.19.2
+* babel-core: ^6.26.3,
 * babel-plugin-module-resolver: ^4.0.0,
+* cross-env: ^7.0.2,
 * emailjs-com: ^2.4.1
 * jw-vue-pagination: ^1.0.3
 * nyc: ^15.0.1
@@ -33,9 +35,8 @@ This repository uses a number of libraries which are all required to let the app
 * vue-star-rating: ^1.6.1,
 * vue-zoom-on-hover: ^1.0.2,
 * vuejs-paginate: ^2.1.0
-* vuetify: ^2.2.12
 
-UPDATED ON 03/06/2020
+UPDATED ON 04/06/2020
 
 These can all be installed using one of the following commands
 
@@ -96,8 +97,18 @@ The main reason for carrying out this testing is to determine various dependenci
 well as ensuring that accurate information is communicated between various system components. It is usually
 performed after the completion of functional and system testing of any application.
 
+End-to-end testing in this project is done with mocha and is programmatically used.
+This makes it possible to, among other things, setup storage for a header for api requests.
+
+An example of a simple end-to-end test is shown below.
 ```
-Example end-to-end testing (TODO)
+it('should return the correct product', async () => {
+                
+    const product = await ProductDao.getProductById(1);
+
+    assert.notEqual(product, undefined);
+    assert(products.id, 1);
+});
 ```
 
 ## Deployment
@@ -108,6 +119,7 @@ additional notes about how to deploy this on a live system
 
 * [VUE](https://vuejs.org/) - The web framework used
 * [NPM](https://www.npmjs.com/) - Dependency Management
+* [Mocha](https://mochajs.org/) - Javascript test framework
 
 ## Contributing
 
