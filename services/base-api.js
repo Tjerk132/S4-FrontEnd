@@ -6,12 +6,12 @@ let host = new Host();
 let headers = {
   'cache-control': 'no-cache'
 };
-//comment for testing
+
 let accessToken = localStorage.getItem('jwt-token');
 if (accessToken && accessToken !== '') {
     headers.Authorization = accessToken;
-
 };
+
 let baseUrl = `https://${host.ip}:${host.port}`;
 
 const service = axios.create({

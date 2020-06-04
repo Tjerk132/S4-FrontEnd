@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "serve": "webpack-dev-server --mode development",
-    "test": "nyc mocha --require @babel/register --recursive"
+    "test": "nyc cross-env npm run test:programmatic-usage",
+    "test:programmatic-usage": "node tests/config/run_mocha.js"
   },
   "author": "Tjerk Sevenich",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "javascript": "^1.0.0",
     "mocha": "^7.2.0",
     "mochapack": "^1.1.13",
+    "mock-local-storage": "^1.1.12",
     "nodemon": "^2.0.4",
     "rimraf": "^2.7.1",
     "vue": "^2.5.17",
@@ -44,6 +46,7 @@
     "axios": "^0.19.2",
     "babel-core": "^6.26.3",
     "babel-plugin-module-resolver": "^4.0.0",
+    "cross-env": "^7.0.2",
     "emailjs-com": "^2.4.1",
     "jw-vue-pagination": "^1.0.3",
     "nyc": "^15.0.1",
