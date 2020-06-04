@@ -84,8 +84,6 @@ to run the tests locally run the command:
 ```
 npm test
 ```
-keep in mind localStorage is currently not supported for this project, so commenting it out base-api.js
-is currently a pre. (04/06/2020)
 
 ### Break down end to end tests
 
