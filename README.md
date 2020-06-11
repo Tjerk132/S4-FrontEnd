@@ -16,27 +16,28 @@ What things you need to install the software and how to install them
 
 This repository uses a number of libraries which are all required to let the application function correctly, these are:
 
-* axios: ^0.19.2
+* axios: ^0.19.2,
 * babel-core: ^6.26.3,
 * babel-plugin-module-resolver: ^4.0.0,
 * cross-env: ^7.0.2,
-* emailjs-com: ^2.4.1
-* jw-vue-pagination: ^1.0.3
-* nyc: ^15.0.1
-* url-loader: ^3.0.0
-* vue-axios: ^2.1.5
-* vue-cookies: ^1.6.1
-* vue-load-image: ^0.1.9
-* vue-multilanguage: ^4.0.9
-* vue-navigation: ^1.1.4
-* vue-router: ^3.1.5
-* vue-session: ^1.0.0
-* vue-simple-alert: ^1.1.1
+* crypto-js: ^4.0.0,
+* emailjs-com: ^2.4.1,
+* jw-vue-pagination: ^1.0.3,
+* nyc: ^15.0.1,
+* url-loader: ^3.0.0,
+* vue-axios: ^2.1.5,
+* vue-cookies: ^1.6.1,
+* vue-load-image: ^0.1.9,
+* vue-multilanguage: ^4.0.9,
+* vue-navigation: ^1.1.4,
+* vue-router: ^3.1.5,
+* vue-session: ^1.0.0,
+* vue-simple-alert: ^1.1.1,
 * vue-star-rating: ^1.6.1,
 * vue-zoom-on-hover: ^1.0.2,
 * vuejs-paginate: ^2.1.0
 
-UPDATED ON 04/06/2020
+UPDATED ON 11/06/2020
 
 These can all be installed using one of the following commands
 
@@ -75,8 +76,7 @@ npm run serve
 
 The automated tests of this project are run via Travis CI.
 
-Travis CI is a hosted continuous integration service used to build and test software projects hosted on GitHub
-and BitBucket. Travis CI offers several paid plans for private projects and a free plan for open source.
+Travis CI is a hosted continuous integration service used to build and test software projects hosted on GitHub and BitBucket. Travis CI offers several paid plans for private projects and a free plan for open source.
 
 To see the travis configurations you can look into the .travis.yml file, located on the root folder.
 
@@ -98,16 +98,15 @@ performed after the completion of functional and system testing of any applicati
 End-to-end testing in this project is done with mocha and is programmatically used.
 This makes it possible to, among other things, setup storage for a header for api requests.
 
-An example of a simple end-to-end test is shown below.
-I chose to not test status codes as the test will fail 
-automatically if the request fails so becomes redundant.
+An example of a simple end-to-end test is shown below. I chose to not test status codes 
+as the test will fail automatically if the request fails so it becomes redundant.
 ```
 it('should return the correct product', async () => {
                 
     const product = await ProductDao.getProductById(1);
 
     assert.notEqual(product, undefined);
-    assert(products.id, 1);
+    assert(product.id, 1);
 });
 ```
 
