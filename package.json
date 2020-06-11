@@ -47,6 +47,7 @@
     "babel-core": "^6.26.3",
     "babel-plugin-module-resolver": "^4.0.0",
     "cross-env": "^7.0.2",
+    "crypto-js": "^4.0.0",
     "emailjs-com": "^2.4.1",
     "jw-vue-pagination": "^1.0.3",
     "nyc": "^15.0.1",

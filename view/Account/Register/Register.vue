@@ -48,6 +48,8 @@ import UserDao from "@/data/userdao.js";
 
 import AccountLogic from '@/logic/AccountLogic.js';
 
+import CryptoJS from 'crypto-js';
+
 export default {
     methods: {
         register() {
@@ -88,6 +90,12 @@ export default {
                         this.message = this.$ml.get('registerSuccess');
 
                         let user = response;
+
+                        let role = user.role;  
+                        user.role = CryptoJS.AES.encrypt(role, "T314159S").toString();
+
+                        delete user.password;
+                        delete user.emailAddress;
 
                         this.$session.start();
                         this.$session.set('user', user);

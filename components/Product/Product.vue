@@ -14,15 +14,19 @@
         </td>
 
         <td class="productOptions">
-            <button :class="product.stockCount == 0 ? 'AddToCartBtnDisabled' : 'AddToCartBtn'"  v-on:click="addToCart(product.id)">
+             <div class="optionsDivider" v-if="role === 'USER'"/>
+
+            <button :class="product.stockCount == 0 ? 'addToCartBtnDisabled' : 'addToCartBtn'"  v-on:click="addToCart(product.id)">
                <span v-text="$ml.get('addToCart')"/>
             </button>
 
-            <button class="DetailsBtn" v-on:click="goToProductDetails(product.id)">  
+            <div class="optionsDivider" v-if="role === 'USER'"/>
+
+            <button class="detailsBtn" v-on:click="goToProductDetails(product.id)">  
                 <span v-text="$ml.get('details')"/>
             </button>   
 
-            <button class="EditBtn" v-on:click="modifyProduct(product.id)">
+            <button class="editBtn" v-on:click="modifyProduct(product.id)" v-if="role === 'ADMIN'">                        
                 <span v-text="$ml.get('editProductBtn')"/>
             </button>
         </td>
@@ -39,6 +43,8 @@
 <script>
 import Product from '@/models/Product.js';
 import ProductLogic from '@/logic/ProductLogic.js';
+import CryptoJS from 'crypto-js';
+import jwtDao from '@/data/jwtdao.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -48,12 +54,20 @@ export default {
     },
     data() {
         return {
-            product: Object
+            product: Object,
+            role: 'USER',
+            key: String
         }  
     },
     mounted() {
         console.log('creating a product');
         this.product = this.Product;
+        this.key = jwtDao.getKey(CryptoJS); 
+
+        if(this.$session.get('user') != undefined) {
+            let decryptedBytes = CryptoJS.AES.decrypt(this.$session.get('user').role, this.key);
+            this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);
+        }
     },
     methods: {
         goToProductDetails(productId) {

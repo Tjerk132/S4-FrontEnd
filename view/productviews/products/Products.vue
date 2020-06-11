@@ -11,7 +11,7 @@
       <img :src="'./images/loading.gif'">
       <p>Loading...</p>
     </div>
-    <button v-on:click="goToAddProduct()">Add product</button>
+    <button v-on:click="goToAddProduct()" v-if="role == 'ADMIN'">Add product</button>
     <div v-if="products.length">
       <Pagination :Products=products :PageSize=pageSize></Pagination>
     </div>
@@ -29,6 +29,8 @@ import Product from '@/models/Product.js';
 
 import CategoryLogic from '@/logic/CategoryLogic.js';
 import Pagination from '@/components/Pagination/Pagination.vue';
+import CryptoJS from 'crypto-js';
+import jwtDao from '@/data/jwtdao.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -47,19 +49,26 @@ export default {
         products: [],
         Category: String,
         loading: true,
+        role: 'USER',
+        key: String
+        
       }
   },
   mounted() {
 
     this.Category = this.category;
-       
+
+    this.key = jwtDao.getKey(CryptoJS); 
+     
+    if(this.$session.get('user') != undefined) {  
+      let decryptedBytes = CryptoJS.AES.decrypt(this.$session.get('user').role, this.key);
+      this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);
+    }
     CategoryLogic.getByCategory(this.Category)
       .then((response) => {
         this.products = response;
         this.loading = false;
     });
-
-
   },
   watch: {
     '$route.query.category'(newCategory, oldCategory) {

@@ -1,23 +1,35 @@
 import axios from '@/services/base-api.js';
 
-async function setJwtHeader() {
+async function setJwtHeader(username, password) {
     
     try {
 
         let res = await axios.post('/login', {
-            username: 'user',
-            password: 'ts321'    
-        })
+           u: username,
+           p: password
+        }) 
+        //  u:'ﾰﾪￄ￦�jv4ﾉ5ﾙ￿-90,',
+        // p:'4￟f￻￟ﾓ￈ￖￂﾒ:W.￿￺'         
         
-        let jwtHeader = res.headers.authorization.replace('Bearer ', '');
+        let jwtHeader = res.headers.authorization.replace('Bearer ', ''); 
+        localStorage.setItem('jwt-token', jwtHeader);
+
+        console.log(res.headers);
         
-        return jwtHeader;                
+        let cryptoHeader = res.headers.cryptokey;
+        localStorage.setItem('crypto-key', cryptoHeader);            
     }
     catch(error) {
         console.error(error);
+        return error.response.status;
     }
 }
 
+function getKey(CryptoJS) {
+    return CryptoJS.AES.decrypt(localStorage.getItem('crypto-key'), `${String.fromCharCode(84)}${Math.PI.toFixed(5).replace('.','')}${String.fromCharCode(83)}`).toString(CryptoJS.enc.Utf8);        
+}
+
 export default {
-    setJwtHeader
+    setJwtHeader,
+    getKey
 }

@@ -54,6 +54,7 @@ export default {
             this.loggedIn = false;
             //update logInStatus to refresh (e.g for newReview author)
             this.$root.$emit('loggedInStatus', false);
+            location.reload();
         }
     }
     

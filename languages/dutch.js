@@ -89,7 +89,7 @@ export default
         login: 'Inloggen',
         notLoggedIn: 'Je bent niet ingelogd',
         loginSuccess: 'Login success',
-        loginFailed: 'Niet in staat om in te loggen',
+        loginFailed: 'Niet in staat om in te loggen ({c})',
         logout: 'Uitloggen',
 
         viewAll: 'Bekijk alle',

@@ -21,7 +21,7 @@ import jwtDao from '@/data/jwtdao.js';
 
 export default {
     components: {
-        navBar: NavBar
+        navBar: NavBar,
     },
     mounted() {
          
@@ -33,32 +33,28 @@ export default {
 
         this.$root.$emit('updateCount', products.length);
 
-        if(!localStorage.getItem('jwt-token')) {
-            jwtDao.setJwtHeader()
-                .then((header) => {
-                    localStorage.setItem('jwt-token', header);
-                });
-        }
-
+        // if(localStorage.getItem('jwt-token') === null) {
+        //     this.setJwtToken();
+        // }
     },
-    watch:{
-        $route(to, from){
-            if(!localStorage.getItem('jwt-token')) {
-                 this.$alert(
-                    'Your token has expired',
-                    'Vue Store',
-                    'info',
-                    {
-                        confirmButtonText: "Refresh page"
-                    }
-                )
-                .then(() => {
-                    location.reload();
-                })
-            }
+    // watch:{
+    //     $route(to, from){
+    //         if(!localStorage.getItem('jwt-token')) {
+    //              this.$alert(
+    //                 'Your token has expired',
+    //                 'Vue Store',
+    //                 'info',
+    //                 {
+    //                     confirmButtonText: "Refresh page"
+    //                 }
+    //             )
+    //             .then(() => {
+    //                 location.reload();
+    //             })
+    //         }
             
-        }
-    },
+    //     }
+    // },
 }
 </script>
 

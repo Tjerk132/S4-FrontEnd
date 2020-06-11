@@ -15,7 +15,7 @@ describe('ProductDao Tests', () => {
         const product = await ProductDao.getProductById(1);
 
         assert.notEqual(product, undefined);
-        assert(products.id, 1);
+        assert(product.id, 1);
     });
     it('should get the right amount of categories', async () => {
                   

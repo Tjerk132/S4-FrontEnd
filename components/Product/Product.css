@@ -95,11 +95,15 @@ button:hover span:after {
     right: 0;
 }
 
-.AddToCartBtn {
+.optionsDivider {
+    height: 10px;
+}
+
+.addToCartBtn {
     background-color: rgb(32, 102, 24);
 }
 
-.AddToCartBtn span:after {
+.addToCartBtn span:after {
     content: '\00bb';
 }
 
@@ -113,19 +117,19 @@ button:hover span:after {
     content: '\00bb';
 }
 
-.DetailsBtn {
+.detailsBtn {
     background-color: rgb(30, 119, 185);
 }
 
-.DetailsBtn span:after {
+.detailsBtn span:after {
     content: '\203A';
 }
 
-.EditBtn {
+.editBtn {
     background-color: rgb(195, 123, 29);
 }
 
-.EditBtn span::after {
+.editBtn span::after {
     content: '\00AB';
 }
 

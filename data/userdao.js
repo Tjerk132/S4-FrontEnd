@@ -15,11 +15,9 @@ async function loginUser(username, password) {
         return res.data;
     }
     catch(err) {
-        if(err.response.status == 404) {
-            return 404;
-        }
-        console.error(err);
-    }
+        console.error(err);        
+        return err.response.status;   
+     }
 }
 
 async function registerUser(username, password, emailAddress) {

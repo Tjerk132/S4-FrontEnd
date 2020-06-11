@@ -89,7 +89,7 @@ export default
         login: 'Login',
         notLoggedIn: 'You are not logged in',
         loginSuccess: 'Login success',
-        loginFailed: 'Unable to login',
+        loginFailed: 'Unable to login ({c})',
         logout: 'Logout',
 
         viewAll: 'View all',
