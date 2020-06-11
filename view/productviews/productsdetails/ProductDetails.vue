@@ -144,4 +144,4 @@ export default {
 }
 </script>
 
-<style src='./productdetails.css' scoped></style>
+<style src='./product-details.css' scoped></style>

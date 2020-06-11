@@ -32,29 +32,7 @@ export default {
         products = ProductLogic.checkExistingBasket(products);
 
         this.$root.$emit('updateCount', products.length);
-
-        // if(localStorage.getItem('jwt-token') === null) {
-        //     this.setJwtToken();
-        // }
     },
-    // watch:{
-    //     $route(to, from){
-    //         if(!localStorage.getItem('jwt-token')) {
-    //              this.$alert(
-    //                 'Your token has expired',
-    //                 'Vue Store',
-    //                 'info',
-    //                 {
-    //                     confirmButtonText: "Refresh page"
-    //                 }
-    //             )
-    //             .then(() => {
-    //                 location.reload();
-    //             })
-    //         }
-            
-    //     }
-    // },
 }
 </script>
 

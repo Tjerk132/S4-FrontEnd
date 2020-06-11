@@ -215,4 +215,4 @@ export default {
 }
 </script>
 
-<style src="./ShoppingCart.css"></style>
+<style src="./shopping-cart.css"></style>

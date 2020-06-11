@@ -51,5 +51,5 @@ export default {
 }
 </script>
 
-<style src="./addproduct.css" scoped>
+<style src="./add-product.css" scoped>
 </style>

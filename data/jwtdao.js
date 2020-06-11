@@ -7,9 +7,7 @@ async function setJwtHeader(username, password) {
         let res = await axios.post('/login', {
            u: username,
            p: password
-        }) 
-        //  u:'ﾰﾪￄ￦�jv4ﾉ5ﾙ￿-90,',
-        // p:'4￟f￻￟ﾓ￈ￖￂﾒ:W.￿￺'         
+        })     
         
         let jwtHeader = res.headers.authorization.replace('Bearer ', ''); 
         localStorage.setItem('jwt-token', jwtHeader);

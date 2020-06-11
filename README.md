@@ -99,6 +99,8 @@ End-to-end testing in this project is done with mocha and is programmatically us
 This makes it possible to, among other things, setup storage for a header for api requests.
 
 An example of a simple end-to-end test is shown below.
+I chose to not test status codes as the test will fail 
+automatically if the request fails so becomes redundant.
 ```
 it('should return the correct product', async () => {
                 

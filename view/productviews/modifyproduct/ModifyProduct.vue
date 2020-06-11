@@ -68,4 +68,4 @@ export default {
 }
 </script>
 
-<style src="./modifyproduct.css" scoped></style>
+<style src="./modify-product.css" scoped></style>

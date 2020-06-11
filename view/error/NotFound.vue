@@ -37,4 +37,4 @@ export default {
 }
 </script>
 
-<style src='./NotFound.css'></style>
+<style src='./not-found.css'></style>

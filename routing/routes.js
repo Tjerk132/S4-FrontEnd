@@ -1,16 +1,16 @@
 import Home from '@/view/home/Home.vue';
 
-import Account from '@/view/Account/Account.vue';
-import Register from '@/view/Account/Register/Register.vue';
-import Login from '@/view/Account/Login/Login.vue'
+import Account from '@/view/account/Account.vue';
+import Register from '@/view/account/register/Register.vue';
+import Login from '@/view/account/login/Login.vue'
 
 import Products from '@/view/productviews/products/Products.vue';
 import ProductDetails from '@/view/productviews/productsdetails/ProductDetails.vue';
 import AddProduct from '@/view/productviews/addproduct/AddProduct.vue';
 import ModifyProduct from '@/view/productviews/modifyproduct/ModifyProduct.vue';
 
-import Search from '@/view/Search/Search.vue';
-import ShoppingCart from '@/view/ShoppingCart/ShoppingCart.vue';
+import Search from '@/view/search/Search.vue';
+import ShoppingCart from '@/view/shoppingcart/ShoppingCart.vue';
 import NotFound from '@/view/error/NotFound.vue';
 
 const routes = [
