@@ -28,42 +28,47 @@
 
 <script>
 import User from "@/models/User.js";
-import UserDao from "@/data/userdao.js";
-import jwtDao from '@/data/jwtdao.js';
+import AccountLogic from '@/logic/AccountLogic.js';
+import JwtLogic from '@/logic/JwtLogic.js';
 
 import CryptoJS from 'crypto-js';
 
 export default {
     data() {
         return {
+            accountLogic: new AccountLogic(),
+            jwtLogic: new JwtLogic(),
             user: User,
-            message: String,
+            message: String(),
             key: String
         }
     },
     mounted() {
-        this.message = '';
-        // addEventListener('keypress', (event) => {            
-        //     if(event.which == 13) {
-        //         this.login();
-        //     }
-        // });
-        this.key = jwtDao.getKey(CryptoJS); 
+        this.key = this.jwtLogic.getKey(CryptoJS); 
     },
     methods: {
         login() {
             let user = this.user;
             //retrieve jwt header
-            jwtDao.setJwtHeader(user.username, user.password)
-            .then((res) => {  
-                if(Number(res)) {
-                    this.$alert('Unable to retrieve authorization');
-                    return;
-                }               
-                //retrieve userinfo
-                UserDao.loginUser(user.username, user.password)
-                    .then((response) => {
+            if(!localStorage.getItem('jwt-token')) {
 
+                this.jwtLogic.setJwtHeader(user.username, user.password)
+                .then((res) => {  
+                    if(Number(res)) {
+                        this.$alert(`Unable to retrieve authorization (${res})`);
+                        return;
+                    }       
+                });
+            }
+
+            let message = this.accountLogic.validateUser(user.username, user.password);
+            if(!message) {
+                 this.$alert(this.$ml.get('oneOrMoreFieldsIncorrect'));
+                 return;
+            }
+            //retrieve user info
+            this.accountLogic.loginUser(user.username, user.password)
+                 .then((response) => {
                     if(Number(response)) {
                         this.message = this.$ml.with('c', response).get('loginFailed');
                     }
@@ -89,7 +94,6 @@ export default {
                         });
                     }
                 });           
-            });
         },
     }
 }

@@ -10,7 +10,7 @@
 </template> 
 
 <script>
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic';
 
 import Pagination from '@/components/Pagination/Pagination.vue';
 
@@ -25,6 +25,7 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
             Query: String,
             products: [],
             pageSize: 6,
@@ -44,7 +45,7 @@ export default {
     },
     methods: {
         fetchSearchResults(query) {
-            ProductDao.getProductsByName(query)
+            this.productLogic.getProductsByName(query)
             .then((response) => {
                 this.products = response;   
                 this.paginationKey++;          

@@ -20,7 +20,7 @@
 
 <script>
 import CategoryLogic from '@/logic/CategoryLogic.js';
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -28,14 +28,16 @@ export default {
     
     data() {
         return {
+            categoryLogic: new CategoryLogic(),
+            productLogic: new ProductLogic(),
             categories: [],
             showCategoryBar: false,
         }
     },
     mounted() {     
-        ProductDao.getProductCategories()
+        this.productLogic.getProductCategories()
             .then((response) => {
-                 this.categories = CategoryLogic.toReadableCategories(response);
+                 this.categories = this.categoryLogic.toReadableCategories(response);
         });
         addEventListener('scroll', (event) => {            
             this.showCategoryBar = false;

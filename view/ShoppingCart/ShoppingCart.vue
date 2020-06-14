@@ -52,10 +52,9 @@
 
 <script>
 import ProductLogic from '@/logic/ProductLogic.js';
-import ProductDao from '@/data/productdao.js';
-import ShopppingCartItem from '@/models/ShoppingCartitem.js';
+import AccountLogic from '@/logic/AccountLogic.js';
 
-import UserDao from '@/data/userdao.js';
+import ShopppingCartItem from '@/models/ShoppingCartitem.js';
 
 import emailjs from 'emailjs-com';
 
@@ -65,6 +64,8 @@ export default {
 
     data() {
         return {
+            productLogic: new ProductLogic(),
+            accountLogic: new AccountLogic(),
             cartItems: [],
             totalCosts: Number,
             totalQuantity: Number,
@@ -78,15 +79,15 @@ export default {
 
             productIds.forEach(id => {
 
-                ProductDao.getProductById(id)
+                this.productLogic.getProductById(id)
                 .then((product) => {
                     
                     //filter duplicate products
-                    this.cartItems = ProductLogic.existsInBasket(product, this.cartItems);
+                    this.cartItems = this.productLogic.existsInBasket(product, this.cartItems);
 
-                    this.totalQuantity = ProductLogic.getTotalQuantity(this.cartItems);
+                    this.totalQuantity = this.productLogic.getTotalQuantity(this.cartItems);
 
-                    this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
+                    this.totalCosts = this.productLogic.calculateBasketCosts(this.cartItems);
                 });
             });
         }
@@ -95,7 +96,7 @@ export default {
 
         removeFromCart(product) {
 
-            this.cartItems = ProductLogic.removeFromShoppingCart(product, this.cartItems);
+            this.cartItems = this.productLogic.removeFromShoppingCart(product, this.cartItems);
 
             this.totalQuantity -= 1;
             
@@ -109,7 +110,7 @@ export default {
                 if(cartItem.product.id == product.id) {
                     if(product.stockCount - cartItem.quantity > 0) {
                         
-                        this.cartItems = ProductLogic.addToShoppingCart(product, this.cartItems);
+                        this.cartItems = this.productLogic.addToShoppingCart(product, this.cartItems);
 
                         this.totalQuantity += 1;
 
@@ -121,7 +122,7 @@ export default {
         },
         refreshComponents() {
 
-            let productIds = ProductLogic.getProductIds(this.cartItems);
+            let productIds = this.productLogic.getProductIds(this.cartItems);
 
             let cookie = !productIds.length ? [] : productIds;
 
@@ -130,9 +131,9 @@ export default {
                 cookie
             ));
 
-            this.totalCosts = ProductLogic.calculateBasketCosts(this.cartItems);
+            this.totalCosts = this.productLogic.calculateBasketCosts(this.cartItems);
             //update shopping cart count for App
-            this.$root.$emit('updateCount', ProductLogic.getTotalQuantity(this.cartItems));
+            this.$root.$emit('updateCount', this.productLogic.getTotalQuantity(this.cartItems));
         },
         navigateToDetails(productId) {
             this.$router.push({
@@ -161,7 +162,7 @@ export default {
                 content += '<br>';
             });
     
-            UserDao.getUserEmail(user.id)
+            this.accountLogic.getUserEmail(user.id)
                 .then((response) => {
                     let userEmail = response;
 
@@ -183,7 +184,7 @@ export default {
                                 type: "success",
                                 timer: 3000
                             });
-                            ProductDao.removeBasketProductsFromStore(this.cartItems);
+                            this.productLogic.removeBasketProductsFromStore(this.cartItems);
                             this.$cookies.set('shopping_cart', '');
                             this.cartItems = [];
                             this.$root.$emit('updateCount', 0);

@@ -7,7 +7,12 @@ import VueAlert from 'vue-simple-alert';
 import Pagination from 'jw-vue-pagination';
 import ZoomOnHover from 'vue-zoom-on-hover';
 import StarRating from 'vue-star-rating';
-import 'babel-polyfill';
+import Notifications from 'vue-notification'
+import velocity from 'velocity-animate';
+// allow async/await 
+// import 'babel-core/register';
+// import 'babel-polyfill';
+
 import '@/routing/ml.js';
  
 Vue.config.productionTip = false;
@@ -28,6 +33,8 @@ Vue.component('star-rating', StarRating);
 // components: {
 //    StarRating
 // }
+
+Vue.use(Notifications, { velocity });
 
 new Vue({   
   render: h => h(App),

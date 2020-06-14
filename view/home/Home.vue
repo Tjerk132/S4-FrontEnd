@@ -9,7 +9,6 @@
     </h4>
     <h4 v-text="$ml.get('homeGreeting')">
     </h4>
-
     <router-view></router-view>
   </div>
 </template> 

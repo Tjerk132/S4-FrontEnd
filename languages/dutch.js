@@ -32,6 +32,8 @@ export default
         noItemsInCart: 'Je hebt momenteel geen producten in je winkelwagen',
         itemsInCart: 'Je winkelwagen bevat {p} producten',
         itemInCart: 'Je winkelwagen bevat 1 product',
+        shoppingCartAdjusted: 'Winkelwagen aangepast',
+        shoppingCartCountAdjusted: 'Je hebt nu {p} producten in je winkelwagen!',
 
         quantity: 'Aantal',
         name: 'Naam',

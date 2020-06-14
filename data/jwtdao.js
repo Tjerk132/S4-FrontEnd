@@ -1,33 +1,30 @@
 import axios from '@/services/base-api.js';
 
-async function setJwtHeader(username, password) {
-    
-    try {
+export default class JwtDao {
 
-        let res = await axios.post('/login', {
-           u: username,
-           p: password
-        })     
+    async setJwtHeader(username, password) {
         
-        let jwtHeader = res.headers.authorization.replace('Bearer ', ''); 
-        localStorage.setItem('jwt-token', jwtHeader);
+        try {
 
-        console.log(res.headers);
-        
-        let cryptoHeader = res.headers.cryptokey;
-        localStorage.setItem('crypto-key', cryptoHeader);            
+            let res = await axios.post('/login', {
+            username: username,
+            password: password
+            })     
+            
+            let jwtHeader = res.headers.authorization.replace('Bearer ', ''); 
+            localStorage.setItem('jwt-token', jwtHeader);
+
+            let cryptoHeader = res.headers.cryptoKey;
+            localStorage.setItem('crypto-key', cryptoHeader);            
+        }
+        catch(error) {
+            console.error(error);
+            return error.response.status;
+        }
     }
-    catch(error) {
-        console.error(error);
-        return error.response.status;
+
+    getKey(CryptoJS) {
+        // return key to decrypt with crypto-js
+        return CryptoJS.AES.decrypt(localStorage.getItem('crypto-key'), 't314159s').toString(CryptoJS.enc.Utf8);        
     }
-}
-
-function getKey(CryptoJS) {
-    return CryptoJS.AES.decrypt(localStorage.getItem('crypto-key'), `${String.fromCharCode(84)}${Math.PI.toFixed(5).replace('.','')}${String.fromCharCode(83)}`).toString(CryptoJS.enc.Utf8);        
-}
-
-export default {
-    setJwtHeader,
-    getKey
 }

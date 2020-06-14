@@ -42,8 +42,8 @@
 
 <script>
 import Product from '@/models/Product.js';
-import ProductDao from '@/data/productdao.js';
 
+import ProductLogic from '@/logic/ProductLogic.js';
 import CategoryLogic from '@/logic/CategoryLogic.js';
 import ModifyProductLogic from '@/logic/ModifyProductLogic.js';
 
@@ -53,15 +53,18 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
+            categoryLogic: new CategoryLogic(),
+            modifyProductLogic: new ModifyProductLogic(),
             product: Product,
             categories: Array
         }
     },
     mounted() {        
         this.product = this.Product;
-        ProductDao.getProductCategories()
+        this.productLogic.getProductCategories()
             .then((categories) => {
-                this.categories = CategoryLogic.toReadableCategories(categories);
+                this.categories = this.categoryLogic.toReadableCategories(categories);
             });
     },
     methods: {
@@ -73,7 +76,7 @@ export default {
         },
         submit() {
             let product = this.product;
-            let error = ModifyProductLogic.validateProductAdjustments(product, this.categories);
+            let error = this.modifyProductLogic.validateProductAdjustments(product, this.categories);
             product.stockCount = Math.trunc(product.stockCount);
 
             if(error != undefined) {

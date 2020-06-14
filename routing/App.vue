@@ -16,12 +16,17 @@
 import NavBar from '@/components/NavBar/NavBar.vue';
 
 import ProductLogic from '@/logic/ProductLogic.js';
-
-import jwtDao from '@/data/jwtdao.js';
+import JwtLogic from '@/logic/JwtLogic.js';
 
 export default {
     components: {
         navBar: NavBar,
+    },
+    data() {
+        return {
+            jwtLogic: new JwtLogic(),
+            productLogic: new ProductLogic(),
+        }
     },
     mounted() {
          
@@ -29,7 +34,7 @@ export default {
                 this.$cookies.get('shopping_cart'));
 
         // avoid null when clearing cookies
-        products = ProductLogic.checkExistingBasket(products);
+        products = this.productLogic.checkExistingBasket(products);
 
         this.$root.$emit('updateCount', products.length);
     },

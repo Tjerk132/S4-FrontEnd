@@ -37,6 +37,7 @@ export default {
     },
     data() {
         return {
+            reviewSummaryLogic: new ReviewSummaryLogic(),
             reviewCount: Number,
             reviewAverages: Array,
             avgRating: Number,
@@ -49,8 +50,8 @@ export default {
         let reviews = this.Reviews;
 
         this.reviewCount = reviews.length;
-        this.avgRating = ReviewSummaryLogic.getAvgRating(reviews);
-        this.reviewAverages = ReviewSummaryLogic.calculatePercentages(this.maxRating, reviews, reviews.length);
+        this.avgRating = this.reviewSummaryLogic.getAvgRating(reviews);
+        this.reviewAverages = this.reviewSummaryLogic.calculatePercentages(this.maxRating, reviews, reviews.length);
     },
     computed: {
         mlReviewCount() {            

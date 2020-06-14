@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="reviews">
-            <h4 v-text="$ml.get('Reviews')" class="reviewsTitle"/>
+            <h4 v-text="$ml.get('Reviews')" class="reviews-title"/>
             <ul>
                 <div v-if="reviews.length">
                     <li class="review">
@@ -11,10 +11,10 @@
                         <ReviewComp :Review='review'/>
                     </li>
                     <li v-if="reviews.length > reviewShowCount">
-                        <button v-on:click='reviewShowCount += reviewShowMoreCount' v-text="$ml.get('showMoreReviews')" class="adjustReviewCountBtn"/>
+                        <button v-on:click='reviewShowCount += reviewShowMoreCount' v-text="$ml.get('showMoreReviews')" class="adjust-review-count-btn"/>
                     </li>  
                     <li v-else-if="reviews.length < reviewShowCount">
-                        <button v-on:click='reviewShowCount = 1' v-text="$ml.get('showLessReviews')" class="adjustReviewCountBtn"/>
+                        <button v-on:click='reviewShowCount = 1' v-text="$ml.get('showLessReviews')" class="adjust-review-count-btn"/>
                     </li>
                 </div>
                 <div v-else v-text="$ml.get('noReviewsYet')" class="review" />
@@ -30,7 +30,7 @@ import ReviewSummary from '@/components/ReviewSummary/ReviewSummary.vue';
 import ReviewComp from '@/components/Review/Review.vue';
 import NewReview from '@/components/NewReview/NewReview.vue';
 
-import ReviewDao from '@/data/reviewdao.js';
+import ReviewLogic from '@/logic/ReviewLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -47,6 +47,7 @@ export default {
     },
     data() {
         return {
+            reviewLogic: new ReviewLogic(),
             reviews: Array,
             product: Object,
             newReviewKey: 0,
@@ -65,7 +66,7 @@ export default {
             //save new review
             review.setProductId(this.product.id);  
             //send review to server and return to convert date to timeStamp
-            ReviewDao.addReview(review)
+            this.reviewLogic.addReview(review)
             .then(review => {
                 this.reviews.push(review);
             });

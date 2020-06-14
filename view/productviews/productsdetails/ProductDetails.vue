@@ -27,6 +27,12 @@
 
                     <strong v-text="$ml.get('reviewCount')"/>
                     <p v-text="$ml.get('Review')"/>
+
+                    <div class="details-divider"/>
+
+                    <button :class="product.stockCount == 0 ? 'product-to-cart-btn-disabled' : 'product-to-cart-btn'" v-on:click="addToCart(product.id)">
+                        <span v-text="$ml.get('addToCart')"/>
+                    </button>
                 </div> 
 
             </div>
@@ -61,8 +67,8 @@ import ReviewsComp from '@/components/Reviews/Reviews.vue';
 import CategorySuggestions from '@/components/CategorySuggestions/CategorySuggestions.vue';
 import TopRatedSuggestions from '@/components/TopRatedSuggestions/TopRatedSuggestions.vue';
 
-import ReviewDao from '@/data/reviewdao.js';
-import ProductDao from '@/data/productdao.js';
+import ReviewLogic from '@/logic/ReviewLogic.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -72,13 +78,14 @@ export default {
         ReviewsComp,
         CategorySuggestions,
         TopRatedSuggestions
-
     },
     props: {    
       id: Number,    
     },
     data() {
         return {
+            reviewLogic: new ReviewLogic(),
+            productLogic: new ProductLogic(),
             product: Object,
             reviews: Array,
             loadingData: 2
@@ -100,23 +107,43 @@ export default {
 
             this.loadingData = 2;
 
-            ProductDao.getProductById(id)
+            this.productLogic.getProductById(id)
             .then((product) => {
                 this.product = product;  
                 this.loadingData -= 1;                
             });
 
-            ReviewDao.getAllReviewsByProduct(id)
+            this.reviewLogic.getAllReviewsByProduct(id)
                 .then((reviews) => {
         
                 this.reviews = reviews;
                 this.loadingData -= 1;  
             });
         },
-        changeScale() {
-            console.log(this.$refs.productImg);
+        addToCart(productId) {
+
+            //get products from cookie
+            let productIds = JSON.parse(
+                this.$cookies.get('shopping_cart'));
+
+            //shopping cart is empty
+            if(productIds == null) {
+                productIds = [];
+            }
+
+            let productCount = productIds.filter(x => x == productId).length;
             
-            this.$refs.productImg.style.scale += 1;
+            //check if user has more products in his shoppingcart then exist in the store
+            if(this.product.stockCount - productCount > 0) {
+                
+                productIds.push(productId);
+
+                this.$cookies.set('shopping_cart', JSON.stringify(productIds));
+
+                //update shopping cart count for App
+                this.$root.$emit('updateCount', productIds.length);
+            }
+            else this.$alert(this.$ml.get('notEnoughInStock'));
         }
     },
     computed: {

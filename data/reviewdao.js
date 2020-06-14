@@ -2,40 +2,36 @@ import axios from '@/services/base-api.js';
 
 let basePath = '/reviews';
 
-async function getAllReviewsByProduct(id) {
+export default class ReviewDao {
 
-    try {        
-        let url = `${basePath}/product/${id}`;
+    async getAllReviewsByProduct(id) {
 
-        let res = await axios.get(url);
+        try {        
+            let url = `${basePath}/product/${id}`;
 
-        return res.data;
+            let res = await axios.get(url);
+
+            return res.data;
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
-    catch (err) {
-        console.error(err);
+
+    async addReview(review) {
+
+        try {
+
+            let url = `${basePath}/add`;
+            
+            let res = await axios.post(url, review);
+
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
-}
 
-async function addReview(review) {
-
-    try {
-
-        let url = `${basePath}/add`;
-
-        console.log(review);
-        
-        let res = await axios.post(url, review);
-
-        return res.data;
-    }
-    catch(err) {
-        console.error(err);
-    }
-}
-
-export default {
-    
-    getAllReviewsByProduct,
-    addReview,
 }
 

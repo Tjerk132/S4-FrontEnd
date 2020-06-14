@@ -9,7 +9,7 @@
 
 <script>
 import Product from '@/models/Product.js';
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -24,12 +24,13 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
             product: Product,
             loaded: false
         }  
     },
     mounted() {
-        ProductDao.getProductById(this.id)
+        this.productLogic.getProductById(this.id)
             .then((product) => {
                 this.product = product;  
                 this.loaded = true;
@@ -43,7 +44,7 @@ export default {
     methods: {
         updateProduct(product) {
 
-            ProductDao.updateProduct(product)
+            this.productLogic.updateProduct(product)
                 .then((res) => {
                     if(res.status = 200) {
 

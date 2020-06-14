@@ -9,7 +9,7 @@
 
 <script>
 import Product from '@/models/Product.js';
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 
 import ProductTemplate from '@/components/Templates/ProductTemplate.vue';
 
@@ -20,13 +20,14 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
             product: new Product(),
         }  
     },
     methods: {
         addProduct(product) {
             
-            ProductDao.addProduct(product)
+            this.productLogic.addProduct(product)
                 .then((res) => {
                     if(res.status = 200) {
 

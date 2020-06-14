@@ -1,18 +1,17 @@
-function removeFromSearchHistory(historyItem, historyItems) {
-        
-    historyItems = chechExistingHistory(historyItems);
+export default class SearchLogic {
 
-    //remove historyItem
-    let index = historyItems.indexOf(historyItem);
-    historyItems.splice(index, 1);
+    removeFromSearchHistory(historyItem, historyItems) {
+            
+        historyItems = chechExistingHistory(historyItems);
 
-    return historyItems;
-}
+        //remove historyItem
+        let index = historyItems.indexOf(historyItem);
+        historyItems.splice(index, 1);
 
-function chechExistingHistory(historyItems) {
-    return historyItems = undefined ? [] : historyItems;
-}
-
-export default {
-    removeFromSearchHistory,
+        return historyItems;
+    }
+    
+    chechExistingHistory(historyItems) {
+        return historyItems = undefined ? [] : historyItems;
+    }
 }

@@ -2,140 +2,131 @@ import axios from '@/services/base-api.js';
 
 let basePath = '/products';
 
-async function getAllProducts() {
+export default class ProductDao {
 
-    try {
+    async getAllProducts() {
 
-        let res = await axios.get(basePath);
-        
-        return res.data;
-    }
-    catch (err) {
-        console.error(err);
-    }
-}
+        try {
 
-async function getProductById(id) {
-    
-    try { 
-        let url = `${basePath}/${id}`;
-
-        let res = await axios.get(url);
-
-        return res.data;
-    }
-    catch (err) {
-        //log everything except user not found
-        if(err.response.status != 404) {
+            let res = await axios.get(basePath);
+            
+            return res.data;
+        }
+        catch (err) {
             console.error(err);
         }
     }
-}
 
-async function addProduct(product) {
-
-    try {
-        let url = `${basePath}/add`;
-                
-        let res = await axios.post(url, product);
-
-        return res.data;
-    }
-    catch (err) {
-        console.error(err);      
-    }
-}
-
-async function updateProduct(product) {
-    try {
-        let url = `${basePath}/update`;
-                
-        let res = await axios.put(url, product);
-
-        return res.data;
-    }
-    catch (err) {
-        console.error(err);      
-    }
-}
-
-async function getProductCategories() {
-    try {
-        let url = `${basePath}/categories`;
+    async getProductById(id) {
         
-        let res = await axios.get(url);
+        try { 
+            let url = `${basePath}/${id}`;
 
-        return res.data;
+            let res = await axios.get(url);
+
+            return res.data;
+        }
+        catch (err) {
+            //log everything except user not found
+            if(err.response.status != 404) {
+                console.error(err);
+            }
+        }
     }
-    catch (err) {
-        console.error(err);      
+
+    async addProduct(product) {
+
+        try {
+            let url = `${basePath}/add`;
+                    
+            let res = await axios.post(url, product);
+
+            return res.data;
+        }
+        catch (err) {
+            console.error(err);      
+        }
     }
-}
 
-async function getProductsByCategory(category) {
-    try {
-        let url = `${basePath}/categories/${category}`;        
+    async updateProduct(product) {
+        try {
+            let url = `${basePath}/update`;
+                    
+            let res = await axios.put(url, product);
 
-        let res = await axios.get(url);   
-
-        return res.data;
+            return res.data;
+        }
+        catch (err) {
+            console.error(err);      
+        }
     }
-    catch(err) {
-        console.error(err);
+
+    async getProductCategories() {
+        try {
+            let url = `${basePath}/categories`;
+            
+            let res = await axios.get(url);
+
+            return res.data;
+        }
+        catch (err) {
+            console.error(err);      
+        }
     }
-}
 
-async function getProductsByName(name) {
-    try {   
-        let url = `${basePath}/name/${name}`;
+    async getProductsByCategory(category) {
+        try {
+            let url = `${basePath}/categories/${category}`;        
 
-        let res = await axios.get(url);
+            let res = await axios.get(url);   
 
-        return res.data;
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
-    catch(err) {
-        console.error(err);
+
+    async getProductsByName(name) {
+        try {   
+            let url = `${basePath}/name/${name}`;
+
+            let res = await axios.get(url);
+
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
-}
 
-async function removeBasketProductsFromStore(products) {
-    try {   
+    async removeBasketProductsFromStore(products) {
+        try {   
 
-        let url = `${basePath}/removeBasketItems`;
+            let url = `${basePath}/removeBasketItems`;
 
-        let res = await axios.post(url, {
-            products: products
-        });
+            let res = await axios.post(url, {
+                products: products
+            });
 
-        return res.data;
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
-    catch(err) {
-        console.error(err);
+
+    async getTopRatedProducts() {
+        try {   
+            let url = `${basePath}/topRated`;
+
+            let res = await axios.get(url);
+
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
-}
-
-async function getTopRatedProducts() {
-    try {   
-        let url = `${basePath}/topRated`;
-
-        let res = await axios.get(url);
-
-        return res.data;
-    }
-    catch(err) {
-        console.error(err);
-    }
-}
-
-export default {
-    getAllProducts,
-    getProductById,
-    addProduct,
-    updateProduct,
-    getProductCategories,
-    getProductsByCategory,
-    getProductsByName,
-    removeBasketProductsFromStore,
-    getTopRatedProducts,
 }
 

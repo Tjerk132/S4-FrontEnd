@@ -57,6 +57,7 @@ import { MLBuilder } from 'vue-multilanguage';
 export default {
     data() {
         return {
+            reviewLogic: new ReviewLogic(),
             review: new Review()             
         }
     },
@@ -79,27 +80,27 @@ export default {
             let proInput = this.$refs.pro;
             let pro = proInput.value;            
 
-            if(ReviewLogic.validateProConInput(pro, this.review.pros.length)) {                
+            if(this.reviewLogic.validateProConInput(pro, this.review.pros.length)) {                
                 this.review.pros.push(pro);
                 proInput.value = '';
             }
             else this.$alert('Please use 4 pros max');
         },
         removePro(pro) {
-            this.review.pros = ReviewLogic.removeItem(pro, this.review.pros);
+            this.review.pros = this.reviewLogic.removeItem(pro, this.review.pros);
         },  
         addCon() {
             let conInput = this.$refs.con;
             let con = conInput.value;
 
-            if(ReviewLogic.validateProConInput(con, this.review.cons.length)) {
+            if(this.reviewLogic.validateProConInput(con, this.review.cons.length)) {
                 this.review.cons.push(con);
                 conInput.value = '';
             }
             else this.$alert('Please use 4 cons max');
         },
         removeCon(con) {
-            this.review.cons = ReviewLogic.removeItem(con, this.review.cons);
+            this.review.cons = this.reviewLogic.removeItem(con, this.review.cons);
         },
         submitReview() {
 
@@ -110,7 +111,7 @@ export default {
                 return;
             }
 
-            let message = ReviewLogic.validateReviewSubmit(
+            let message = this.reviewLogic.validateReviewSubmit(
                 [
                     new Ref(review.content, 'Content'),
                     new Ref(review.starRating, 'Star Rating'),

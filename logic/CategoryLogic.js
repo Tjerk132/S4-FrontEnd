@@ -1,45 +1,44 @@
-import ProductDao from '@/data/productdao.js';
+import ProductDao from '@/data/ProductDao.js';
 
-async function getByCategory(category) {
+export default class CategoryLogic {
 
-    let products = [];
-    if(category == 'All') {
-        await ProductDao.getAllProducts()
-          .then((response) => {
-               products = response;
-          });
-    }   
-    else {
-        await ProductDao.getProductsByCategory(category)
-          .then((response) => {  
-             products = response;
-        });
+    constructor() {
+        this.ProductDao = new ProductDao();
     }
-    return products;
-}
 
-function toReadableCategories(categories) {
+    async getByCategory(category) {
 
-    let formattedCategories = [];
-    categories.forEach(category => {
-        // replace _ with JS global regex to 'space' and set all chars to lowercase
-        let formattedCategory = category.replace(/_/g,' ')
-            .toLowerCase();
-        
-        // first char to uppercase
-        formattedCategory = formattedCategory
-            .charAt(0).toUpperCase()
-            + formattedCategory.slice(1);
+        let products = [];
+        if(category == 'All') {
+            await this.ProductDao.getAllProducts()
+            .then((response) => {
+                products = response;
+            });
+        }   
+        else {
+            await this.ProductDao.getProductsByCategory(category)
+            .then((response) => {  
+                products = response;
+            });
+        }
+        return products;
+    }
 
-        formattedCategories.push(formattedCategory);
-    });
-    return formattedCategories;
-}
+    toReadableCategories(categories) {
 
- //replace all +'s with spaces ([] eg [+] for calculating symbols)
-// = string.replace(/[+]/g, " ");
+        let formattedCategories = [];
+        categories.forEach(category => {
+            // replace _ with JS global regex to 'space' and set all chars to lowercase
+            let formattedCategory = category.replace(/_/g,' ')
+                .toLowerCase();
+            
+            // first char to uppercase
+            formattedCategory = formattedCategory
+                .charAt(0).toUpperCase()
+                + formattedCategory.slice(1);
 
-export default {
-    getByCategory,
-    toReadableCategories,
+            formattedCategories.push(formattedCategory);
+        });
+        return formattedCategories;
+    }
 }

@@ -2,60 +2,58 @@ import axios from '@/services/base-api.js';
 
 let basePath = '/users';
 
-async function loginUser(username, password) {
+export default class UserDao {
 
-    try {
-        let url = `${basePath}/login`;
+    async loginUser(username, password) {
 
-        let res = await axios.post(url, {
-            username: username,
-            password: password,
-        });
+        try {
+            let url = `${basePath}/login`;
 
-        return res.data;
-    }
-    catch(err) {
-        console.error(err);        
-        return err.response.status;   
-     }
-}
+            let res = await axios.post(url, {
+                username: username,
+                password: password,
+            });
 
-async function registerUser(username, password, emailAddress) {
-    
-    try {                               
-        let url = `${basePath}/register`;
-
-        let res = await axios.post(url, {
-            username: username,
-            password: password,
-            emailAddress: emailAddress
-        });
-
-        return res.data;
-    }
-    catch(err) {
-        if(err.response.status == 400) {
-            return 400;
+            return res.data;
         }
-        console.error(err);
+        catch(err) {
+            console.error(err);        
+            return err.response.status;   
+        }
     }
-}
 
-async function getUserEmail(userId) {
-    try {
-        let url = `${basePath}/email`;
+    async registerUser(username, password, emailAddress) {
+        
+        try {                               
+            let url = `${basePath}/register`;
 
-        let res = await axios.post(url, userId);
+            let res = await axios.post(url, {
+                username: username,
+                password: password,
+                emailAddress: emailAddress
+            });
 
-        return res.data;
+            return res.data;
+        }
+        catch(err) {
+            if(err.response.status == 400) {
+                return 400;
+            }
+            console.error(err);
+        }
     }
-    catch(err) {
-        console.error(err);
-    }
-}
 
-export default {
-    loginUser,
-    registerUser,
-    getUserEmail,
+    async getUserEmail(userId) {
+        try {
+            let url = `${basePath}/email`;
+
+            let res = await axios.post(url, userId);
+
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        }
+    }
+
 }

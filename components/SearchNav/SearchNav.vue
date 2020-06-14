@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 import SearchLogic from '@/logic/SearchLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
@@ -50,6 +50,8 @@ export default {
 
     data() {
         return {
+            productLogic: new ProductLogic(),
+            searchLogic: new SearchLogic(),
             historyQueries: Array,
             showQueries: false,
             suggestions: Array,
@@ -113,7 +115,7 @@ export default {
                 this.showQueries = false;
 
                 //get all existing products b the given query
-                ProductDao.getProductsByName(queryInput)
+                this.productLogic.getProductsByName(queryInput)
                     .then((response) => {
                         this.suggestions = response;
                         this.showSuggestions = response.length;
@@ -139,7 +141,7 @@ export default {
             else this.showQueries = !this.showQueries;    
         },
         removeFromHistory(historyQuery) {
-            let queryHistory = SearchLogic.removeFromSearchHistory(historyQuery, this.historyQueries);
+            let queryHistory = this.searchLogic.removeFromSearchHistory(historyQuery, this.historyQueries);
             
             this.historyQueries = queryHistory;
 

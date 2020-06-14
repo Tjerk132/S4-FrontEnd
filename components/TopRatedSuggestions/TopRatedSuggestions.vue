@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic.js'
 
 import ProductComp from '@/components/Product/Product.vue';
 
@@ -25,13 +25,14 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
             suggestions: Array,
         }
 
     },
     mounted() {
        
-        ProductDao.getTopRatedProducts()
+        this.productLogic.getTopRatedProducts()
             .then((response) => {
                 this.suggestions = response;            
         });    

@@ -28,9 +28,10 @@
 import Product from '@/models/Product.js';
 
 import CategoryLogic from '@/logic/CategoryLogic.js';
+import JwtLogic from '@/logic/JwtLogic.js';
+
 import Pagination from '@/components/Pagination/Pagination.vue';
 import CryptoJS from 'crypto-js';
-import jwtDao from '@/data/jwtdao.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -44,6 +45,8 @@ export default {
   },
   data() {
      return {
+        jwtLogic: new JwtLogic(),
+        categoryLogic: new CategoryLogic(),
         pageSize: 6,
         //must be [] for navigation
         products: [],
@@ -58,22 +61,28 @@ export default {
 
     this.Category = this.category;
 
-    this.key = jwtDao.getKey(CryptoJS); 
+    this.key = this.jwtLogic.getKey(CryptoJS); 
      
     if(this.$session.get('user') != undefined) {  
       let decryptedBytes = CryptoJS.AES.decrypt(this.$session.get('user').role, this.key);
       this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);
     }
-    CategoryLogic.getByCategory(this.Category)
+    this.categoryLogic.getByCategory(this.Category)
       .then((response) => {
         this.products = response;
         this.loading = false;
+    });
+
+    this.$root.$on('loggedInStatus', (loggedIn) => {
+      if(!loggedIn) {
+        this.role = 'USER';
+      }
     });
   },
   watch: {
     '$route.query.category'(newCategory, oldCategory) {
       this.Category = newCategory;
-      this.products = CategoryLogic.getByCategory(newCategory)
+      this.products = this.categoryLogic.getByCategory(newCategory)
         .then((response) => {
           this.products = response;
           this.loading = false;

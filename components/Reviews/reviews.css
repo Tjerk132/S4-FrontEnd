@@ -19,7 +19,12 @@
     width: 100%;
 }
 
-.reviewsTitle {
+.adjust-review-count-btn {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.reviews-title {
     margin: 0 0 -15px 0;
     text-align: center;
 }

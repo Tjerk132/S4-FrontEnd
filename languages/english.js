@@ -32,6 +32,8 @@ export default
         noItemsInCart: 'You have no items in your shopping cart',
         itemsInCart: 'Your shopping cart has {p} products',
         itemInCart: 'Your shopping cart has 1 product',
+        shoppingCartAdjusted: 'Shopping cart adjusted',
+        shoppingCartCountAdjusted: 'You now have {p} products in your basket!',
 
         quantity: 'Quantity',
         name: 'Name',

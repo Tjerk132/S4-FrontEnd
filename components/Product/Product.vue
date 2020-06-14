@@ -42,9 +42,11 @@
 
 <script>
 import Product from '@/models/Product.js';
+
 import ProductLogic from '@/logic/ProductLogic.js';
+import JwtLogic from '@/logic/JwtLogic.js';
+
 import CryptoJS from 'crypto-js';
-import jwtDao from '@/data/jwtdao.js';
 
 import { MLBuilder } from 'vue-multilanguage';
 
@@ -54,6 +56,8 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
+            jwtLogic: new JwtLogic(),
             product: Object,
             role: 'USER',
             key: String
@@ -62,12 +66,20 @@ export default {
     mounted() {
         console.log('creating a product');
         this.product = this.Product;
-        this.key = jwtDao.getKey(CryptoJS); 
+        this.key = this.jwtLogic.getKey(CryptoJS);         
 
         if(this.$session.get('user') != undefined) {
+            console.log('azaz');
+            
             let decryptedBytes = CryptoJS.AES.decrypt(this.$session.get('user').role, this.key);
             this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);
         }
+
+        this.$root.$on('loggedInStatus', (loggedIn) => {
+            if(!loggedIn) {
+                this.role = 'USER';
+            }
+        });
     },
     methods: {
         goToProductDetails(productId) {

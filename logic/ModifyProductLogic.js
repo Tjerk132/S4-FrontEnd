@@ -1,25 +1,23 @@
-function validateProductAdjustments(product, categories) {
+export default class ModifyProductLogic {
 
-    let error;
+    validateProductAdjustments(product, categories) {
 
-    let price = product.price;
-    if(parseFloat(price) < 0 || isNaN(parseFloat(price))) {
-        error = 'errorInsertPrice';
+        let error;
+
+        let price = product.price;
+        if(parseFloat(price) < 0 || isNaN(parseFloat(price))) {
+            error = 'errorInsertPrice';
+        }
+
+        let stockCount = product.stockCount;
+        if(parseFloat(stockCount) < 0 || isNaN(parseFloat(stockCount))) {
+            error = 'errorInsertStockCount';
+        }
+        
+        let category = product.category;
+        if(!categories.includes(category)) {
+            error = 'errorInsertCategory';
+        }
+        return error;
     }
-
-    let stockCount = product.stockCount;
-    if(parseFloat(stockCount) < 0 || isNaN(parseFloat(stockCount))) {
-        error = 'errorInsertStockCount';
-    }
-    
-    let category = product.category;
-    if(!categories.includes(category)) {
-        error = 'errorInsertCategory';
-    }
-    return error;
-}
-
-
-export default {
-    validateProductAdjustments,
 }

@@ -9,7 +9,7 @@ module.exports = {
     host: '0.0.0.0',
     // disableHostCheck: true,
   },  
-  entry: './routing/main.js',
+  entry: ['babel-polyfill', './routing/main.js'],
   module: {
     rules: [
       { 

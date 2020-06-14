@@ -29,6 +29,22 @@ body {
     height: 430px;
 }
 
+.details-divider {
+    height: 60px;
+}
+
+.product-to-cart-btn {
+    width: 100%;
+    height: 65px;
+}
+
+.product-to-cart-btn-disabled {
+    width: 100%;
+    height: 65px;
+    background-color: rgb(227, 45, 45);
+    cursor: not-allowed !important;
+}
+
 .productDetailsInfoDiv p {
     border-bottom: 1px dotted #e6e6e6;
 }

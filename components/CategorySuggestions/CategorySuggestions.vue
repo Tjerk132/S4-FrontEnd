@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import ProductDao from '@/data/productdao.js';
+import ProductLogic from '@/logic/ProductLogic.js';
+
 import Pagination from '@/components/Pagination/Pagination.vue';
 
 import { MLBuilder } from 'vue-multilanguage';
@@ -24,6 +25,7 @@ export default {
     },
     data() {
         return {
+            productLogic: new ProductLogic(),
             category: String,
             //cannot be array for getProductsByCategory
             suggestions: [],
@@ -35,7 +37,7 @@ export default {
     mounted() {  
         this.category = this.Category;
            
-        ProductDao.getProductsByCategory(this.category) 
+        this.productLogic.getProductsByCategory(this.category) 
             .then(suggestions => {
                 suggestions.forEach(suggestion => {
                     
