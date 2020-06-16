@@ -2,6 +2,7 @@
   <div id="app">
     <title v-text="$ml.get('productPage')"></title>
 
+      <button v-on:click="goToAddProduct()" v-text="$ml.get('addProduct')" v-if="role == 'ADMIN'" />
       <h3 v-if="Category != 'All'">
         <h3 v-text="$ml.get('Category')" />
       </h3>
@@ -11,7 +12,6 @@
       <img :src="'./images/loading.gif'">
       <p>Loading...</p>
     </div>
-    <button v-on:click="goToAddProduct()" v-if="role == 'ADMIN'">Add product</button>
     <div v-if="products.length">
       <Pagination :Products=products :PageSize=pageSize></Pagination>
     </div>
@@ -52,7 +52,10 @@ export default {
         products: [],
         Category: String,
         loading: true,
-        role: 'USER',
+        role: {
+          type: String,
+          default: 'USER'
+        },
         key: String
         
       }
@@ -62,12 +65,14 @@ export default {
     this.Category = this.category;
 
     this.key = this.jwtLogic.getKey(CryptoJS); 
-     
-    if(this.$session.get('user') != undefined) {  
-      let decryptedBytes = CryptoJS.AES.decrypt(this.$session.get('user').role, this.key);
+
+    let user = this.$session.get('user');
+    if(user != undefined) {  
+      let decryptedBytes = CryptoJS.AES.decrypt(user.role, this.key);
       this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);
     }
-    this.categoryLogic.getByCategory(this.Category)
+
+    this.categoryLogic.getByCategory(this.category)
       .then((response) => {
         this.products = response;
         this.loading = false;

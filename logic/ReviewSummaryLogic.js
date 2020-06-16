@@ -18,7 +18,7 @@ export default class ReviewSummaryLogic {
             let count = reviews.filter(x => x.starRating == i).length;
             reviewSummary.push(new ReviewSummaryItem(i, count));
         }
-        reviewSummary = calculateRatingPercentages(reviewSummary, reviewCount);
+        reviewSummary = this.calculateRatingPercentages(reviewSummary, reviewCount);
         return reviewSummary;
     }
 

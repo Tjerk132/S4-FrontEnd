@@ -52,9 +52,8 @@ export default {
         logout() {
             this.$session.destroy();
             this.loggedIn = false;
-            //update logInStatus to refresh (e.g for newReview author)
+            //update logInStatus to refresh (e.g for newReview author and user role)
             this.$root.$emit('loggedInStatus', false);
-            // location.reload();
         }
     }
     

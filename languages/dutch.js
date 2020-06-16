@@ -121,6 +121,7 @@ export default
 
         successSendEmail: 'Een email is successvol verstuurd naar het emailaddress die behoort bij uw account',
         errorSendEmail: 'Er ging iets mis bij het verzenden van de email',
+
         modifyProductPage: 'Product aanpassen',
         editProductBtn: 'Pas product aan',
         editProduct: 'Pas product {p} aan',

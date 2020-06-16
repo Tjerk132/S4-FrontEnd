@@ -59,7 +59,10 @@ export default {
             productLogic: new ProductLogic(),
             jwtLogic: new JwtLogic(),
             product: Object,
-            role: 'USER',
+            role: {
+                type: String,
+                default: 'USER'
+            },
             key: String
         }  
     },
@@ -68,12 +71,11 @@ export default {
         this.product = this.Product;
         this.key = this.jwtLogic.getKey(CryptoJS);         
 
-        if(this.$session.get('user') != undefined) {
-            console.log('azaz');
-            
-            let decryptedBytes = CryptoJS.AES.decrypt(this.$session.get('user').role, this.key);
-            this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);
-        }
+        let user = this.$session.get('user');
+        if(user != undefined) {
+            let decryptedBytes = CryptoJS.AES.decrypt(user.role, this.key);
+            this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);    
+        }      
 
         this.$root.$on('loggedInStatus', (loggedIn) => {
             if(!loggedIn) {
