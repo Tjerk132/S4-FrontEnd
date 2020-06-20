@@ -35,11 +35,11 @@ describe('ProductDao Tests', () => {
             assert(products[0].category.category, 'Sports');
         }
     });
-    it('should get the right number of top rated products', async () => {
+    // it('should get the right number of top rated products', async () => {
 
-        const products = await productDao.getTopRatedProducts();
+    //     const products = await productDao.getTopRatedProducts();
         
-        assert.notEqual(products, null);
-        assert.equal(products.length, 5);
-    });
+    //     assert.notEqual(products, null);
+    //     assert.equal(products.length, 5);
+    // });
 });
