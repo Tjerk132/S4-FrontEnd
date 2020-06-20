@@ -9,7 +9,7 @@ script:
 deploy:
   provider: pages
   local_dir: build
-  cleanup: true
+  cleanup: false
   edge: true
 github_token: $GITHUB_TOKEN 
 # Set in the settings page of your repository, as a secure variable
