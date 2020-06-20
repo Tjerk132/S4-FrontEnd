@@ -7,9 +7,9 @@
     "serve": "webpack-dev-server --mode development",
     "test": "nyc cross-env npm run test:programmatic-usage --timeout 6000",
     "test:programmatic-usage": "node tests/config/run_mocha.js",
-    "start": "vue-scripts start",
+    "start": "npm run start",
     "clean": "rm -rf build",
-    "build": "vue-scripts build",
+    "build": "npm run build",
     "deploy": "npm run clean && npm run build"
   },
   "author": "Tjerk Sevenich",
