@@ -8,7 +8,7 @@ script:
   - npm run deploy
 deploy:
   provider: pages
-  local_dir: build
+  local_dir: public
   cleanup: false
   edge: true
 github_token: $GITHUB_TOKEN 
