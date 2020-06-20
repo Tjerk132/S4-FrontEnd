@@ -11,5 +11,7 @@ deploy:
   keep_history: true
   skip_cleanup: true
   edge: true
-github_token: $GITHUB_TOKEN 
+  github_token: $GITHUB_TOKEN 
+  on:
+    branch: master
 # Set in the settings page of your repository, as a secure variable
