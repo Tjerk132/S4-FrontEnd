@@ -9,7 +9,6 @@ script:
 deploy:
   provider: pages
   keep_history: true
-  local_dir: $TRAVIS_BUILD_DIR
   skip_cleanup: true
   edge: true
 github_token: $GITHUB_TOKEN 
