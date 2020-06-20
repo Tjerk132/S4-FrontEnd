@@ -2,7 +2,7 @@ export default class SearchLogic {
 
     removeFromSearchHistory(historyItem, historyItems) {
             
-        historyItems = chechExistingHistory(historyItems);
+        historyItems = this.chechExistingHistory(historyItems);
 
         //remove historyItem
         let index = historyItems.indexOf(historyItem);

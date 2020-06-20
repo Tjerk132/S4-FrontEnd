@@ -6,7 +6,7 @@
 
         <nav v-show="showAccountOptions" class="accountOptions">
             <ul>
-                <li>            
+                <li v-show="!loggedIn">            
                     <button v-on:click="goRoute('register')" v-text="$ml.get('register')"/>
                 </li>
                 <li v-show="!loggedIn">            

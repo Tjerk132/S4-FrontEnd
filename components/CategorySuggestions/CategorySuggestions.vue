@@ -29,7 +29,7 @@ export default {
             category: String,
             //cannot be array for getProductsByCategory
             suggestions: [],
-            pageSize: 4,
+            pageSize: 3,
             //required for pagination (getProductsByCategory async)
             loadingResources: true
         }

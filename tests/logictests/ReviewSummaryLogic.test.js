@@ -2,6 +2,8 @@ import assert from 'assert';
 import ReviewSummaryLogic from'@/logic/ReviewSummaryLogic.js';
 import Review from'@/models/Review.js';
 
+const reviewSummaryLogic = new ReviewSummaryLogic();
+
 describe('ReviewSummaryLogic Tests', () => {
 
     it('should calculate reviewAvg correct', () => {
@@ -12,7 +14,7 @@ describe('ReviewSummaryLogic Tests', () => {
             { starRating: 4 }
         ];
 
-        let reviewAvg = ReviewSummaryLogic.getAvgRating(reviews)
+        let reviewAvg = reviewSummaryLogic.getAvgRating(reviews)
 
         assert.equal(reviewAvg, 4.3);
     });
@@ -26,7 +28,7 @@ describe('ReviewSummaryLogic Tests', () => {
             { starRating: 4 }
         ];
 
-        let reviewSummary = ReviewSummaryLogic.calculatePercentages(5, reviews, 3);
+        let reviewSummary = reviewSummaryLogic.calculatePercentages(5, reviews, 3);
 
         assert.equal(reviewSummary.length, 5);
                     //first is 5 when maxRating is 5 (=index1)
@@ -40,7 +42,7 @@ describe('ReviewSummaryLogic Tests', () => {
             { starRating: 5 },
         ];
 
-        let reviewSummary = ReviewSummaryLogic.calculatePercentages(5, reviews, 1);
+        let reviewSummary = reviewSummaryLogic.calculatePercentages(5, reviews, 1);
 
         assert.equal(reviewSummary.length, 5);
 

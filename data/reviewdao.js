@@ -33,5 +33,22 @@ export default class ReviewDao {
         }
     }
 
+    async likeReview(userId, reviewId) {
+
+        try {
+
+            let url = `${basePath}/like`;
+            
+            let res = await axios.get  (url, {
+                params: { userId: userId, reviewId: reviewId }   
+            });
+
+            return res.data;
+        }
+        catch(err) {
+            console.error(err);
+        } 
+    }
+
 }
 

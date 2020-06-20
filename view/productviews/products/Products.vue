@@ -1,24 +1,31 @@
 <template>
   <div id="app">
     <title v-text="$ml.get('productPage')"></title>
+      <button v-on:click='goToAddProduct()' v-text="$ml.get('addProduct')" v-if="role == 'ADMIN'" />
 
-      <button v-on:click="goToAddProduct()" v-text="$ml.get('addProduct')" v-if="role == 'ADMIN'" />
-      <h3 v-if="Category != 'All'">
-        <h3 v-text="$ml.get('Category')" />
-      </h3>
-      <h3 v-else v-text="$ml.get('productsAll')"></h3>
+      <p v-text="$ml.get('filterOnPrice')" class="price-filter-header"/>
+      <range-slider
+          class="slider"
+          min="0"
+          max="200"
+          step="1"
+          v-model='priceFilterValue'
+          v-on:change='adjustPriceFilter()'>
+      </range-slider>
 
-    <div v-if="loading" class="loadingDiv">
+    <h3 v-if="Category != 'All'" v-text="$ml.get('Category')"></h3>
+    <h3 v-else v-text="$ml.get('productsAll')"></h3>
+
+    <div v-if='loading' class="loading-div">
       <img :src="'./images/loading.gif'">
       <p>Loading...</p>
     </div>
     <div v-if="products.length">
-      <Pagination :Products=products :PageSize=pageSize></Pagination>
+      <Pagination :key=updateKey :Products=filterOnPrice :PageSize=pageSize></Pagination>
     </div>
-      <h4 v-else-if="!loading" v-text="$ml.get('NoProductsFound')">
-      </h4>
-      <div v-if="products.length > pageSize" class="toTopBtn">
-        <button v-on:click="scrollToTop()" v-text="$ml.get('scrollToTop')"/>
+      <h4 v-else-if='!loading' v-text="$ml.get('NoProductsFound')"/>
+      <div v-if='products.length > pageSize' class="to-top-btn">
+        <button v-on:click='scrollToTop()' v-text="$ml.get('scrollToTop')"/>
       </div>
     </div>
 </template>
@@ -29,6 +36,11 @@ import Product from '@/models/Product.js';
 
 import CategoryLogic from '@/logic/CategoryLogic.js';
 import JwtLogic from '@/logic/JwtLogic.js';
+
+// import built-in style for slider
+import 'vue-range-slider/dist/vue-range-slider.css'
+import './products.css'
+import RangeSlider from 'vue-range-slider'; 
 
 import Pagination from '@/components/Pagination/Pagination.vue';
 import CryptoJS from 'crypto-js';
@@ -42,6 +54,7 @@ export default {
   },
   components: {
     Pagination,
+    RangeSlider
   },
   data() {
      return {
@@ -56,8 +69,9 @@ export default {
           type: String,
           default: 'USER'
         },
-        key: String
-        
+        key: String,
+        priceFilterValue: 0,
+        updateKey: 0 
       }
   },
   mounted() {
@@ -74,6 +88,7 @@ export default {
 
     this.categoryLogic.getByCategory(this.category)
       .then((response) => {
+      
         this.products = response;
         this.loading = false;
     });
@@ -91,15 +106,23 @@ export default {
         .then((response) => {
           this.products = response;
           this.loading = false;
-
-          this.$root.$refs.Pagination.updatePages(response);
+          //pagination is not created when less then (pageSize) products are loaded
+          if(this.products.length > this.pageSize) {
+            this.$root.$refs.Pagination.updatePages(response);
+          }
         });
     }
   },
   methods: {
+    adjustPriceFilter() {
+      //update pagination to refresh computed products
+      this.updateKey++;
+    },
+
     goToAddProduct() {
       this.$router.push('add');
     },
+
     scrollToTop() {
       window.scrollTo(0,0);
     },
@@ -107,6 +130,13 @@ export default {
   computed: {
     mlCategory() {      
       return new MLBuilder('productCategory').with('c', this.category)
+    },
+
+    filterOnPrice() {
+      if(this.priceFilterValue == 0) {
+        return this.products;
+      }
+      else return this.products.filter(x => x.price >= this.priceFilterValue);
     }
   }
 };

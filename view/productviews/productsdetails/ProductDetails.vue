@@ -28,8 +28,6 @@
                     <strong v-text="$ml.get('reviewCount')"/>
                     <p v-text="$ml.get('Review')"/>
 
-                    <div class="details-divider"/>
-
                     <button :class="product.stockCount == 0 ? 'product-to-cart-btn-disabled' : 'product-to-cart-btn'" v-on:click="addToCart(product.id)">
                         <span v-text="$ml.get('addToCart')"/>
                     </button>

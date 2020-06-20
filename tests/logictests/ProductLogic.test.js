@@ -1,6 +1,8 @@
 import assert from 'assert';
 import Productlogic from '@/logic/ProductLogic.js';
 
+const productLogic = new Productlogic();
+
 import Product from '@/models/Product.js';
 import ShoppingCartItem from '@/models/ShoppingCartitem.js';
 
@@ -21,7 +23,7 @@ describe('Productlogic Tests', () => {
         
         let newItem = [{ id: 2 }];
 
-        shoppingcart = Productlogic.addToShoppingCart(newItem, shoppingcart);
+        shoppingcart = productLogic.addToShoppingCart(newItem, shoppingcart);
 
         assert.notEqual(shoppingcart, undefined);
         assert.equal(shoppingcart.length, 2);
@@ -42,7 +44,7 @@ describe('Productlogic Tests', () => {
         
         let itemToBeRemoved = [{ id: 1 }];
 
-        shoppingcart = Productlogic.removeFromShoppingCart(itemToBeRemoved, shoppingcart);
+        shoppingcart = productLogic.removeFromShoppingCart(itemToBeRemoved, shoppingcart);
 
         assert.notEqual(shoppingcart, undefined);
         assert.equal(shoppingcart[0].quantity, 1);
@@ -63,7 +65,7 @@ describe('Productlogic Tests', () => {
         
         let itemToBeRemoved = [{ id: 2 }];
 
-        shoppingcart = Productlogic.removeFromShoppingCart(itemToBeRemoved, shoppingcart);
+        shoppingcart = productLogic.removeFromShoppingCart(itemToBeRemoved, shoppingcart);
 
         assert.notEqual(shoppingcart, undefined);
         //shopping cart item with id 2 (index 1) has been removed from the cart
@@ -86,7 +88,7 @@ describe('Productlogic Tests', () => {
 
         let expected = (2*10) + (1*5);
 
-        let actual = Productlogic.calculateBasketCosts(shoppingcart);
+        let actual = productLogic.calculateBasketCosts(shoppingcart);
 
         assert.equal(actual, expected);
 
@@ -104,7 +106,7 @@ describe('Productlogic Tests', () => {
 
         shoppingcart.push(new ShoppingCartItem(productTwo, 1));
 
-        let ids = Productlogic.getProductIds(shoppingcart);
+        let ids = productLogic.getProductIds(shoppingcart);
 
         assert.equal(ids.length, 2);
     });
@@ -118,7 +120,7 @@ describe('Productlogic Tests', () => {
 
         shoppingcart.push(new ShoppingCartItem("", 3));
 
-        let totalQuantity = Productlogic.getTotalQuantity(shoppingcart);
+        let totalQuantity = productLogic.getTotalQuantity(shoppingcart);
 
         assert.equal(totalQuantity, 5);
     });
@@ -133,7 +135,7 @@ describe('Productlogic Tests', () => {
 
         let newProduct = [ { id: 1 } ];
 
-        let existingProduct = Productlogic.existsInBasket(newProduct, shoppingcart);
+        let existingProduct = productLogic.existsInBasket(newProduct, shoppingcart);
 
         assert.notEqual(existingProduct, undefined);
     });

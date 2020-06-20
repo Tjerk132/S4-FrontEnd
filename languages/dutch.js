@@ -63,6 +63,7 @@ export default
         submit: 'Verstuur',
 
         reviewUseful: 'Was deze review nuttig?',
+        alreadyLiked: 'Je hebt deze review al geliked',
 
         showMoreReviews: 'Laat meer reviews zien',
         showLessReviews: 'Laat minder reviews zien',
@@ -92,6 +93,7 @@ export default
         notLoggedIn: 'Je bent niet ingelogd',
         loginSuccess: 'Login success',
         loginFailed: 'Niet in staat om in te loggen ({c})',
+        stillLoggedIn: 'Je bent nog ingelogd',
         logout: 'Uitloggen',
 
         viewAll: 'Bekijk alle',
@@ -118,6 +120,7 @@ export default
 
         suggestionsByCategory: 'Suggesties voor categorie {c}',
         topRatedFromStore: 'Best beoordeelde producten van de winkel',
+        filterOnPrice: 'Filteren op prijs',
 
         successSendEmail: 'Een email is successvol verstuurd naar het emailaddress die behoort bij uw account',
         errorSendEmail: 'Er ging iets mis bij het verzenden van de email',
@@ -141,4 +144,5 @@ export default
         successAddProduct: 'Product successvol aangemaakt',
         errorAddProduct: 'Er ging iets mis bij het aanmaken van het product: code {c}',
 
+        ourPaymentOptions: 'Onze betaal mogelijkheden',
     })

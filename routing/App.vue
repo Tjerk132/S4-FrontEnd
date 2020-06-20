@@ -15,8 +15,8 @@
 <script>
 import NavBar from '@/components/NavBar/NavBar.vue';
 
-import ProductLogic from '@/logic/ProductLogic.js';
 import JwtLogic from '@/logic/JwtLogic.js';
+import ProductLogic from '@/logic/ProductLogic.js';
 
 export default {
     components: {
@@ -37,6 +37,22 @@ export default {
         products = this.productLogic.checkExistingBasket(products);
 
         this.$root.$emit('updateCount', products.length);
+
+        this.$root.$on('check-jwt', (user) => {
+            //retrieve jwt header
+            if(!localStorage.getItem('jwt-token')) {
+
+                this.jwtLogic.setJwtHeader(user.username, user.password)
+                .then((res) => {  
+
+                    if(Number(res)) {
+                        this.$alert(`Unable to retrieve authorization (${res})`);
+                        return;
+                    }  
+                });
+            }
+            this.$root.$emit('jwt-retrieved');
+        });
     },
 }
 </script>

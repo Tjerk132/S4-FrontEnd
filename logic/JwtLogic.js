@@ -10,7 +10,7 @@ export default class JwtLogic {
         return await this.jwtDao.setJwtHeader(username, password);
     }
 
-    getKey(CryptoJS) {
-        return this.jwtDao.getKey(CryptoJS);
+    getKey() {
+        return this.jwtDao.getKey();
     }
 }

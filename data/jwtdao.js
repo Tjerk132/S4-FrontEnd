@@ -3,19 +3,15 @@ import axios from '@/services/base-api.js';
 export default class JwtDao {
 
     async setJwtHeader(username, password) {
-        
-        try {
+        try {            
 
             let res = await axios.post('/login', {
-            username: username,
-            password: password
+                username: username,
+                password: password
             })     
             
             let jwtHeader = res.headers.authorization.replace('Bearer ', ''); 
-            localStorage.setItem('jwt-token', jwtHeader);
-
-            let cryptoHeader = res.headers.cryptoKey;
-            localStorage.setItem('crypto-key', cryptoHeader);            
+            localStorage.setItem('jwt-token', jwtHeader);           
         }
         catch(error) {
             console.error(error);
@@ -23,8 +19,8 @@ export default class JwtDao {
         }
     }
 
-    getKey(CryptoJS) {
-        // return key to decrypt with crypto-js
-        return CryptoJS.AES.decrypt(localStorage.getItem('crypto-key'), 't314159s').toString(CryptoJS.enc.Utf8);        
+    getKey() {
+        // return key to decrypt with crypto-js        
+        return 't314159s';
     }
 }

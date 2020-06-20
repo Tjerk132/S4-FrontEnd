@@ -30,7 +30,7 @@ getTestPaths(testDir).forEach((file) => {
  * @param {String} dir - path to directory containing test files.
  * @returns {Array} Filepaths to each test .js file.
  */
-getTestPaths(dir, fileList) = () => {
+function getTestPaths(dir, fileList) {
   var files = fs.readdirSync(dir);
   fileList = fileList || [];
 
@@ -46,6 +46,7 @@ getTestPaths(dir, fileList) = () => {
       return path.extname(file) === '.js';
   });
 }
+
 
 //set storage moch for api call
 localStorage.setItem('jwt-token', 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTkxNTY0OTkyfQ.m_-1kSpOqtjviQW-tZLOB9MENxNdp4Ceqh1ilYRkWDqck3t9TFuBwquIdLo2n2NmHpkIfLu3FiRCa4HeamAexw');

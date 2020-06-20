@@ -52,15 +52,30 @@ export default class AccountLogic {
 
         let response = await this.userDao.registerUser(username, password, emailAddress);
 
-        if(response == 400) {
-            return false;
+        if(Number(response)) {
+            return response;
         }
-        else return response;    
-  
+        else {
+            let user = response;
+
+            delete user.password;
+            delete user.emailAddress;
+
+            return user;
+        }  
     }
 
     async loginUser(username, password) {
-        return await this.userDao.loginUser(username, password);
+        let response = await this.userDao.loginUser(username, password);
+        if (!Number(response)) {
+            let user = response;
+
+            delete user.password;
+            delete user.emailAddress;
+
+            return user;
+        }
+        else return response;
     }
 
     async getUserEmail(userId) {

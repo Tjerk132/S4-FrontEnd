@@ -1,10 +1,10 @@
-.productInfo {
+.product-info {
     background-image: linear-gradient(to right,  rgba(255,0,0,0), rgba(255,255,255,1));
     padding-left: 1%;
-    width: 30%;
+    width: 18%;
 }
 
-.productImage {
+.product-image {
     background-color: white;
     float: right;
     /* move img from border */
@@ -15,29 +15,28 @@
     border-radius: 15px;
 }
 
-.productDescription {
+.product-description {
     text-align: left;
 }
 
-.productOptions {
-    width: 8%;
+.product-options {
+    width: 4%;
     text-align: center;
     background-color: white;
 }
 
-.productDetails {
+.product-details {
     background-image: linear-gradient(to right,  rgba(255,255,255,1), rgba(255,0,0,0));
-    /* border-radius: 12px; */
     width: 10%; 
     text-align: center;
     padding-top: 0%;
 }
 
-.productDetails p {
+.product-details p {
     margin: 8px 0 -2px 0;
 }
 
-.productDetails h4 {
+.product-details h4 {
     margin: 0;
 }
 
@@ -56,20 +55,7 @@ button {
     cursor: pointer;
     transition: all 0.5s;
     color: white;
-    /* color: #6f6cde; */
 }
-
-/* button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-
-}
-
-button:active {
-    opacity: 1;
-    box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5),
-      inset 8px 8px 16px rgba(0, 0, 0, 0.1);
-    color: #79e3b6;
-} */
 
 button span {
     cursor: pointer;
@@ -95,41 +81,41 @@ button:hover span:after {
     right: 0;
 }
 
-.optionsDivider {
+.options-divider {
     height: 10px;
 }
 
-.addToCartBtn {
+.add-to-cart-btn {
     background-color: rgb(32, 102, 24);
 }
 
-.addToCartBtn span:after {
+.add-to-cart-btn span:after {
     content: '\00bb';
 }
 
-.addToCartBtnDisabled {
+.add-to-cart-btn-disabled {
     background-color: rgb(227, 45, 45);
     cursor: not-allowed !important;
     /* margin-top: 5px; */
 }
 
-.addToCartBtnDisabled span::after {
+.add-to-cart-btn-disabled span::after {
     content: '\00bb';
 }
 
-.detailsBtn {
+.details-btn {
     background-color: rgb(30, 119, 185);
 }
 
-.detailsBtn span:after {
+.details-btn  span:after {
     content: '\203A';
 }
 
-.editBtn {
+.edit-btn {
     background-color: rgb(195, 123, 29);
 }
 
-.editBtn span::after {
+.edit-btn span::after {
     content: '\00AB';
 }
 

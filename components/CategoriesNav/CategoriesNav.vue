@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import CategoryLogic from '@/logic/CategoryLogic.js';
 import ProductLogic from '@/logic/ProductLogic.js';
 
 import { MLBuilder } from 'vue-multilanguage';
@@ -28,17 +27,18 @@ export default {
     
     data() {
         return {
-            categoryLogic: new CategoryLogic(),
             productLogic: new ProductLogic(),
             categories: [],
             showCategoryBar: false,
         }
     },
-    mounted() {     
+    mounted() {  
+        
         this.productLogic.getProductCategories()
-            .then((response) => {
-                 this.categories = this.categoryLogic.toReadableCategories(response);
+            .then((categories) => {                
+                this.categories = categories;
         });
+
         addEventListener('scroll', (event) => {            
             this.showCategoryBar = false;
         });

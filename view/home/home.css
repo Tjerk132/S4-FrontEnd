@@ -1,0 +1,35 @@
+.home-page {
+
+}
+
+.home-greeting {
+ margin: 0;
+}
+
+.warehouse-img {
+    height: 300px;
+    width: 100%;
+}
+
+.payment-options {
+    padding: 6px 8px;
+    border: 1px solid rgb(199, 202, 206);
+    border-radius: .25em;
+    background-color: rgb(251, 251, 251);
+    box-shadow: 0.1em 0.1em 0 0 rgba(0, 0, 0, 0.28);
+
+    overflow: hidden;
+}
+
+.payment-options-header {
+    vertical-align: top;
+    margin: 8px 0 15px 2px;
+}
+
+.payment-options img {
+    width: 90px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 10px;
+    cursor: pointer;
+}

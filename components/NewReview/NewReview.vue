@@ -64,7 +64,7 @@ export default {
     mounted() {
         if(this.$session.exists()) {
             this.review.author = this.$session.get('user').username;
-        }    
+        }
         this.$root.$on('loggedInStatus', (loggedIn) => {
             if(!loggedIn) {
                 this.review.author = '';

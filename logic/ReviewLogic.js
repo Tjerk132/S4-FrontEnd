@@ -1,9 +1,12 @@
 import ReviewDao from '@/data/ReviewDao.js';
 
+import CategoryLogic from '@/logic/CategoryLogic.js';
+
 export default class ReviewLogic {
 
     constructor() {
         this.reviewDao = new ReviewDao();
+        this.categoryLogic = new CategoryLogic();
     }
 
     removeItem(item, array) {
@@ -44,10 +47,20 @@ export default class ReviewLogic {
     }
 
     async getAllReviewsByProduct(id) {
-        return this.reviewDao.getAllReviewsByProduct(id);
+        let reviews = await this.reviewDao.getAllReviewsByProduct(id);
+
+        //review author value is saved as enum object
+        reviews.map(x => x.reviewAuthorValue = x.reviewAuthorValue.reviewAuthorValue);
+        reviews.map(x => x.reviewAuthorValue = this.categoryLogic.toReadableCategory(x.reviewAuthorValue));
+
+        return reviews;
     }
 
     async addReview(review) {
-        return this.reviewDao.addReview(review);
+        return await this.reviewDao.addReview(review);
+    }
+
+    async likeReview(userId, reviewId) {
+        return await this.reviewDao.likeReview(userId, reviewId);
     }
 }  

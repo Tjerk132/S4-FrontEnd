@@ -1,6 +1,8 @@
 import assert from 'assert';
 import ReviewLogic from '@/logic/ReviewLogic.js';
 
+const reviewLogic = new ReviewLogic();
+
 describe('ReviewLogic Tests', () => {
 
     it('should remove item from pros', () => {
@@ -11,7 +13,7 @@ describe('ReviewLogic Tests', () => {
             "pro3"
         ];
 
-        pros = ReviewLogic.removeItem("pro2", pros);
+        pros = reviewLogic.removeItem("pro2", pros);
 
         assert.equal(pros.length, 2);
                                     //not found
@@ -21,14 +23,14 @@ describe('ReviewLogic Tests', () => {
 
     it('should check for too many pros', () => {
 
-        let accepted = ReviewLogic.validateProConInput("pro2", 4);
+        let accepted = reviewLogic.validateProConInput("pro2", 4);
 
         assert.equal(accepted, false);
     });
 
     it('should check incorrent input', () => {
 
-        let accepted = ReviewLogic.validateProConInput(" ", 0);
+        let accepted = reviewLogic.validateProConInput(" ", 0);
 
         assert.equal(accepted, false);
     });
@@ -39,7 +41,7 @@ describe('ReviewLogic Tests', () => {
             { name: 'Content', value: ' ' }, 
         ];
 
-        let message = ReviewLogic.validateReviewSubmit(refs);
+        let message = reviewLogic.validateReviewSubmit(refs);
 
         assert.equal(message, 'Please fill in the Content field');
     });

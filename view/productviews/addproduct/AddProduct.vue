@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         addProduct(product) {
-            
+
             this.productLogic.addProduct(product)
                 .then((res) => {
                     if(res.status = 200) {

@@ -63,6 +63,7 @@ export default
         submit: 'Submit',
 
         reviewUseful: 'Was this review useful?',
+        alreadyLiked: 'You already liked the review',
 
         showMoreReviews: 'Show more reviews',
         showLessReviews: 'Show less reviews',
@@ -92,6 +93,7 @@ export default
         notLoggedIn: 'You are not logged in',
         loginSuccess: 'Login success',
         loginFailed: 'Unable to login ({c})',
+        stillLoggedIn: 'You are still logged in',
         logout: 'Logout',
 
         viewAll: 'View all',
@@ -118,6 +120,7 @@ export default
 
         suggestionsByCategory: 'Suggestions for category {c}',
         topRatedFromStore: 'Top rated products from the store',
+        filterOnPrice: 'Filter on price',
 
         successSendEmail: 'An email has successfully been send to the email corresponding to your account',
         errorSendEmail: 'Failed sending email',
@@ -140,4 +143,5 @@ export default
         successAddProduct: 'Product created successfull',
         errorAddProduct: 'Something went wrong creating the product: code {c}',
 
+        ourPaymentOptions: 'Our payment options',
     })

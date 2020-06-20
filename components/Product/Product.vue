@@ -1,37 +1,37 @@
 <template>
     <div>
-        <td class="productInfo">
+        <td class="product-info">
 
             <h3>
                 {{product.name}}
-                <img v-bind:src="product.imageUrl" class="productImage" alt="product image">
+                <img v-bind:src="product.imageUrl" class="product-image" alt="product image">
             </h3>
-            <div class="productDescription">
+            <div class="product-description">
                 <strong v-text="$ml.get('description')"/>
                 <p>{{product.description}}</p>
             </div>
 
         </td>
 
-        <td class="productOptions">
-             <div class="optionsDivider" v-if="role === 'USER'"/>
+        <td class="product-options">
+             <div class="options-divider" v-if="role === 'USER'"/>
 
-            <button :class="product.stockCount == 0 ? 'addToCartBtnDisabled' : 'addToCartBtn'"  v-on:click="addToCart(product.id)">
+            <button :class="product.stockCount == 0 ? 'add-to-cart-btn-disabled' : 'add-to-cart-btn'"  v-on:click="addToCart(product.id)">
                <span v-text="$ml.get('addToCart')"/>
             </button>
 
-            <div class="optionsDivider" v-if="role === 'USER'"/>
+            <div class="options-divider" v-if="role === 'USER'"/>
 
-            <button class="detailsBtn" v-on:click="goToProductDetails(product.id)">  
+            <button class="details-btn" v-on:click="goToProductDetails(product.id)">  
                 <span v-text="$ml.get('details')"/>
             </button>   
 
-            <button class="editBtn" v-on:click="modifyProduct(product.id)" v-if="role === 'ADMIN'">                        
+            <button class="edit-btn" v-on:click="modifyProduct(product.id)" v-if="role === 'ADMIN'">                        
                 <span v-text="$ml.get('editProductBtn')"/>
             </button>
         </td>
 
-        <td class="productDetails">
+        <td class="product-details">
             <h4 v-text="$ml.get('details')"/>
             <p>{{product.price}},-</p>
             <p v-text="$ml.get('Stock')"/>
@@ -63,17 +63,15 @@ export default {
                 type: String,
                 default: 'USER'
             },
-            key: String
         }  
     },
     mounted() {
         console.log('creating a product');
         this.product = this.Product;
-        this.key = this.jwtLogic.getKey(CryptoJS);         
 
         let user = this.$session.get('user');
         if(user != undefined) {
-            let decryptedBytes = CryptoJS.AES.decrypt(user.role, this.key);
+            let decryptedBytes = CryptoJS.AES.decrypt(user.role, this.jwtLogic.getKey());
             this.role = decryptedBytes.toString(CryptoJS.enc.Utf8);    
         }      
 

@@ -19,8 +19,8 @@
             </p>
 
             <div class="authButtons">
-                <button type="button" v-text="$ml.get('cancel')" class="cancelbtn"/>
-                <button v-on:click='login()' type="submit" v-text="$ml.get('login')" class="signupbtn"/>
+                <button v-on:click='cancel()' type="button" v-text="$ml.get('cancel')" class="cancelbtn"/>
+                <button v-on:click='validateLogin()' type="submit" v-text="$ml.get('login')" class="signupbtn"/>
             </div>
         </div>
     </div>
@@ -38,65 +38,61 @@ export default {
         return {
             accountLogic: new AccountLogic(),
             jwtLogic: new JwtLogic(),
-            user: User,
+            user: new User,
             message: String(),
-            key: String
         }
     },
     mounted() {
-        this.key = this.jwtLogic.getKey(CryptoJS); 
+        //no need to check for loggedIn -> parent validates
+        this.$root.$on('jwt-retrieved', () => {            
+            this.login();     
+        }) 
     },
     methods: {
-        login() {
+        validateLogin() {
             let user = this.user;
-            //retrieve jwt header
-            if(!localStorage.getItem('jwt-token')) {
-
-                this.jwtLogic.setJwtHeader(user.username, user.password)
-                .then((res) => {  
-                    if(Number(res)) {
-                        this.$alert(`Unable to retrieve authorization (${res})`);
-                        return;
-                    }       
-                });
-            }
 
             let message = this.accountLogic.validateUser(user.username, user.password);
             if(!message) {
                  this.$alert(this.$ml.get('oneOrMoreFieldsIncorrect'));
                  return;
-            }
-            //retrieve user info
-            this.accountLogic.loginUser(user.username, user.password)
-                 .then((response) => {
-                    if(Number(response)) {
-                        this.message = this.$ml.with('c', response).get('loginFailed');
-                    }
-                    else {
-                        this.message = this.$ml.get('loginSuccess');
-
-                        let user = response;
-
-                        let role = user.role;
-                        user.role = CryptoJS.AES.encrypt(role, this.key).toString();                            
-
-                        delete user.password;
-                        delete user.emailAddress;
-
-                        this.$session.start();
-                        this.$session.set('user', user);         
-
-                        this.$root.$emit('loggedInStatus', true);
-
-                        this.$router.push({
-                            name: 'products',
-                            query: { category: 'All' }
-                        });
-                    }
-                });           
+            }            
+            this.$root.$emit('check-jwt', user); 
         },
+        login() {
+            let user = this.user;            
+
+            this.accountLogic.loginUser(user.username, user.password)
+                .then((response) => {                    
+                if(Number(response)) {
+                    this.message = this.$ml.with('c', response).get('loginFailed');
+                }
+                else {
+                    this.message = this.$ml.get('loginSuccess');
+
+                    let user = response;
+
+                    let role = user.role;
+                    user.role = CryptoJS.AES.encrypt(role, this.jwtLogic.getKey()).toString();                            
+
+                    this.$session.start();
+                    this.$session.set('user', user);         
+
+                    this.$root.$emit('loggedInStatus', true);
+
+                    this.$router.push({
+                        name: 'products',
+                        query: { category: 'All' }
+                    });
+                }
+            });       
+        },
+        cancel() {
+            this.$router.go(-1);
+        }
     }
 }
 </script>
 
-<style src="./login.css"></style>
+<style src="./login.css" scoped></style>
+<style src="../account.css" scoped></style>

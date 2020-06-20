@@ -21,6 +21,8 @@ export default class ProductDao {
         
         try { 
             let url = `${basePath}/${id}`;
+            console.error(url);
+            
 
             let res = await axios.get(url);
 
@@ -75,7 +77,7 @@ export default class ProductDao {
     }
 
     async getProductsByCategory(category) {
-        try {
+        try {                        
             let url = `${basePath}/categories/${category}`;        
 
             let res = await axios.get(url);   
@@ -83,6 +85,7 @@ export default class ProductDao {
             return res.data;
         }
         catch(err) {
+            
             console.error(err);
         }
     }

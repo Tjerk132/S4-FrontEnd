@@ -44,7 +44,6 @@
 import Product from '@/models/Product.js';
 
 import ProductLogic from '@/logic/ProductLogic.js';
-import CategoryLogic from '@/logic/CategoryLogic.js';
 import ModifyProductLogic from '@/logic/ModifyProductLogic.js';
 
 export default {
@@ -54,17 +53,16 @@ export default {
     data() {
         return {
             productLogic: new ProductLogic(),
-            categoryLogic: new CategoryLogic(),
             modifyProductLogic: new ModifyProductLogic(),
             product: Product,
             categories: Array
         }
     },
     mounted() {        
-        this.product = this.Product;
+        this.product = this.Product;        
         this.productLogic.getProductCategories()
             .then((categories) => {
-                this.categories = this.categoryLogic.toReadableCategories(categories);
+                this.categories = categories;
             });
     },
     methods: {
@@ -77,6 +75,8 @@ export default {
         submit() {
             let product = this.product;
             let error = this.modifyProductLogic.validateProductAdjustments(product, this.categories);
+            
+            product.price = parseFloat(product.price);
             product.stockCount = Math.trunc(product.stockCount);
 
             if(error != undefined) {

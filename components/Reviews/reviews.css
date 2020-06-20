@@ -2,7 +2,6 @@
     width: 400px;
     min-width: 400px;
     max-width: 420px;
-    /* margin-top: -265px; */
 }
 
 .reviews > ul {
@@ -16,7 +15,6 @@
     background-color: rgb(251, 251, 251);
     box-shadow: 0.1em 0.1em 0 0 rgba(0, 0, 0, 0.28);
     margin-bottom: 5px;
-    width: 100%;
 }
 
 .adjust-review-count-btn {

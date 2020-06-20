@@ -36,8 +36,8 @@
             </p>
 
             <div class="authButtons">
-                <button type="button" v-text="$ml.get('cancel')" class="cancelbtn"/>
-                <button v-on:click='registerUser()' type="submit" v-text="$ml.get('register')" class="signupbtn"/>
+                <button v-on:click='cancel()' type="button" v-text="$ml.get('cancel')" class="cancelbtn"/>
+                <button v-on:click='validateRegister()' type="submit" v-text="$ml.get('register')" class="signupbtn"/>
             </div>
         </div>
   </div>
@@ -45,6 +45,7 @@
 
 <script>
 import Register from '@/models/Register.js';
+import User from "@/models/User.js";
 
 import AccountLogic from '@/logic/AccountLogic.js';
 import JwtLogic from '@/logic/JwtLogic.js';
@@ -57,10 +58,21 @@ export default {
             register: new Register(),
             accountLogic: new AccountLogic(),
             jwtLogic: new JwtLogic(),
+            loggedIn: false
         }
     },
+    mounted() {
+
+        this.$root.$on('jwt-retrieved', () => {
+            if(!this.loggedIn) {
+                this.registerUser();
+            }
+            else this.$alert(this.$ml.get('stillLoggedIn'));
+        }) 
+        this.$root.$on('loggedInStatus', (loggedIn) => this.loggedIn = loggedIn);
+    },
     methods: {
-        registerUser() {
+        validateRegister() {
 
             let register = this.register;
 
@@ -70,22 +82,25 @@ export default {
                 this.$alert(this.$ml.get(message));
                 return;
             }
+            this.$root.$emit('check-jwt', user);
+        },
+        registerUser() {
 
-            this.accountLogic.registerUser(register.username ,register.email, register.password)
+            let register = this.register;
+
+            this.accountLogic.registerUser(register.username, register.password, register.email)
                 .then((response) => {
 
-                    if(!response) {
+                    if(Number(response)) {
                         this.$alert(this.$ml.get('registerAlreadyExists'));
                     }
                     else {
                         this.message = this.$ml.get('registerSuccess');
-                        
+        
                         let user = response;
                         let role = user.role;  
-                        user.role = CryptoJS.AES.encrypt(role, this.jwtLogic.getKey(CryptoJs)).toString();
 
-                        delete user.password;
-                        delete user.emailAddress;
+                        user.role = CryptoJS.AES.encrypt(role, this.jwtLogic.getKey()).toString();
 
                         this.$session.start();
                         this.$session.set('user', user);
@@ -97,9 +112,13 @@ export default {
                         });
                     }
                 });
+        },
+        cancel() {
+             this.$router.go(-1);
         }
     },
 }
 </script>
 
-<style src="./register.css"></style>
+<style src="./register.css" scoped></style>
+<style src="../account.css" scoped></style>

@@ -1,24 +1,27 @@
 import ProductDao from '@/data/ProductDao.js';
 import ShoppingCartItem from'@/models/ShoppingCartitem.js';
 
+import CategoryLogic from '@/logic/CategoryLogic.js';
+
 export default class ProductLogic {
 
     constructor() {
         this.productDao = new ProductDao();
+        this.categoryLogic = new CategoryLogic();
     }
 
     addToShoppingCart(newProduct, cartItems) {
         
-        cartItems = checkExistingBasket(cartItems);
+        cartItems = this.checkExistingBasket(cartItems);
 
-        cartItems = existsInBasket(newProduct, cartItems);
+        cartItems = this.existsInBasket(newProduct, cartItems);
 
         return cartItems;
     } 
 
     removeFromShoppingCart(productToBeRemoved, cartItems) {
         
-        cartItems = checkExistingBasket(cartItems);
+        cartItems = this.checkExistingBasket(cartItems);
         //remove product from shopping cart
         for(let i = 0; i < cartItems.length; i++) {
             let cartItem = cartItems[i];
@@ -100,13 +103,17 @@ export default class ProductLogic {
         }
         else return cartItems;
     }
-
-    async getAllProducts() {        
-        return this.productDao.getAllProducts();
-    }
-
+    
     async getProductById(id) {
-        return this.productDao.getProductById(id);
+        let data = await this.productDao.getProductById(id);
+        //category is saved as enum object
+        let category = data.category.category;
+        category = this.categoryLogic.toReadableCategory(category);
+
+        let product = data;
+        product.category = category;
+
+        return product;   
     }
 
     async addProduct(product) {
@@ -118,11 +125,17 @@ export default class ProductLogic {
     }
 
     async getProductCategories() {
-        return this.productDao.getProductCategories();
+        let data = await this.productDao.getProductCategories();
+
+        let categories = data.map(x => x.category);
+
+        return categories.map(x => x = this.categoryLogic.toReadableCategory(x))
     }
 
     async getProductsByCategory(category) {
-        return this.productDao.getProductsByCategory(category);
+        category = this.categoryLogic.toRestCategory(category);
+
+        return await this.productDao.getProductsByCategory(category);
     }
 
     async getProductsByName(name) {
