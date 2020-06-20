@@ -10,5 +10,5 @@ deploy:
   provider: pages
   local_dir: build
   cleanup: true
-github_token: TRV_GIT_TOKEN  
+github_token:  349a1c0085c14f42ec0c23f3caeb33fb078ef167 
 # Set in the settings page of your repository, as a secure variable
