@@ -12,7 +12,7 @@
     </marquee>
 
     <div>  
-      <img :src="'./images/warehouse.png'" class="warehouse-img">
+      <img :src="'images/warehouse.png'" class="warehouse-img">
       <top-rated-suggestions/>
 
       <div class="payment-options">
