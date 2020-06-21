@@ -13,5 +13,5 @@ deploy:
   edge: true
   github_token: $GITHUB_TOKEN 
   on:
-    branch: master
+    branch: gh-pages
 # Set in the settings page of your repository, as a secure variable
