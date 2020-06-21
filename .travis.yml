@@ -1,5 +1,7 @@
 language: node_js
-os: windows
+os: linux
+strategy: git
+
 node_js:
   - "stable"
 
@@ -11,6 +13,6 @@ script:
 deploy:
   provider: pages
   cleanup: false
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   on:
     branch: master
