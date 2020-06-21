@@ -8,7 +8,6 @@ script:
   - npm run deploy
 deploy:
   provider: pages
-  keep_history: true
   edge: true
   cleanup: false
   github_token: $GITHUB_TOKEN 
