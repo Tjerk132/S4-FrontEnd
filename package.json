@@ -9,7 +9,7 @@
     "test:programmatic-usage": "node tests/config/run_mocha.js",
     "start": "npm run start",
     "clean": "rm -rf build",
-    "deploy": "npm run clean && npm build"
+    "deploy": "npm run clean && npm build",
   },
   "author": "Tjerk Sevenich",
   "license": "ISC",
