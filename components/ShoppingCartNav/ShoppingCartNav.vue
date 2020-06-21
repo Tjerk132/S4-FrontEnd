@@ -8,7 +8,7 @@
                 <span v-else>
                 {{shoppingCartCount}}
                 </span>
-                <img :src="'./images/shoppingcart.png'">
+                <img :src="'../images/shoppingcart.png'">
             </div>
         </button>  
         <notifications group="shopping-cart-group"
