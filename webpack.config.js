@@ -30,6 +30,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['', '.js', '.ts']
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './routing/index.html',
