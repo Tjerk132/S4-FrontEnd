@@ -4,7 +4,7 @@
         <p>
             
 
-            <img :src="'../images/NotFound.png'" class="notFoundImg">
+            <img :src="'images/NotFound.png'" class="notFoundImg">
         </p>
         <p v-text="$ml.get('PathNotFound')"/>
         <p>
