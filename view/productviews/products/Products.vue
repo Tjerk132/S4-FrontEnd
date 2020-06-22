@@ -17,7 +17,7 @@
     <h3 v-else v-text="$ml.get('productsAll')"></h3>
 
     <div v-if='loading' class="loading-div">
-      <img :src="'images/loading.gif'">
+      <img :src="'./images/loading.gif'">
       <p>Loading...</p>
     </div>
     <div v-if="products.length">

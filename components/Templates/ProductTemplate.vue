@@ -70,7 +70,7 @@ export default {
             this.product.imageUrl = '';
         },
         imageLoadError(event) {
-            event.target.src= 'images/NotFoundImg.png';
+            event.target.src= './images/NotFoundImg.png';
         },
         submit() {
             let product = this.product;
