@@ -6,7 +6,7 @@
       
             <strong class="review-title">{{review.title}}</strong> 
 
-            <p> <img v-if="verifiedAuthor" class="review-author-value" :src="'./images/verified.png'"/> {{review.author}} | {{review.date}} </p>
+            <p> <img v-if="verifiedAuthor" class="review-author-value" :src="'S4-FrontEnd/images/verified.png'"/> {{review.author}} | {{review.date}} </p>
 
             <div class="review-pros-cons-div">
                 <h5 v-text="$ml.get('prosAndCons')"/>
