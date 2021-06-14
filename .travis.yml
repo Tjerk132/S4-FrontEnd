@@ -1,0 +1,19 @@
+language: node_js
+os: linux
+dist: xenial
+
+node_js:
+  - "stable"
+
+cache: npm
+
+script: 
+  # - npm test
+  - npm run production
+deploy:
+  strategy: git
+  provider: pages
+  cleanup: false
+  token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  on:
+    branch: master

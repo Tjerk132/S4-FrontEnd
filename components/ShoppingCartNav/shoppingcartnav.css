@@ -1,0 +1,20 @@
+.shoppingBasketBtn {
+    font-size: 30px;
+    margin: .5px -6px;
+    text-align: left;
+}
+ 
+.shoppingBasketBtn img {
+    width: 48px;
+    margin: -47px 45px;
+}
+
+@media screen and (max-width: 360px) {
+    .shoppingBasketBtn {
+        margin-top: -1px;
+        text-align: center;
+    }
+    .shoppingBasketBtn img {
+        margin: -9px -2px;
+    }
+}

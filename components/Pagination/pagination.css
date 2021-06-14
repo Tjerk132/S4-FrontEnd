@@ -1,0 +1,20 @@
+.products {
+    margin: auto;
+    min-width: 500px;
+    box-shadow: 7px 7px 0 0 rgba(0, 0, 0, 0.28);
+    margin-top: 2px;
+}
+
+.product {
+    border-bottom: 1px dotted #e6e6e6;
+}
+
+.product:hover {
+    background-color: #f1f1f1;
+    background-image: linear-gradient(to left, rgba(200,0,0,0), rgb(207, 209, 205));
+}
+
+.product:nth-child(even) {
+    background-color: #f3f3f3;
+} 
+

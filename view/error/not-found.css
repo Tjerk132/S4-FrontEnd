@@ -1,0 +1,22 @@
+.notFoundBody {
+    text-align: center;
+    overflow: hidden;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.notFoundImg {
+    width: 250px;
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.goHomeBtn {
+    float: left;;
+}
+
+.goBackBtn {
+    float: right;
+}

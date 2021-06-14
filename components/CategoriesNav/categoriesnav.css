@@ -1,0 +1,56 @@
+.categories-container {
+    float: left;
+}
+.categoryBar {
+   width: 200px;
+   box-shadow: 0 1px 5px rgba(50,50,50,.6);
+   background-color: white;
+   position: fixed;
+   margin: 61px 5px;
+}
+
+.categoryBar > ul {
+    margin: 0;
+    width: 100%;
+}
+ 
+.categoryBar li {
+    padding: .5rem 0;
+    color: rgb(42, 104, 39);
+    cursor: pointer;
+}
+
+.categoryBar li:hover {
+    background: rgb(42, 104, 39);
+    color: white;
+}
+
+.viewAllText {
+    font-size: 14px;
+}
+ 
+.viewAllCategoriesBtn {
+    text-align: left;
+    padding: 8px;
+}
+
+@media screen and (max-width: 360px) {
+    .categories-container {
+        margin: 0;
+        font-size: 14px;
+        min-width: 100%;
+    }
+    .viewAllCategoriesBtn {
+        height: 100%;
+        min-width: 100%;
+        text-align: center;
+    }
+    .viewAllText {
+        margin-right: 32px;
+    }
+    .categoryBar {      
+        min-width: 100%;
+        position: unset;
+        margin: 55px 0 0 0;
+    }
+}

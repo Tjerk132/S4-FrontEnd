@@ -1,0 +1,44 @@
+.review {
+    margin-top: 0;
+}
+
+.inputItem {
+    width: 70%;
+    margin: 0;  
+}
+
+h4 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+p {
+    font-size: 15px;
+}
+
+.toSubmitText {
+    margin-top: -14px;
+    font-size: 13.5px;
+}
+
+.removeProConBtn {
+    font-size: 12px;
+    padding: 1px 1px;
+    background-color: rgb(178, 40, 40);
+
+}
+
+.reviewTextArea {
+    max-width: 95%;
+    max-height: 150px;
+
+    min-width: 90%;
+    min-height: 20px;
+
+    /* text-align: center; */
+    width: 90%;
+}
+
+.submitReviewBtn {
+    margin: 2px 0 0 30%;
+}

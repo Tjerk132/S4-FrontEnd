@@ -1,0 +1,60 @@
+.appPage {
+    overflow: hidden;
+}
+
+.appTitle {
+    float: left;
+}
+
+body {
+   min-width:700px;
+   width: auto !important;  /* Firefox will set width as auto */
+   width:700px;            /* As IE6 ignores !important it will set width as given px; */
+   font-family: Arial, Helvetica, sans-serif;
+   padding: 50px 10px;
+}
+
+footer {
+   text-align: center;
+}
+
+/* button >> */
+button {
+
+   background-color: rgb(42, 104, 39);
+   color: white;
+   -webkit-transition-duration: 0.4s;
+   /* for compatibility */
+   transition-duration: 0.4s;
+   padding: 12px 24px;
+   text-align: center;
+   font-size: 16px;
+   font-family:Arial;
+}
+
+button:hover {
+   cursor: pointer;
+}
+/* << button */
+
+textarea {
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+ul {
+   padding: 0;
+   list-style-type: none;
+}
+
+.toTopBtn {
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 360px) {
+
+   body {
+       min-width: 100%;
+       margin: 0 auto;
+   }
+}

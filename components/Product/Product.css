@@ -1,0 +1,127 @@
+.product-info {
+    background-image: linear-gradient(to right,  rgba(255,0,0,0), rgba(255,255,255,1));
+    padding-left: 1%;
+    width: 18%;
+}
+
+.product-image {
+    background-color: white;
+    float: right;
+    /* move img from border */
+    margin: -3px 6% 0 0;
+    border: 1px solid gray;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+}
+
+.product-description {
+    text-align: left;
+}
+
+.product-options {
+    width: 4%;
+    text-align: center;
+    background-color: white;
+}
+
+.product-details {
+    background-image: linear-gradient(to right,  rgba(255,255,255,1), rgba(255,0,0,0));
+    width: 10%; 
+    text-align: center;
+    padding-top: 0%;
+}
+
+.product-details p {
+    margin: 8px 0 -2px 0;
+}
+
+.product-details h4 {
+    margin: 0;
+}
+
+
+/* button */
+button {
+    display: inline-block;
+    text-align: center; 
+    width: 180px;
+    background: #f3f0f1;
+    position: relative;
+    background: #f3f0f1;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    color: white;
+}
+
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button span:after {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+button:hover span {
+    padding-right: 25px;
+}
+  
+button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.options-divider {
+    height: 10px;
+}
+
+.add-to-cart-btn {
+    background-color: rgb(32, 102, 24);
+}
+
+.add-to-cart-btn span:after {
+    content: '\00bb';
+}
+
+.add-to-cart-btn-disabled {
+    background-color: rgb(227, 45, 45);
+    cursor: not-allowed !important;
+    /* margin-top: 5px; */
+}
+
+.add-to-cart-btn-disabled span::after {
+    content: '\00bb';
+}
+
+.details-btn {
+    background-color: rgb(30, 119, 185);
+}
+
+.details-btn  span:after {
+    content: '\203A';
+}
+
+.edit-btn {
+    background-color: rgb(195, 123, 29);
+}
+
+.edit-btn span::after {
+    content: '\00AB';
+}
+
+@media screen and (max-width: 360px) {
+    button {
+        width: 140px;
+        font-size: 16px;
+    }
+  }

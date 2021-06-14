@@ -1,0 +1,36 @@
+.slider {
+    display: inline-block;
+    margin-bottom: 5px;
+    width: 200px;
+}
+
+.range-slider-hidden {
+    display: flex;
+    text-align: center;
+    padding: 15px; 
+    border: none;
+}
+
+input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+
+body {
+    background-color: white;
+}
+
+.loading-div {
+    text-align: center;
+}
+
+.to-top-btn {
+    text-align: center;
+    margin: 20px auto 0 auto;
+}
+
+@media screen and (max-width: 360px) {
+
+
+}

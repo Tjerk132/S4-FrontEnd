@@ -1,0 +1,115 @@
+.search_input-container {
+     width: 20%;
+    /* height: 51.5px; */
+    /* float: left; */
+    margin-top: .3em;
+    overflow: hidden; 
+    float: left;
+}
+ 
+.search_input-container input {
+    min-width: 100%;
+    margin: 0 !important; 
+     /* width: 100%;
+    height: 100%; */
+    border-radius: 12px;
+    padding-left: 10px;
+    border: 1px solid gray; 
+    min-height: 55px;
+}
+
+.searchResultsBar {
+    /* height: 50px; */
+    box-shadow: 0 3px 3px rgba(50,50,50,.6);
+    position: fixed;
+    background-color: white;
+    margin: -.6em 0 0 .5px;
+    min-width: 238px;
+    width: 19.89%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    min-height: 20px;
+    max-height: 200px;
+}
+
+.searchResultsBar > ul {
+    padding-left: 10px;
+    margin-bottom: .5em;
+}
+
+.searchBarSuggestion {
+    margin-left: -10px;
+    cursor: pointer;
+}
+
+.searchBarSuggestion:hover {
+    background-color: rgb(242, 242, 242);
+}
+
+.suggestionName {
+    vertical-align: top;
+    height: 5px;
+}
+
+.suggestionPrice {
+    vertical-align: bottom;
+    height: 5px;
+}
+
+.suggestionRating {
+    vertical-align: middle;
+    height: 5px;
+}
+
+.searchBarHeader {
+    font-weight: bold;
+}
+
+.searchResultsBar p:hover {
+    cursor: pointer;
+}
+
+.searchResultsBar p {
+    font-size: 16px;
+}
+
+.searchResultsBar a {
+    float: right;
+    padding-right: 5px;
+    color: rgb(20, 22, 131);
+    font-size: 14px;
+    margin-top: -32px;
+}
+
+.searchResultsBar a:hover {
+    text-decoration: rgb(20, 22, 131) underline;
+    cursor: pointer;
+}
+
+.suggestionImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;    
+    margin-top: 5px;
+}
+
+    
+@media screen and (max-width: 360px) {
+    .searchResultsBar {
+        margin: -.6em 0 0 .5px;
+        width: 100%;
+        max-width: 354px;
+    }
+    .search_input-container {
+        max-height: 40px !important;
+        padding: 2px;
+        width: 100%;
+    }
+    .search_input-container input {
+        font-size: 14px;
+        min-height: 32px;
+    }
+}

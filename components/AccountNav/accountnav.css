@@ -1,0 +1,61 @@
+.accountOptions-container {
+  float: left;
+}
+
+.accountOptions-container button {
+  height: 55px;
+}
+
+.accountOptions {
+   width: 109px;
+    /* width: 132px;
+   margin: 3.68em 0 16 5px;
+   box-shadow: 0 1px 5px rgba(50,50,50,.6); */
+   /* background-color: white; */
+   /* text-align: center;  */
+   box-shadow: 0 1px 5px rgba(50,50,50,.6);
+   position: fixed;
+   background-color: white;
+
+   margin: 3.8em 0 0 5px;
+   min-width: 131px;
+ }
+ 
+ .accountOptions ul {
+   margin: 0;
+   width: 100%;
+ }
+
+ .accountOptions button:hover {
+  background: rgb(42, 104, 39);
+  color: white;
+ }
+ 
+ .accountOptions button {
+    width: 100%;
+    margin: 0 !important; 
+}
+
+ @media screen and (max-width: 360px) {
+  .accountOptions {
+    margin: 3.4em 0 0 0;
+    min-width: 100%;
+    position: unset;
+  }
+  .accountOptions button {
+    width: 100%;
+    background-color: rgb(60, 130, 60);
+  }
+  .accountOptions ul {
+    width: 100%;
+  }
+
+  .accountOptions-container {
+    margin: 0;
+    font-size: 14px;
+    min-width: 100%;
+  }
+  .accountOptions-container button {
+    width: 100%;
+  }
+}
